@@ -22,7 +22,7 @@ export default function Player() {
     <>
       <audio ref={audioRef} src="/audio/test.mp3" />
 
-      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-black/100 px-6 py-4 flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-black px-6 py-4 flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-xs uppercase tracking-widest opacity-50">
             Now Playing
@@ -32,7 +32,7 @@ export default function Player() {
 
         <button
           onClick={handleToggle}
-          className="w-10 h-10 flex items-center justify-center border border-black/100 rounded-full hover:bg-black hover:text-white transition"
+          className="w-10 h-10 flex items-center justify-center border border-black rounded-full hover:bg-black hover:text-white transition"
         >
           {isPlaying ? "❚❚" : "▶"}
         </button>
