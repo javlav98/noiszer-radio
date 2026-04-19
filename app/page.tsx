@@ -1,9 +1,9 @@
+import Bg from "../components/bg";
+
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-5xl text-black-500">Noiszer Radio
-         </h1>
-
-    </div>
+    <main className="fixed inset-0 overflow-hidden bg-black">
+      <Bg />
+    </main>
   );
 }
