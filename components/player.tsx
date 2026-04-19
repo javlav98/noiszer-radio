@@ -32,7 +32,7 @@ export default function Player() {
 
         <button
           onClick={handleToggle}
-          className="w-10 h-10 flex items-center justify-center border border-white rounded-full text-white"
+          className="w-10 h-10 flex items-center justify-center text-white"
         >
           {isPlaying ? "❚❚" : "▶"}
         </button>
