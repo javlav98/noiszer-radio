@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Smaller Burger Button */}
+        {/* Burger Button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="relative flex flex-col gap-1 md:hidden"
@@ -42,20 +43,33 @@ export default function Navbar() {
           />
         </button>
 
+        {/* Desktop Nav */}
         <div className="hidden md:flex space-x-4">
-          <Link href="/about" className="text-sm hover:underline text-white">
+          <Link
+            href="/about"
+            className="text-sm text-white hover:opacity-70 transition duration-200"
+          >
             About
           </Link>
-          <Link href="/contact" className="text-sm hover:underline text-white">
-            Contact
+          <Link
+            href="/schedule"
+            className="text-sm text-white hover:opacity-70 transition duration-200"
+          >
+            Schedule
+          </Link>
+          <Link
+            href="/support"
+            className="text-sm text-white hover:opacity-70 transition duration-200"
+          >
+            Support
           </Link>
         </div>
       </div>
 
-      {/* Animated Dropdown */}
+      {/* Mobile Dropdown */}
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
-          menuOpen ? "max-h-40 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"
+          menuOpen ? "max-h-64 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"
         }`}
       >
         <div
@@ -63,20 +77,56 @@ export default function Navbar() {
             menuOpen ? "translate-y-0" : "-translate-y-2"
           }`}
         >
+          {/* Links */}
           <Link
             href="/about"
             onClick={() => setMenuOpen(false)}
-            className="text-white"
+            className="text-white hover:opacity-70 transition duration-200"
           >
             About
           </Link>
           <Link
-            href="/contact"
+            href="/schedule"
             onClick={() => setMenuOpen(false)}
-            className="text-white"
+            className="text-white hover:opacity-70 transition duration-200"
           >
-            Contact
+            Schedule
           </Link>
+          <Link
+            href="/support"
+            onClick={() => setMenuOpen(false)}
+            className="text-white hover:opacity-70 transition duration-200"
+          >
+            Support
+          </Link>
+
+          {/* Social Icons */}
+          <div className="flex gap-6 pt-4 text-white">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition duration-200"
+            >
+              <FaInstagram size={22} />
+            </a>
+            <a
+              href="https://x.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition duration-200"
+            >
+              <FaXTwitter size={22} />
+            </a>
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition duration-200"
+            >
+              <FaYoutube size={22} />
+            </a>
+          </div>
         </div>
       </div>
     </nav>

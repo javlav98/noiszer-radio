@@ -1,12 +1,13 @@
 import "./globals.css";
 import Player from "../components/player";
 import Navbar from "../components/navbar";
-import { Syne } from "next/font/google";
+import { Inter } from "next/font/google"; 
 
-const syne = Syne({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
+
 
 export default function RootLayout({
   children,
@@ -15,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={syne.className}>
+      <body className={inter.className}>
         <Navbar />
         {children}
         <Player />
