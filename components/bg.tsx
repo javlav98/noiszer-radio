@@ -45,20 +45,25 @@ export default function Bg() {
             p.stroke(255, 255, 255, 90);
             p.strokeWeight(1);
 
+            let xoff = 0;
+
             for (let x = 0; x <= p.width + 10; x += 10) {
-              const n = p.noise(x * 0.005, y * 0.01, zoff);
-              const offset = p.map(n, 0, 1, -80, 80);
+              const n = p.noise(xoff, y * 0.01, zoff);
 
-              const px = x;
-              const py = y + offset;
+              // 🔥 bigger waves + smooth motion
+              const offset = p.map(n, 0, 1, -75, 75);
 
-              p.vertex(px, py);
+              p.vertex(x, y + offset);
+
+              // smoother horizontal flow
+              xoff += 0.05;
             }
 
             p.endShape();
           }
 
-          zoff += 0.01;
+          // slower = continuous flow
+          zoff += 0.003;
         };
 
         p.windowResized = () => {
@@ -78,5 +83,10 @@ export default function Bg() {
     };
   }, []);
 
-  return <div ref={containerRef} className="fixed inset-0 -z-10 overflow-hidden" />;
+  return (
+    <div
+      ref={containerRef}
+      className="fixed inset-0 -z-10 overflow-hidden"
+    />
+  );
 }

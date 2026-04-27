@@ -2,66 +2,67 @@
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black text-white px-6 md:px-12 pt-32 pb-24">
+    <main className="min-h-screen bg-black text-white px-6 md:px-12 pt-32 pb-28">
       <div className="max-w-5xl mx-auto">
         
-        {/* TOP */}
-        <div className="mb-20 flex flex-col items-center text-center">
-          <img
-            src="/images/noiszer-n.png"
-            alt="Noiszer Logo"
-            className="w-28 md:w-36 mb-8 opacity-80"
-          />
-
+        {/* HEADER */}
+        <div className="text-center mb-16">
+  
           <p className="text-xs uppercase tracking-[0.35em] text-white/40 mb-4">
             About
           </p>
 
-          <div className="w-16 h-px bg-white/20 mb-6" />
-
-          <h1 className="text-3xl md:text-5xl tracking-tight max-w-3xl leading-tight">
-            A space for sound, discovery, and a passion for noise.
+          <h1 className="text-4xl md:text-5xl tracking-tight mb-6">
+            A space for sound and discovery.
           </h1>
+
+          <p className="max-w-2xl mx-auto text-sm md:text-base leading-7 text-white/60">
+            An independent radio platform built around freeform music, creative
+            expression, and the culture that keeps sound moving forward.
+          </p>
         </div>
 
-        {/* CONTENT */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
+        {/* CONTENT CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          {/* LEFT LABEL */}
-          <div className="md:col-span-3">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/35">
+          {/* CARD 1 */}
+          <section className="border border-white/15 rounded-2xl p-8 bg-white/[0.02]">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
               Mission
             </p>
-          </div>
 
-          {/* RIGHT CONTENT */}
-          <div className="md:col-span-9 space-y-8">
+            <p className="text-white/70 leading-7 text-sm md:text-base">
+              Noiszer is an independent, community-driven internet radio station
+              built around sound, discovery, and a passion for noise. Created as
+              a space for real music to exist freely, Noiszer brings together
+              everything from punk and indie to house, new wave, and beyond—without
+              filters or expectations. What started as a simple idea to share music
+              that feels honest has grown into a platform focused on exploration,
+              expression, and connection through sound.
+            </p>
+          </section>
 
-            {/* BLOCK 1 */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
-              <p className="text-white/80 text-lg leading-8">
-                Noiszer is an independent, community-driven internet radio station
-                built around sound, discovery, and a passion for noise. Created as
-                a space for real music to exist freely, Noiszer brings together
-                everything from punk and indie to house, new wave, and beyond—without
-                filters or expectations. What started as a simple idea to share music
-                that feels honest has grown into a platform focused on exploration,
-                expression, and connection through sound.
-              </p>
-            </div>
+          {/* CARD 2 */}
+          <section className="border border-white/15 rounded-2xl p-8 bg-white/[0.02]">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
+              Culture
+            </p>
 
-            {/* BLOCK 2 */}
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
-              <p className="text-white/80 text-lg leading-8">
-                Noiszer is more than just a stream. It’s a creative outlet—featuring
-                curated shows, evolving visuals, and a growing network of voices
-                shaping what the station becomes. Rooted in independence, the goal
-                is to build something raw, consistent, and true to the culture that
-                inspires it.
-              </p>
-            </div>
+            <p className="text-white/70 leading-7 text-sm md:text-base">
+              Noiszer is more than just a stream. It’s a creative outlet—featuring
+              curated shows, evolving visuals, and a growing network of voices
+              shaping what the station becomes. Rooted in independence, the goal
+              is to build something raw, consistent, and true to the culture that
+              inspires it.
+            </p>
+          </section>
+        </div>
 
-          </div>
+        {/* LOWER LINE */}
+        <div className="mt-16 border-t border-white/10 pt-10 text-center">
+          <p className="max-w-2xl mx-auto text-white/50 text-sm leading-7">
+            Built independently. Shaped by sound. Open to whatever comes next.
+          </p>
         </div>
 
       </div>
