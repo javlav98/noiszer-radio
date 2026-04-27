@@ -62,7 +62,7 @@ export default function SchedulePage() {
               className={`px-5 py-2 text-sm tracking-wide border rounded-full transition duration-200 ${
                 selectedDay === day
                   ? "bg-white text-black border-white"
-                  : "border-white text-white hover:bg-white hover:text-black"
+                  : "border-white/30 text-white hover:bg-white hover:text-black hover:border-black/10"
               }`}
             >
               {day}

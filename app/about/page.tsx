@@ -26,7 +26,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           {/* CARD 1 */}
-          <section className="border border-white/15 rounded-2xl p-8 bg-white/[0.02]">
+          <section className="border border-white/10 rounded-2xl p-8 bg-white/[0.02]">
             <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
               Mission
             </p>
@@ -43,7 +43,7 @@ export default function AboutPage() {
           </section>
 
           {/* CARD 2 */}
-          <section className="border border-white/15 rounded-2xl p-8 bg-white/[0.02]">
+          <section className="border border-white/10 rounded-2xl p-8 bg-white/[0.02]">
             <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
               Culture
             </p>

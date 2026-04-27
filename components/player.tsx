@@ -5,25 +5,9 @@ import { useEffect, useRef, useState } from "react";
 export default function Player() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [time, setTime] = useState("");
 
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
 
-      setTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+ 
 
   const handleToggle = () => {
     if (!audioRef.current) return;
@@ -50,7 +34,7 @@ export default function Player() {
           <img
             src="/images/noiszer-n.png"
             alt="Noiszer Logo"
-            className="w-8 h-8 object-contain opacity-90"
+            className="w-10 h-10 object-contain opacity-90"
           />
 
           {/* TEXT BLOCK */}
@@ -60,12 +44,6 @@ export default function Player() {
             <div className="flex items-center gap-3">
               <span className="text-xs uppercase tracking-widest text-white/50">
                 Now Playing
-              </span>
-
-              <span className="text-white/20 text-xs">/</span>
-
-              <span className="text-xs tracking-[0.2em] text-white/40">
-                {time}
               </span>
             </div>
 
