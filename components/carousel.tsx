@@ -114,16 +114,16 @@ export default function HeroCarousel() {
   const slide = slides[current];
 
   return (
-    <section className="w-full overflow-x-hidden px-4 pt-20 pb-10 min-h-[80vh] bg-black text-white">
+    <section className="w-full overflow-x-hidden px-0 pt-0 pb-10 min-h-[80vh] bg-black text-white">
       <div className="mx-auto h-full max-w-[1400px] md:max-w-[1800px]">
         <div
           ref={carouselRef}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]"
+          className="relative overflow-hidden border-white/10 bg-white/[0.03]"
         >
           <img
             src={slide.image}
             alt={slide.title}
-            className="h-[555px] md:h-[555px] lg:h-[555px] xl:h-[690px] w-full object-cover opacity-80 transition-all duration-700"
+            className="h-[700px] md:h-[700px] lg:h-[700px] xl:h-[800px] w-full object-cover opacity-80 transition-all duration-700"
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
