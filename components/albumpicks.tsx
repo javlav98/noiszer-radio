@@ -91,11 +91,11 @@ export default function AlbumPicks() {
   const canGoNext = index + visibleCount < albums.length;
 
   return (
-    <section className="w-full bg-black px-4 py-10 text-white md:px-8">
+    <section className="w-full bg-black px-4 py-0 text-white md:px-8">
       <div className="mx-auto max-w-[1800px]">
         <div className="mb-6 flex items-end justify-between">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.35em] text-white/40">
+            <p className="mb-2 text-xs uppercase tracking-[0.35em] text-white">
               Noiszer Selects
             </p>
           </div>
@@ -104,7 +104,7 @@ export default function AlbumPicks() {
             <button
               onClick={() => setIndex((prev) => Math.max(prev - 1, 0))}
               disabled={!canGoBack}
-              className="h-10 w-10 rounded-full border border-white/20 text-xl transition hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
+              className="h-10 w-10 "
             >
               ←
             </button>
@@ -116,7 +116,7 @@ export default function AlbumPicks() {
                 )
               }
               disabled={!canGoNext}
-              className="h-10 w-10 rounded-full border border-white/20 text-xl transition hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
+              className="h-10 w-10 text-xl"
             >
               →
             </button>

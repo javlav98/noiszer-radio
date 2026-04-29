@@ -61,7 +61,6 @@ const slides = [
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
-
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const wheelLocked = useRef(false);
 
@@ -114,22 +113,22 @@ export default function HeroCarousel() {
   const slide = slides[current];
 
   return (
-    <section className="w-full overflow-x-hidden px-0 pt-0 pb-10 min-h-[80vh] bg-black text-white">
-      <div className="mx-auto h-full max-w-[1400px] md:max-w-[1800px]">
+    <section className="h-full w-full overflow-hidden bg-black text-white">
+      <div className="h-full w-full">
         <div
           ref={carouselRef}
-          className="relative overflow-hidden border-white/10 bg-white/[0.03]"
+          className="relative h-full w-full overflow-hidden border-white/10 bg-white/[0.03]"
         >
           <img
             src={slide.image}
             alt={slide.title}
-            className="h-[700px] md:h-[700px] lg:h-[700px] xl:h-[800px] w-full object-cover opacity-80 transition-all duration-700"
+            className="h-full w-full object-cover opacity-80 transition-all duration-700"
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-          <div className="absolute bottom-0 left-0 max-w-4xl p-6 md:p-12">
-            <h1 className="mb-4 text-4xl tracking-tight md:text-7xl">
+          <div className="absolute bottom-0 left-0 max-w-4xl p-5 pb-20 sm:p-6 md:p-12">
+            <h1 className="mb-4 tracking-tight text-4xl sm:text-5xl md:text-7xl">
               {slide.title}
             </h1>
 
@@ -152,11 +151,12 @@ export default function HeroCarousel() {
             </p>
           </div>
 
-          <div className="absolute bottom-8 right-8 flex gap-2">
+          <div className="absolute bottom-6 left-5 flex gap-2 sm:left-6 md:bottom-8 md:left-auto md:right-8">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrent(index)}
+                aria-label={`Go to slide ${index + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   current === index
                     ? "w-10 bg-white"

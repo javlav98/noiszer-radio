@@ -1,13 +1,16 @@
-import Bg from "../components/bg";
 import HeroCarousel from "../components/carousel";
 import AlbumPicks from "../components/albumpicks";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black pb-24">
-     {/* <Bg /> */}
-      <HeroCarousel />
-      <AlbumPicks />
+    <main className="h-screen overflow-y-scroll snap-y snap-mandatory bg-black text-white">
+      <section className="h-screen snap-start">
+        <HeroCarousel />
+      </section>
+
+      <section className="snap-start bg-black">
+        <AlbumPicks />
+      </section>
     </main>
   );
 }
