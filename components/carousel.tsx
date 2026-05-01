@@ -113,58 +113,56 @@ export default function HeroCarousel() {
   const slide = slides[current];
 
   return (
-    <section className="h-full w-full overflow-hidden bg-black text-white">
-      <div className="h-full w-full">
-        <div
-          ref={carouselRef}
-          className="relative h-full w-full overflow-hidden border-white/10 bg-white/[0.03]"
-        >
-          <img
-            src={slide.image}
-            alt={slide.title}
-            className="h-full w-full object-cover opacity-80 transition-all duration-700"
-          />
+    <section className="relative h-screen min-h-[650px] w-full overflow-hidden bg-black text-white">
+      <div
+        ref={carouselRef}
+        className="relative h-full w-full overflow-hidden bg-white/[0.03]"
+      >
+        <img
+          src={slide.image}
+          alt={slide.title}
+          className="h-full w-full object-cover opacity-80 transition-all duration-700"
+        />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-          <div className="absolute bottom-0 left-0 max-w-4xl p-5 pb-20 sm:p-6 md:p-12">
-            <h1 className="mb-4 tracking-tight text-4xl sm:text-5xl md:text-7xl">
-              {slide.title}
-            </h1>
+        <div className="absolute bottom-0 left-0 z-20 max-w-4xl p-5 pb-36 sm:p-6 sm:pb-36 md:p-12 md:pb-32 lg:pb-28">
+          <h1 className="mb-4 tracking-tight text-4xl sm:text-5xl md:text-7xl">
+            {slide.title}
+          </h1>
 
-            <div className="mb-5 flex flex-wrap gap-2 text-xs uppercase tracking-[0.18em] text-white/70">
-              <span className="rounded-full border border-white/20 px-3 py-1">
-                {slide.genre}
-              </span>
+          <div className="mb-5 flex flex-wrap gap-2 text-xs uppercase tracking-[0.18em] text-white/70">
+            <span className="rounded-full border border-white/20 px-3 py-1">
+              {slide.genre}
+            </span>
 
-              <span className="rounded-full border border-white/20 px-3 py-1">
-                {slide.date}
-              </span>
+            <span className="rounded-full border border-white/20 px-3 py-1">
+              {slide.date}
+            </span>
 
-              <span className="rounded-full border border-white/20 px-3 py-1">
-                {slide.time}
-              </span>
-            </div>
-
-            <p className="max-w-2xl text-sm leading-7 text-white/75 md:text-lg md:leading-8">
-              {slide.description}
-            </p>
+            <span className="rounded-full border border-white/20 px-3 py-1">
+              {slide.time}
+            </span>
           </div>
 
-          <div className="absolute bottom-6 left-5 flex gap-2 sm:left-6 md:bottom-8 md:left-auto md:right-8">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrent(index)}
-                aria-label={`Go to slide ${index + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  current === index
-                    ? "w-10 bg-white"
-                    : "w-2 bg-white/30 hover:bg-white/60"
-                }`}
-              />
-            ))}
-          </div>
+          <p className="max-w-2xl text-sm leading-7 text-white/75 md:text-lg md:leading-8">
+            {slide.description}
+          </p>
+        </div>
+
+        <div className="absolute bottom-24 left-5 z-[999] flex gap-2 sm:bottom-24 sm:left-6 md:bottom-28 md:left-auto md:right-12 lg:bottom-28 lg:right-12">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrent(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                current === index
+                  ? "w-10 bg-white"
+                  : "w-2 bg-white/30 hover:bg-white/60"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
