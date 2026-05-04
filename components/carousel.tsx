@@ -127,7 +127,7 @@ export default function HeroCarousel() {
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
         <div className="absolute bottom-0 left-0 z-20 max-w-4xl p-5 pb-36 sm:p-6 sm:pb-36 md:p-12 md:pb-32 lg:pb-28">
-          <h1 className="mb-4 tracking-tight text-4xl sm:text-5xl md:text-7xl">
+          <h1 className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-7xl">
             {slide.title}
           </h1>
 
@@ -150,7 +150,8 @@ export default function HeroCarousel() {
           </p>
         </div>
 
-        <div className="absolute bottom-24 left-5 z-[999] flex gap-2 sm:bottom-24 sm:left-6 md:bottom-28 md:left-auto md:right-12 lg:bottom-28 lg:right-12">
+        {/* PAGINATION - fixed z-index */}
+        <div className="absolute bottom-24 left-5 z-20 flex gap-2 sm:bottom-24 sm:left-6 md:bottom-28 md:left-auto md:right-12 lg:bottom-28 lg:right-12">
           {slides.map((_, index) => (
             <button
               key={index}
