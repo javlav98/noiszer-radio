@@ -78,129 +78,132 @@ export default function AlbumPicks() {
   const canGoBack = index > 0;
   const canGoNext = index + visibleCount < albums.length;
 
-  const goBack = () => {
-    setIndex((prev) => Math.max(prev - visibleCount, 0));
-  };
+  const goBack = () => setIndex((prev) => Math.max(prev - visibleCount, 0));
 
-  const goNext = () => {
+  const goNext = () =>
     setIndex((prev) =>
       Math.min(prev + visibleCount, Math.max(albums.length - visibleCount, 0))
     );
-  };
 
   return (
-    <section className="w-full overflow-hidden bg-black px-4 text-white sm:px-6 md:px-8">
-      <div className="mx-auto grid h-[calc(100dvh-11rem)] max-w-[1800px] grid-rows-[auto_1fr] gap-3 pt-3 sm:h-[calc(100dvh-11.5rem)] md:h-[calc(100dvh-10.5rem)]">
-        <div className="flex shrink-0 items-center justify-between">
+    <section className="w-full bg-black text-white">
+      <div className="mx-auto max-w-[1800px] px-3 py-4 sm:px-5 md:px-8 md:py-6">
+        {/* HEADER */}
+        <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <p className="text-[9px] uppercase tracking-[0.35em] text-white/55 sm:text-[10px] md:text-xs">
+            <p className="text-[9px] uppercase tracking-[0.35em] text-white/50 sm:text-[10px]">
               Noiszer Selects
             </p>
 
-            <h2 className="mt-1 text-lg font-normal tracking-tight sm:text-xl md:text-2xl">
+            <h2 className="mt-1 text-2xl font-medium uppercase leading-none tracking-[-0.04em] sm:text-3xl md:text-5xl">
               Album Picks
             </h2>
           </div>
 
-          <div className="flex gap-2">
+          <div className="grid grid-cols-2 border border-white">
             <button
               type="button"
               onClick={goBack}
               disabled={!canGoBack}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 transition hover:bg-white hover:text-black disabled:opacity-20 sm:h-9 sm:w-9"
+              className="flex h-10 w-10 items-center justify-center border-r border-white transition hover:bg-white hover:text-black disabled:opacity-20 md:h-12 md:w-12"
               aria-label="Previous albums"
             >
-              <ArrowLeft size={15} />
+              <ArrowLeft size={18} />
             </button>
 
             <button
               type="button"
               onClick={goNext}
               disabled={!canGoNext}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 transition hover:bg-white hover:text-black disabled:opacity-20 sm:h-9 sm:w-9"
+              className="flex h-10 w-10 items-center justify-center transition hover:bg-white hover:text-black disabled:opacity-20 md:h-12 md:w-12"
               aria-label="Next albums"
             >
-              <ArrowRight size={15} />
+              <ArrowRight size={18} />
             </button>
           </div>
         </div>
 
-        <div className="min-h-0">
+        {/* CONTENT */}
+        <div>
           {loading && (
-            <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-2 sm:gap-3 md:grid-cols-[1.1fr_0.9fr] md:grid-rows-none md:gap-4">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] md:row-span-3 md:rounded-3xl" />
-
-              {[1, 2, 3].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03]"
-                />
-              ))}
+            <div className="grid gap-3 md:h-[72vh] md:grid-rows-[1fr_auto]">
+              <div className="bg-white/[0.04]" />
+              <div className="grid grid-cols-3 gap-3">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="h-32 bg-white/[0.04] md:h-40" />
+                ))}
+              </div>
             </div>
           )}
 
           {!loading && featuredAlbum && (
-            <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-2 sm:gap-3 md:grid-cols-[1.1fr_0.9fr] md:grid-rows-none md:gap-4">
-              <article className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] md:row-span-3 md:rounded-3xl">
+            <div className="grid gap-3 md:h-[72vh] md:grid-rows-[1fr_auto]">
+              {/* FEATURED WIDE IMAGE */}
+              <article className="group relative min-h-[360px] overflow-hidden md:min-h-0">
                 {featuredAlbum.strAlbumThumb && (
                   <img
                     src={featuredAlbum.strAlbumThumb}
                     alt={featuredAlbum.strAlbum}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105 group-hover:opacity-80"
+                    className="h-full w-full object-cover opacity-90 transition duration-700 group-hover:scale-105 group-hover:opacity-75"
                   />
                 )}
 
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/75 to-transparent p-3 md:p-5">
-                  <p className="mb-1 text-[8px] uppercase tracking-[0.3em] text-white/45 md:text-[10px]">
-                    Featured Pick
-                  </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
 
-                  <h3 className="truncate text-sm leading-tight sm:text-lg md:text-3xl">
+                <div className="absolute left-0 top-0 border-b border-r border-white bg-black px-3 py-2 text-[9px] uppercase tracking-[0.28em] text-white/70 md:px-4 md:py-3 md:text-[10px]">
+                  Featured Pick
+                </div>
+
+                <div className="absolute inset-x-0 bottom-0 border-t border-white bg-black p-4 md:p-6">
+                  <h3 className="truncate text-3xl font-medium uppercase leading-none tracking-[-0.05em] sm:text-5xl md:text-7xl">
                     {featuredAlbum.strAlbum}
                   </h3>
 
-                  <p className="mt-1 truncate text-[10px] text-white/55 sm:text-xs md:text-sm">
+                  <p className="mt-2 truncate text-[10px] uppercase tracking-[0.22em] text-white/50 md:text-xs">
                     {featuredAlbum.strArtist}
                   </p>
                 </div>
               </article>
 
-              {sideAlbums.map((album, albumIndex) => (
-                <article
-                  key={album.idAlbum}
-                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] md:grid md:grid-cols-[5.75rem_1fr] md:gap-3 md:p-2 lg:grid-cols-[6.5rem_1fr]"
-                >
-                  <div className="h-full w-full overflow-hidden bg-white/[0.04] md:aspect-square md:h-auto md:self-center md:rounded-xl">
-                    {album.strAlbumThumb && (
-                      <img
-                        src={album.strAlbumThumb}
-                        alt={album.strAlbum}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105 group-hover:opacity-80"
-                      />
-                    )}
-                  </div>
+              {/* SIDE PICKS AS BOTTOM STRIP */}
+              <div className="grid gap-3 md:grid-cols-3">
+                {sideAlbums.map((album, albumIndex) => (
+                  <article
+                    key={album.idAlbum}
+                    className="group grid grid-cols-[6rem_1fr] overflow-hidden border border-white sm:grid-cols-[8rem_1fr] md:grid-cols-[8rem_1fr]"
+                  >
+                    <div className="aspect-square overflow-hidden border-r border-white bg-white/[0.04]">
+                      {album.strAlbumThumb && (
+                        <img
+                          src={album.strAlbumThumb}
+                          alt={album.strAlbum}
+                          className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-75"
+                        />
+                      )}
+                    </div>
 
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/75 to-transparent p-3 md:relative md:inset-auto md:flex md:min-w-0 md:flex-col md:justify-center md:bg-none md:p-0">
-                    <p className="mb-1 text-[8px] uppercase tracking-[0.25em] text-white/40 md:text-[10px]">
-                      Pick 0{albumIndex + 2}
-                    </p>
+                    <div className="flex min-w-0 flex-col justify-between bg-black p-3">
+                      <p className="text-[8px] uppercase tracking-[0.25em] text-white/40 md:text-[10px]">
+                        Pick 0{albumIndex + 2}
+                      </p>
 
-                    <h3 className="truncate text-xs leading-tight sm:text-sm md:text-base">
-                      {album.strAlbum}
-                    </h3>
+                      <div className="min-w-0">
+                        <h3 className="truncate text-sm font-medium uppercase leading-tight tracking-[-0.03em] md:text-base">
+                          {album.strAlbum}
+                        </h3>
 
-                    <p className="mt-1 truncate text-[10px] text-white/45 sm:text-xs">
-                      {album.strArtist}
-                    </p>
-                  </div>
-                </article>
-              ))}
+                        <p className="mt-1 truncate text-[10px] uppercase tracking-[0.18em] text-white/45">
+                          {album.strArtist}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           )}
         </div>
       </div>
-
-      <div className="h-44 md:h-40" />
     </section>
   );
 }
