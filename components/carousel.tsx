@@ -114,53 +114,48 @@ export default function HeroCarousel() {
 
   return (
     <section className="relative h-screen min-h-[650px] w-full overflow-hidden bg-black text-white">
-      <div
-        ref={carouselRef}
-        className="relative h-full w-full overflow-hidden bg-white/[0.03]"
-      >
+      <div ref={carouselRef} className="relative h-full w-full overflow-hidden">
         <img
           src={slide.image}
           alt={slide.title}
-          className="h-full w-full object-cover opacity-80 transition-all duration-700"
+          className="h-full w-full object-cover opacity-90 transition-all duration-700"
         />
 
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        {/* Gradient */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/60 via-40% to-transparent" />
 
-        <div className="absolute bottom-0 left-0 z-20 max-w-4xl p-5 pb-36 sm:p-6 sm:pb-36 md:p-12 md:pb-32 lg:pb-28">
-          <h1 className="mb-4 text-4xl tracking-tight sm:text-5xl md:text-7xl">
-            {slide.title}
-          </h1>
+        {/* Text */}
+        <div className="absolute bottom-0 left-0 z-20 w-full px-6 pb-28 md:px-12 md:pb-24">
+          <div className="max-w-2xl">
+            
+            <h1 className="text-3xl font-medium leading-[1.05] tracking-[-0.02em] sm:text-4xl md:text-5xl lg:text-6xl">
+              {slide.title}
+            </h1>
 
-          <div className="mb-5 flex flex-wrap gap-2 text-xs uppercase tracking-[0.18em] text-white/70">
-            <span className="rounded-full border border-white/20 px-3 py-1">
-              {slide.genre}
-            </span>
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-white/55">
+              <span>{slide.date}</span>
+              <span className="h-[2px] w-[2px] rounded-full bg-white/30" />
+              <span>{slide.time}</span>
+              <span className="h-[2px] w-[2px] rounded-full bg-white/30" />
+              <span className="text-white/45">{slide.genre}</span>
+            </div>
 
-            <span className="rounded-full border border-white/20 px-3 py-1">
-              {slide.date}
-            </span>
-
-            <span className="rounded-full border border-white/20 px-3 py-1">
-              {slide.time}
-            </span>
+            <p className="mt-3 max-w-md text-sm leading-6 text-white/60 md:text-[15px]">
+              {slide.description}
+            </p>
           </div>
-
-          <p className="max-w-2xl text-sm leading-7 text-white/75 md:text-lg md:leading-8">
-            {slide.description}
-          </p>
         </div>
 
-        {/* PAGINATION - fixed z-index */}
-        <div className="absolute bottom-24 left-5 z-20 flex gap-2 sm:bottom-24 sm:left-6 md:bottom-28 md:left-auto md:right-12 lg:bottom-28 lg:right-12">
+        {/* Pagination (slightly higher) */}
+        <div className="absolute bottom-24 left-6 z-20 flex gap-2 md:left-auto md:right-12">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrent(index)}
-              aria-label={`Go to slide ${index + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-[5px] rounded-full transition-all duration-300 ${
                 current === index
-                  ? "w-10 bg-white"
-                  : "w-2 bg-white/30 hover:bg-white/60"
+                  ? "w-5 bg-white"
+                  : "w-2 bg-white/35 hover:bg-white/70"
               }`}
             />
           ))}

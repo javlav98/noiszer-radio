@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Player() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
-
- 
 
   const handleToggle = () => {
     if (!audioRef.current) return;
@@ -25,39 +22,29 @@ export default function Player() {
     <>
       <audio ref={audioRef} src="/audio/test.mp3" />
 
-      <div className="fixed bottom-0 left-0 w-full z-50 bg-black border-t border-white/20 px-6 py-4 flex items-center justify-between">
-        
-        {/* LEFT */}
+      <div className="fixed left-0 top-16 z-50 flex w-full items-center justify-between border-b border-white/10 bg-black/90 px-6 py-3 text-white backdrop-blur-md border-t-1">
         <div className="flex items-center gap-4">
-          
-          {/* LOGO */}
           <img
             src="/images/noiszer-n.png"
             alt="Noiszer Logo"
-            className="w-10 h-10 object-contain opacity-90"
+            className="h-9 w-9 object-contain opacity-90"
           />
 
-          {/* TEXT BLOCK */}
           <div className="flex flex-col">
-            
-            {/* TOP ROW */}
-            <div className="flex items-center gap-3">
-              <span className="text-xs uppercase tracking-widest text-white/50">
-                Now Playing
-              </span>
-            </div>
+            <span className="text-[10px] uppercase tracking-widest text-white/45">
+              Now Playing
+            </span>
 
-            {/* TRACK */}
-            <span className="text-sm text-white">
+            <span className="text-sm text-white/90">
               Velvet Haus with spud bud
             </span>
           </div>
         </div>
 
-        {/* RIGHT */}
         <button
           onClick={handleToggle}
-          className="w-10 h-10 flex items-center justify-center text-white text-lg hover:scale-110 transition duration-200"
+          className="flex h-9 w-9 items-center justify-center text-lg text-white transition duration-200 hover:scale-110"
+          aria-label={isPlaying ? "Pause audio" : "Play audio"}
         >
           {isPlaying ? "❚❚" : "▶"}
         </button>
