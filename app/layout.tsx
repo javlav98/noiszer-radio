@@ -1,6 +1,5 @@
 import "./globals.css";
-import Player from "../components/player";
-import Navbar from "../components/navbar";
+import TopBar from "../components/topbar";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -15,10 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Player />
+      <body className={`${inter.className} bg-black text-white`}>
+        <TopBar />
+        <main className="pt-28 md:pt-16">{children}</main>
       </body>
     </html>
   );

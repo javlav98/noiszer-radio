@@ -73,10 +73,7 @@ export default function HeroCarousel() {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 15000);
-
+    const timer = setInterval(nextSlide, 15000);
     return () => clearInterval(timer);
   }, []);
 
@@ -86,17 +83,14 @@ export default function HeroCarousel() {
 
     const handleWheel = (e: WheelEvent) => {
       const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-
-      if (!isHorizontal) return;
-      if (Math.abs(e.deltaX) < 35) return;
+      if (!isHorizontal || Math.abs(e.deltaX) < 35) return;
 
       e.preventDefault();
 
       if (wheelLocked.current) return;
       wheelLocked.current = true;
 
-      if (e.deltaX > 0) nextSlide();
-      else prevSlide();
+      e.deltaX > 0 ? nextSlide() : prevSlide();
 
       setTimeout(() => {
         wheelLocked.current = false;
@@ -104,61 +98,116 @@ export default function HeroCarousel() {
     };
 
     carousel.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () => {
-      carousel.removeEventListener("wheel", handleWheel);
-    };
+    return () => carousel.removeEventListener("wheel", handleWheel);
   }, []);
 
   const slide = slides[current];
 
   return (
-    <section className="relative h-screen min-h-[650px] w-full overflow-hidden bg-black text-white">
-      <div ref={carouselRef} className="relative h-full w-full overflow-hidden">
-        <img
-          src={slide.image}
-          alt={slide.title}
-          className="h-full w-full object-cover opacity-90 transition-all duration-700"
-        />
+    <section className="relative h-[96vh] w-full overflow-hidden border-b border-white bg-black text-white md:h-[92vh]">
+      <div
+        ref={carouselRef}
+        className="grid h-full w-full grid-rows-[45%_55%] overflow-hidden md:grid-cols-[58%_42%] md:grid-rows-1"
+      >
+        {/* IMAGE */}
+        <div className="relative border-b border-white md:border-b-0 md:border-r">
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="h-full w-full object-cover opacity-90 transition-all duration-700"
+          />
 
-        {/* Gradient */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/60 via-40% to-transparent" />
+          <div className="absolute inset-0 bg-black/15" />
 
-        {/* Text */}
-        <div className="absolute bottom-0 left-0 z-20 w-full px-6 pb-28 md:px-12 md:pb-24">
-          <div className="max-w-2xl">
-            
-            <h1 className="text-3xl font-medium leading-[1.05] tracking-[-0.02em] sm:text-4xl md:text-5xl lg:text-6xl">
-              {slide.title}
-            </h1>
+          <div className="absolute left-0 top-0 border-b border-r border-white bg-black px-3 py-1.5 text-[9px] uppercase tracking-[0.25em] md:px-4 md:py-2 md:text-[10px]">
+            Noiszer Archive
+          </div>
 
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-white/55">
-              <span>{slide.date}</span>
-              <span className="h-[2px] w-[2px] rounded-full bg-white/30" />
-              <span>{slide.time}</span>
-              <span className="h-[2px] w-[2px] rounded-full bg-white/30" />
-              <span className="text-white/45">{slide.genre}</span>
-            </div>
-
-            <p className="mt-3 max-w-md text-sm leading-6 text-white/60 md:text-[15px]">
-              {slide.description}
-            </p>
+          <div className="absolute bottom-0 left-0 border-t border-r border-white bg-black px-3 py-1.5 text-[9px] uppercase tracking-[0.2em] text-white/70 md:px-4 md:py-2 md:text-[10px]">
+            {String(current + 1).padStart(2, "0")} /{" "}
+            {String(slides.length).padStart(2, "0")}
           </div>
         </div>
 
-        {/* Pagination (slightly higher) */}
-        <div className="absolute bottom-24 left-6 z-20 flex gap-2 md:left-auto md:right-12">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`h-[5px] rounded-full transition-all duration-300 ${
-                current === index
-                  ? "w-5 bg-white"
-                  : "w-2 bg-white/35 hover:bg-white/70"
-              }`}
-            />
-          ))}
+        {/* INFO */}
+        <div className="flex flex-col bg-black">
+          <div className="grid grid-cols-2 border-b border-white text-[9px] uppercase tracking-[0.2em] text-white/65 md:text-[10px]">
+            <div className="border-r border-white px-3 py-2 md:px-4 md:py-3">
+              Program
+            </div>
+            <div className="px-3 py-2 md:px-4 md:py-3">Broadcast</div>
+          </div>
+
+          <div className="flex flex-1 flex-col px-3 py-3 sm:px-4 md:px-8 md:py-8">
+            <div>
+              <div className="mb-2 inline-flex border border-white px-2 py-0.5 text-[9px] uppercase tracking-[0.22em] text-white/70 md:mb-4 md:px-3 md:py-1 md:text-[10px]">
+                Featured Show
+              </div>
+
+              <h1 className="text-[clamp(1.8rem,8vw,3.2rem)] font-medium uppercase leading-[0.9] tracking-[-0.05em] md:text-[clamp(4.5rem,6vw,7rem)]">
+                {slide.title}
+              </h1>
+
+              <div className="mt-3 grid border border-white text-[9px] uppercase tracking-[0.12em] sm:grid-cols-3 md:mt-5 md:text-[11px]">
+                <div className="border-b border-white px-2 py-1.5 sm:border-b-0 sm:border-r md:px-4 md:py-3">
+                  <span className="block text-[8px] text-white/40">Day</span>
+                  {slide.date}
+                </div>
+
+                <div className="border-b border-white px-2 py-1.5 sm:border-b-0 sm:border-r md:px-4 md:py-3">
+                  <span className="block text-[8px] text-white/40">Time</span>
+                  {slide.time}
+                </div>
+
+                <div className="px-2 py-1.5 md:px-4 md:py-3">
+                  <span className="block text-[8px] text-white/40">Sound</span>
+                  {slide.genre}
+                </div>
+              </div>
+
+              <p className="mt-3 border-l border-white pl-3 text-[11px] leading-4 text-white/65 md:mt-4 md:max-w-xl md:pl-4 md:text-sm md:leading-6">
+                {slide.description}
+              </p>
+            </div>
+
+            <div className="mt-3 md:mt-auto">
+              <div className="mb-2 flex items-center justify-between border-y border-white py-2 md:mb-4 md:py-3">
+                <button
+                  onClick={prevSlide}
+                  className="text-[10px] uppercase tracking-[0.16em] text-white/70 hover:text-white md:text-xs"
+                >
+                  Prev
+                </button>
+
+                <span className="hidden text-[10px] uppercase tracking-[0.2em] text-white/40 md:block">
+                  Swipe / Scroll
+                </span>
+
+                <button
+                  onClick={nextSlide}
+                  className="text-[10px] uppercase tracking-[0.16em] text-white/70 hover:text-white md:text-xs"
+                >
+                  Next
+                </button>
+              </div>
+
+              <div className="grid grid-cols-6 border border-white">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    className={`h-7 border-r border-white text-[9px] uppercase tracking-[0.16em] last:border-r-0 md:h-14 md:text-[10px] ${
+                      current === i
+                        ? "bg-white text-black"
+                        : "text-white/40 hover:bg-white hover:text-black"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

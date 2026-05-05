@@ -24,67 +24,40 @@ export default function TopBar() {
       <audio ref={audioRef} src="/audio/test.mp3" />
 
       <header className="fixed left-0 top-0 z-50 w-full border-b border-white bg-black text-white">
-        <div className="grid h-14 grid-cols-[auto_1fr_auto] border-b border-white md:h-16">
+        <div className="grid h-14 grid-cols-[auto_1fr] border-b border-white md:h-16 md:grid-cols-[auto_1fr_auto]">
           <Link
             href="/"
-            className="flex h-14 items-center justify-center border-r border-white px-4 md:h-16 md:px-6"
+            className="flex h-full items-center justify-center border-r border-white px-4 md:px-6"
             aria-label="Noiszer Home"
           >
             <img
               src="/images/noiszer.png"
               alt="Noiszer Logo"
-              className="h-7 w-auto object-contain md:h-8"
+              className="h-12 w-auto object-contain"
             />
           </Link>
 
-          <nav className="hidden h-full items-center justify-center divide-x divide-white border-r border-white md:flex">
-            <Link
-              href="#"
-              className="flex h-full items-center px-6 text-xs uppercase tracking-[0.22em] transition hover:bg-white hover:text-black lg:px-8"
-            >
-              Shows
-            </Link>
-
-            <Link
-              href="#"
-              className="flex h-full items-center px-6 text-xs uppercase tracking-[0.22em] transition hover:bg-white hover:text-black lg:px-8"
-            >
-              Schedule
-            </Link>
-
-            <Link
-              href="#"
-              className="flex h-full items-center px-6 text-xs uppercase tracking-[0.22em] transition hover:bg-white hover:text-black lg:px-8"
-            >
-              Archive
-            </Link>
-
-            <Link
-              href="#"
-              className="flex h-full items-center px-6 text-xs uppercase tracking-[0.22em] transition hover:bg-white hover:text-black lg:px-8"
-            >
-              About
-            </Link>
+          <nav className="hidden h-full items-center justify-center border-r border-white md:flex">
+            {["Shows", "Schedule", "Archive", "About"].map((item) => (
+              <Link
+                key={item}
+                href="#"
+                className="flex h-full items-center px-6 text-xs uppercase tracking-[0.22em] transition hover:bg-white hover:text-black lg:px-8"
+              >
+                {item}
+              </Link>
+            ))}
           </nav>
 
           <div className="flex h-full items-center justify-end px-4 text-xs uppercase tracking-[0.22em] md:hidden">
             Menu
           </div>
 
-          <button
-            onClick={handleToggle}
-            className="flex h-full items-center justify-center border-l border-white px-5 text-base transition hover:bg-white hover:text-black md:hidden"
-            aria-label={isPlaying ? "Pause audio" : "Play audio"}
-          >
-            {isPlaying ? "❚❚" : "▶"}
-          </button>
-
           <div className="hidden h-full items-center border-l border-white md:flex">
             <div className="flex h-full min-w-[260px] flex-col justify-center border-r border-white px-5 lg:min-w-[340px]">
               <span className="text-[10px] uppercase tracking-[0.28em] text-white/45">
                 Now Playing
               </span>
-
               <span className="truncate text-sm text-white">
                 Velvet Haus — spud bud
               </span>
@@ -105,25 +78,16 @@ export default function TopBar() {
             <span className="text-[9px] uppercase tracking-[0.28em] text-white/45">
               Now Playing
             </span>
-
             <span className="truncate text-sm">Velvet Haus — spud bud</span>
           </div>
 
-          <div className="flex h-full divide-x divide-white border-l border-white text-[10px] uppercase tracking-[0.2em]">
-            <Link
-              href="#"
-              className="flex h-full items-center px-3 transition hover:bg-white hover:text-black"
-            >
-              Shows
-            </Link>
-
-            <Link
-              href="#"
-              className="flex h-full items-center px-3 transition hover:bg-white hover:text-black"
-            >
-              About
-            </Link>
-          </div>
+          <button
+            onClick={handleToggle}
+            className="flex h-full items-center justify-center border-l border-white px-5 text-base transition hover:bg-white hover:text-black"
+            aria-label={isPlaying ? "Pause audio" : "Play audio"}
+          >
+            {isPlaying ? "❚❚" : "▶"}
+          </button>
         </div>
       </header>
     </>
