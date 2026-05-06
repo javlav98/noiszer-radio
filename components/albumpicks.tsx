@@ -86,12 +86,12 @@ export default function AlbumPicks() {
     );
 
   return (
-    <section className="w-full bg-black text-white">
+    <section className="w-full bg-white text-black">
       <div className="mx-auto max-w-[1800px] px-3 py-4 sm:px-5 md:px-8 md:py-6">
         {/* HEADER */}
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <p className="text-[9px] uppercase tracking-[0.35em] text-white/50 sm:text-[10px]">
+            <p className="text-[9px] uppercase tracking-[0.35em] text-black/50 sm:text-[10px]">
               Noiszer Selects
             </p>
 
@@ -100,12 +100,12 @@ export default function AlbumPicks() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 border border-white">
+          <div className="grid grid-cols-2 border border-black">
             <button
               type="button"
               onClick={goBack}
               disabled={!canGoBack}
-              className="flex h-10 w-10 items-center justify-center border-r border-white transition hover:bg-white hover:text-black disabled:opacity-20 md:h-12 md:w-12"
+              className="flex h-10 w-10 items-center justify-center border-r border-black transition hover:bg-black hover:text-white disabled:opacity-20 md:h-12 md:w-12"
               aria-label="Previous albums"
             >
               <ArrowLeft size={18} />
@@ -115,7 +115,7 @@ export default function AlbumPicks() {
               type="button"
               onClick={goNext}
               disabled={!canGoNext}
-              className="flex h-10 w-10 items-center justify-center transition hover:bg-white hover:text-black disabled:opacity-20 md:h-12 md:w-12"
+              className="flex h-10 w-10 items-center justify-center transition hover:bg-black hover:text-white disabled:opacity-20 md:h-12 md:w-12"
               aria-label="Next albums"
             >
               <ArrowRight size={18} />
@@ -127,10 +127,10 @@ export default function AlbumPicks() {
         <div>
           {loading && (
             <div className="grid gap-3 md:h-[72vh] md:grid-rows-[1fr_auto]">
-              <div className="bg-white/[0.04]" />
+              <div className="bg-black/[0.04]" />
               <div className="grid grid-cols-3 gap-3">
                 {[1, 2, 3].map((item) => (
-                  <div key={item} className="h-32 bg-white/[0.04] md:h-40" />
+                  <div key={item} className="h-32 bg-black/[0.04] md:h-40" />
                 ))}
               </div>
             </div>
@@ -139,27 +139,27 @@ export default function AlbumPicks() {
           {!loading && featuredAlbum && (
             <div className="grid gap-3 md:h-[72vh] md:grid-rows-[1fr_auto]">
               {/* FEATURED WIDE IMAGE */}
-              <article className="group relative min-h-[360px] overflow-hidden md:min-h-0">
+              <article className="group relative min-h-[360px] overflow-hidden border border-black md:min-h-0">
                 {featuredAlbum.strAlbumThumb && (
                   <img
                     src={featuredAlbum.strAlbumThumb}
                     alt={featuredAlbum.strAlbum}
-                    className="h-full w-full object-cover opacity-90 transition duration-700 group-hover:scale-105 group-hover:opacity-75"
+                    className="h-full w-full object-cover opacity-95 transition duration-700 group-hover:scale-105 group-hover:opacity-80"
                   />
                 )}
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/25 to-transparent" />
 
-                <div className="absolute left-0 top-0 border-b border-r border-white bg-black px-3 py-2 text-[9px] uppercase tracking-[0.28em] text-white/70 md:px-4 md:py-3 md:text-[10px]">
+                <div className="absolute left-0 top-0 border-b border-r border-black bg-white px-3 py-2 text-[9px] uppercase tracking-[0.28em] text-black/70 md:px-4 md:py-3 md:text-[10px]">
                   Featured Pick
                 </div>
 
-                <div className="absolute inset-x-0 bottom-0 border-t border-white bg-black p-4 md:p-6">
+                <div className="absolute inset-x-0 bottom-0 border-t border-black bg-white p-4 md:p-6">
                   <h3 className="truncate text-3xl font-medium uppercase leading-none tracking-[-0.05em] sm:text-5xl md:text-7xl">
                     {featuredAlbum.strAlbum}
                   </h3>
 
-                  <p className="mt-2 truncate text-[10px] uppercase tracking-[0.22em] text-white/50 md:text-xs">
+                  <p className="mt-2 truncate text-[10px] uppercase tracking-[0.22em] text-black/50 md:text-xs">
                     {featuredAlbum.strArtist}
                   </p>
                 </div>
@@ -170,20 +170,20 @@ export default function AlbumPicks() {
                 {sideAlbums.map((album, albumIndex) => (
                   <article
                     key={album.idAlbum}
-                    className="group grid grid-cols-[6rem_1fr] overflow-hidden border border-white sm:grid-cols-[8rem_1fr] md:grid-cols-[8rem_1fr]"
+                    className="group grid grid-cols-[6rem_1fr] overflow-hidden border border-black sm:grid-cols-[8rem_1fr] md:grid-cols-[8rem_1fr]"
                   >
-                    <div className="aspect-square overflow-hidden border-r border-white bg-white/[0.04]">
+                    <div className="aspect-square overflow-hidden border-r border-black bg-black/[0.04]">
                       {album.strAlbumThumb && (
                         <img
                           src={album.strAlbumThumb}
                           alt={album.strAlbum}
-                          className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-75"
+                          className="h-full w-full object-cover opacity-95 transition duration-500 group-hover:scale-105 group-hover:opacity-80"
                         />
                       )}
                     </div>
 
-                    <div className="flex min-w-0 flex-col justify-between bg-black p-3">
-                      <p className="text-[8px] uppercase tracking-[0.25em] text-white/40 md:text-[10px]">
+                    <div className="flex min-w-0 flex-col justify-between bg-white p-3">
+                      <p className="text-[8px] uppercase tracking-[0.25em] text-black/40 md:text-[10px]">
                         Pick 0{albumIndex + 2}
                       </p>
 
@@ -192,7 +192,7 @@ export default function AlbumPicks() {
                           {album.strAlbum}
                         </h3>
 
-                        <p className="mt-1 truncate text-[10px] uppercase tracking-[0.18em] text-white/45">
+                        <p className="mt-1 truncate text-[10px] uppercase tracking-[0.18em] text-black/45">
                           {album.strArtist}
                         </p>
                       </div>
