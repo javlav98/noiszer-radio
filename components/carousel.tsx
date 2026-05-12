@@ -14,6 +14,7 @@ const slides = [
 
 export default function HeroCarousel() {
   const [current, setCurrent] = useState(0);
+
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const wheelLocked = useRef(false);
 
@@ -26,7 +27,7 @@ export default function HeroCarousel() {
   };
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 12000);
+    const timer = setInterval(nextSlide, 10000);
     return () => clearInterval(timer);
   }, []);
 
@@ -53,7 +54,7 @@ export default function HeroCarousel() {
 
       setTimeout(() => {
         wheelLocked.current = false;
-      }, 800);
+      }, 700);
     };
 
     carousel.addEventListener("wheel", handleWheel, {
@@ -68,77 +69,65 @@ export default function HeroCarousel() {
   const slide = slides[current];
 
   return (
-    <section className="w-full border-b border-black bg-black text-white">
-      <div
-        ref={carouselRef}
+    <section
+      ref={carouselRef}
+      className="
+        relative
+        h-full w-full
+        overflow-hidden
+        cursor-grab 
+      "
+    >
+      {/* IMAGE */}
+      <img
+        key={slide.image}
+        src={slide.image}
+        alt={slide.label}
         className="
-          relative w-full overflow-hidden
-          h-[72svh]
-          min-h-[460px]
-          md:h-[calc(100svh-112px)]
+          absolute inset-0
+          h-full w-full
+          object-cover object-center
         "
-      >
-        {/* FULLSCREEN IMAGE */}
-        <div className="absolute inset-0 bg-black">
-          <img
-            key={slide.image}
-            src={slide.image}
-            alt={slide.label}
+      />
+
+      {/* OVERLAY */}
+      <div className="absolute inset-0 bg-black/20" />
+
+      {/* CONTENT */}
+      <div className="absolute bottom-5 left-4 right-4 z-20 flex items-end justify-between md:bottom-7 md:left-7 md:right-7">
+        <div>
+          <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70 md:text-[10px]">
+            {String(current + 1).padStart(2, "0")} /{" "}
+            {String(slides.length).padStart(2, "0")}
+          </p>
+
+          <h1
             className="
-              h-full w-full
-              object-cover object-center
-              scale-[1.02]
-              transition-transform duration-[12000ms]
+              mt-2
+              text-2xl font-medium uppercase tracking-[-0.06em]
+              sm:text-4xl
+              md:text-6xl
             "
-          />
+          >
+            {slide.label}
+          </h1>
         </div>
 
-        {/* OVERLAY */}
-        <div className="pointer-events-none absolute inset-0 bg-black/10" />
+        {/* CONTROLS */}
+        <div className="flex items-center gap-4 md:gap-5">
+          <button
+            onClick={prevSlide}
+            className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70 transition hover:text-white md:text-[10px]"
+          >
+            Prev
+          </button>
 
-        {/* CONTENT */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 flex items-end justify-between gap-4 p-4 md:p-6">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-white/70">
-              {String(current + 1).padStart(2, "0")} /{" "}
-              {String(slides.length).padStart(2, "0")}
-            </p>
-
-            <h1 className="mt-1 text-xl font-medium uppercase tracking-[-0.04em] md:text-3xl">
-              {slide.label}
-            </h1>
-          </div>
-
-          {/* CONTROLS */}
-          <div className="flex items-center gap-5">
-            <button
-              onClick={prevSlide}
-              className="
-                text-[10px]
-                uppercase
-                tracking-[0.25em]
-                text-white/70
-                transition
-                hover:text-white
-              "
-            >
-              Prev
-            </button>
-
-            <button
-              onClick={nextSlide}
-              className="
-                text-[10px]
-                uppercase
-                tracking-[0.25em]
-                text-white/70
-                transition
-                hover:text-white
-              "
-            >
-              Next
-            </button>
-          </div>
+          <button
+            onClick={nextSlide}
+            className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70 transition hover:text-white md:text-[10px]"
+          >
+            Next
+          </button>
         </div>
       </div>
     </section>
