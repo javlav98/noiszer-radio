@@ -1,8 +1,8 @@
 import "./globals.css";
 import TopBar from "../components/topbar";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 
-const inter = Inter({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white text-black`}>
+      <body className={`${mono.className} bg-white text-black`}>
         <TopBar />
         <main className="pt-28 md:pt-16">{children}</main>
       </body>
