@@ -1,88 +1,49 @@
-"use client";
-
 import Link from "next/link";
+
+const supportRows = [
+  ["Donate", "Cover streaming, design, events, and station upkeep.", "Donate with Stripe", "/donate"],
+  ["Volunteer", "Help with shows, visuals, writing, programming, or production.", "Email Noiszer", "mailto:hello@noiszer.com"],
+  ["Submit", "Send mixes, show ideas, flyers, or archive material.", "Pitch a Show", "mailto:hello@noiszer.com"],
+];
 
 export default function SupportPage() {
   return (
-    <main className="min-h-screen bg-black text-white px-6 md:px-12 pt-32 pb-28">
-      <div className="max-w-5xl mx-auto">
-        {/* HEADER */}
-        <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/40 mb-4">
-            Support
-          </p>
+    <main className="min-h-screen bg-[#f3f1ea] text-black">
+      <section className="border-b-2 border-black p-4 sm:p-6 lg:p-8">
+        <p className="text-[10px] uppercase text-black/55">Support the Signal</p>
+        <h1 className="mt-4 max-w-6xl text-[clamp(3rem,9vw,6.5rem)] font-semibold uppercase leading-[0.9]">
+          Keep Noiszer independent.
+        </h1>
+      </section>
 
-          <h1 className="text-3xl md:text-5xl tracking-tight mb-5">
-            Help Keep Noiszer Alive
-          </h1>
+      <section className="bg-white">
+        {supportRows.map(([label, text, action, href], index) => (
+          <article
+            key={label}
+            className="grid border-b-2 border-black md:grid-cols-[5rem_1fr_16rem]"
+          >
+            <div className="flex items-center justify-center border-b-2 border-black bg-black p-4 text-xs text-white md:border-b-0 md:border-r-2">
+              0{index + 1}
+            </div>
 
-          <p className="max-w-2xl mx-auto text-sm md:text-base leading-7 text-white/60">
-            Noiszer is an independent internet radio station built around sound,
-            discovery, and a passion for noise. Support from listeners helps keep
-            the station growing, broadcasting, and evolving.
-          </p>
-        </div>
+            <div className="border-b-2 border-black p-4 sm:p-6 md:border-b-0 md:border-r-2">
+              <p className="text-[10px] uppercase text-black/45">{label}</p>
+              <h2 className="mt-5 max-w-3xl text-3xl font-semibold uppercase leading-tight">
+                {text}
+              </h2>
+            </div>
 
-        {/* SUPPORT + VOLUNTEER GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* DONATE */}
-          <section className="border border-white/15 rounded-2xl p-8 bg-white/[0.02]">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
-              Donate
-            </p>
-
-            <h2 className="text-2xl md:text-3xl tracking-tight mb-4">
-              Support the station
-            </h2>
-
-            <p className="text-white/65 leading-7 text-sm md:text-base mb-8">
-              Contributions help cover the cost of streaming, site upkeep,
-              creative development, and future growth. If Noiszer means something
-              to you, supporting it helps keep the signal going.
-            </p>
-
-            <Link
-              href="/donate"
-              className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-sm uppercase tracking-[0.18em] text-white hover:bg-white hover:text-black transition duration-200"
-            >
-              Donate with Stripe
-            </Link>
-          </section>
-
-          {/* VOLUNTEER */}
-          <section className="border border-white/15 rounded-2xl p-8 bg-white/[0.02]">
-            <p className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
-              Volunteer
-            </p>
-
-            <h2 className="text-2xl md:text-3xl tracking-tight mb-4">
-              Get involved
-            </h2>
-
-            <p className="text-white/65 leading-7 text-sm md:text-base mb-8">
-              Interested in contributing to Noiszer? We’re open to people who want
-              to help shape the station through programming, visuals, writing,
-              design, technical support, or creative ideas. If you want to be part
-              of what this becomes, reach out.
-            </p>
-
-            <a
-              href="mailto:hello@noiszer.com"
-              className="inline-flex items-center justify-center rounded-full border border-white px-6 py-3 text-sm uppercase tracking-[0.18em] text-white hover:bg-white hover:text-black transition duration-200"
-            >
-              Volunteer with Noiszer
-            </a>
-          </section>
-        </div>
-
-        {/* LOWER SECTION */}
-        <div className="mt-16 border-t border-white/10 pt-10 text-center">
-          <p className="max-w-2xl mx-auto text-white/50 text-sm leading-7">
-            Every contribution—whether financial or creative—helps build a more
-            independent and lasting space for music, discovery, and community.
-          </p>
-        </div>
-      </div>
+            <div className="flex items-center p-4 sm:p-6">
+              <Link
+                href={href}
+                className="inline-flex h-11 w-full items-center justify-center border-2 border-black bg-white px-4 text-center text-[10px] font-semibold uppercase transition hover:bg-black hover:text-white"
+              >
+                {action}
+              </Link>
+            </div>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }

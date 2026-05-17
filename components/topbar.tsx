@@ -2,55 +2,68 @@
 
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { Menu, Pause, Play, X } from "lucide-react";
 
-const navLinks = ["Shows", "Schedule", "Archive", "About"];
+const navLinks = [
+  { label: "Shows", href: "/#shows" },
+  { label: "Schedule", href: "/schedule" },
+  { label: "Archive", href: "/#archive" },
+  { label: "About", href: "/about" },
+  { label: "Support", href: "/support" },
+];
 
 function PlayIcon({ playing }: { playing: boolean }) {
   return playing ? (
-    <svg width="12" height="12" viewBox="0 0 10 10" fill="currentColor">
-      <rect x="1" y="1" width="3" height="8" />
-      <rect x="6" y="1" width="3" height="8" />
-    </svg>
+    <Pause size={14} strokeWidth={2.5} />
   ) : (
-    <svg width="12" height="12" viewBox="0 0 10 10" fill="currentColor">
-      <path d="M2 1.5L9 5 2 8.5Z" />
-    </svg>
+    <Play size={14} strokeWidth={2.5} />
   );
 }
 
 export default function TopBar() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const toggleAudio = () => {
-    if (!audioRef.current) return;
+  const toggleAudio = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    isPlaying ? audioRef.current.pause() : audioRef.current.play();
-
-    setIsPlaying(!isPlaying);
+    try {
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
+    } catch {
+      setIsPlaying(false);
+    }
   };
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/test.mp3" preload="none" />
+      <audio
+        ref={audioRef}
+        src="/audio/test.mp3"
+        preload="none"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => setIsPlaying(false)}
+      />
 
-      <header className="fixed left-0 top-0 z-50 w-full border-b border-black bg-white text-black">
-        
+      <header className="fixed left-0 top-0 z-50 w-full border-b border-black bg-[#f3f1ea] text-black">
         {/* DESKTOP */}
-        <div className="hidden h-16 items-center md:flex">
-          
+        <div className="hidden h-12 items-center md:flex">
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center border-r border-black px-6"
+            className="flex h-full items-center overflow-visible border-r border-black bg-white px-5 transition hover:bg-black hover:invert"
             aria-label="Noiszer Home"
           >
             <img
               src="/images/logo5.png"
               alt="Noiszer"
-              className="h-24 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </Link>
 
@@ -58,39 +71,40 @@ export default function TopBar() {
           <nav className="flex h-full flex-1">
             {navLinks.map((link) => (
               <Link
-                key={link}
-                href="#"
-                className="flex h-full items-center border-r border-black px-5 font-mono text-[9px] uppercase tracking-[0.16em] transition hover:bg-black hover:text-white"
+                key={link.label}
+                href={link.href}
+                className="flex h-full items-center border-r border-black px-4 font-mono text-[9px] uppercase transition hover:bg-black hover:text-white"
               >
-                {link}
+                {link.label}
               </Link>
             ))}
           </nav>
 
           {/* LIVE */}
-          <div className="flex h-full items-center border-l border-black px-4">
-            <div className="mr-2 h-2 w-2 animate-pulse rounded-full bg-black" />
+          <div className="flex h-full items-center border-l border-black bg-black px-3 text-white">
+            <div className="mr-2 h-2 w-2 animate-pulse bg-white" />
 
-            <span className="font-mono text-[9px] uppercase tracking-[0.16em]">
+            <span className="font-mono text-[9px] uppercase">
               On Air
             </span>
           </div>
 
           {/* NOW PLAYING */}
-          <div className="flex h-full min-w-[210px] flex-col justify-center border-l border-black px-4">
-            <span className="font-mono text-[7px] uppercase tracking-[0.16em] text-black/50">
+          <div className="flex h-full min-w-[230px] flex-col justify-center border-l border-black bg-white px-3">
+            <span className="font-mono text-[7px] uppercase text-black/50">
               Now Playing
             </span>
 
-            <span className="truncate text-[11px] font-medium">
-              Velvet Haus — spud bud
+            <span className="truncate text-[11px] font-semibold uppercase">
+              Velvet Haus - spud bud
             </span>
           </div>
 
           {/* PLAY BUTTON */}
           <button
+            type="button"
             onClick={toggleAudio}
-            className="flex h-full w-16 items-center justify-center bg-black text-white transition hover:bg-neutral-800"
+            className="flex h-full w-12 items-center justify-center border-l border-black bg-white text-black transition hover:bg-black hover:text-white"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
@@ -98,69 +112,55 @@ export default function TopBar() {
         </div>
 
         {/* MOBILE */}
-        <div className="flex h-13 items-center md:hidden">
-          
+        <div className="flex h-10 items-center md:hidden">
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center border-r border-black px-4"
+            className="flex h-full items-center overflow-visible border-r border-black bg-white px-3"
             aria-label="Noiszer Home"
           >
             <img
               src="/images/logo5.png"
               alt="Noiszer"
-              className="h-20 w-auto object-contain"
+              className="h-12 w-auto object-contain"
             />
           </Link>
 
           {/* LIVE */}
-          <div className="flex flex-1 items-center justify-end gap-2 px-3">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-black" />
+          <div className="flex flex-1 items-center justify-end gap-2 bg-black px-3 text-white">
+            <div className="h-2 w-2 animate-pulse bg-white" />
 
-            <span className="font-mono text-[9px] uppercase tracking-[0.16em]">
+            <span className="font-mono text-[9px] uppercase">
               On Air
             </span>
           </div>
 
           {/* MENU */}
           <button
-            onClick={() => setOpen(!open)}
-            className="flex h-full w-13 flex-col items-center justify-center gap-1 border-l border-black"
-            aria-label="Menu"
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            className="flex h-full w-10 items-center justify-center border-l border-black bg-white transition hover:bg-black hover:text-white"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
-            <span
-              className={`h-px w-4 bg-black transition ${
-                open ? "translate-y-1.5 rotate-45" : ""
-              }`}
-            />
-
-            <span
-              className={`h-px w-4 bg-black transition ${
-                open ? "opacity-0" : ""
-              }`}
-            />
-
-            <span
-              className={`h-px w-4 bg-black transition ${
-                open ? "-translate-y-1.5 -rotate-45" : ""
-              }`}
-            />
+            {open ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
 
         {/* MOBILE PLAYER */}
-        <div className="flex h-9 border-t border-black md:hidden">
+        <div className="flex h-8 border-t border-black md:hidden">
           <button
+            type="button"
             onClick={toggleAudio}
-            className="flex h-full w-11 items-center justify-center bg-black text-white"
+            className="flex h-full w-10 items-center justify-center border-r border-black bg-white text-black"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
           </button>
 
-          <div className="flex min-w-0 flex-1 items-center px-3">
-            <span className="truncate text-[11px] font-medium">
-              Velvet Haus — spud bud
+          <div className="flex min-w-0 flex-1 items-center bg-white px-3">
+            <span className="truncate text-[11px] font-semibold uppercase">
+              Velvet Haus - spud bud
             </span>
           </div>
         </div>
@@ -173,12 +173,12 @@ export default function TopBar() {
         >
           {navLinks.map((link) => (
             <Link
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
               onClick={() => setOpen(false)}
-              className="flex h-10 items-center border-b border-black px-4 font-mono text-[9px] uppercase tracking-[0.16em] transition last:border-b-0 hover:bg-black hover:text-white"
+              className="flex h-10 items-center border-b border-black bg-[#f3f1ea] px-4 text-[9px] uppercase transition last:border-b-0 hover:bg-black hover:text-white"
             >
-              {link}
+              {link.label}
             </Link>
           ))}
         </div>

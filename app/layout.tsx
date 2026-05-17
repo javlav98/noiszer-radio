@@ -1,11 +1,12 @@
 import "./globals.css";
 import TopBar from "../components/topbar";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata } from "next";
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+export const metadata: Metadata = {
+  title: "Noiszer Radio",
+  description:
+    "Independent web radio for underground shows, visual experiments, and leftfield sound.",
+};
 
 export default function RootLayout({
   children,
@@ -14,9 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${mono.className} bg-white text-black`}>
+      <body className="bg-[#f3f1ea] font-mono text-black">
         <TopBar />
-        <main className="pt-28 md:pt-16">{children}</main>
+        <div className="pt-[72px] md:pt-12">{children}</div>
       </body>
     </html>
   );

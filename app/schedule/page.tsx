@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const schedule = {
   Monday: [
-    { time: "7:00 PM", title: "Velvet Haus", host: "spud bud", genre: "House / Leftfield" },
+    { time: "7:00 PM", title: "Velvet Haus", host: "spud bud", genre: "House / Minimal / Leftfield" },
     { time: "9:00 PM", title: "Static Youth", host: "Javier", genre: "Post-punk / Indie" },
   ],
   Tuesday: [
@@ -12,7 +12,7 @@ const schedule = {
   ],
   Wednesday: [
     { time: "7:00 PM", title: "Concrete Echo", host: "Luis", genre: "New Wave / Alternative" },
-    { time: "10:00 PM", title: "After Hours", host: "Mara", genre: "Deep House / Downtempo" },
+    { time: "10:00 PM", title: "After Hours", host: "Mara", genre: "Rap / Trap / Downtempo" },
   ],
   Thursday: [
     { time: "8:00 PM", title: "Transmission", host: "Noiszer", genre: "Mixed Selections" },
@@ -26,7 +26,7 @@ const schedule = {
     { time: "8:00 PM", title: "Dead Frequency", host: "Ash", genre: "Hardcore / Punk" },
   ],
   Sunday: [
-    { time: "7:00 PM", title: "Slow Fade", host: "Noiszer", genre: "Ambient / Soul / Wind-down" },
+    { time: "7:00 PM", title: "Sunday Fade", host: "Noiszer", genre: "Oldies / Soul / Wind-down" },
   ],
 };
 
@@ -34,71 +34,66 @@ const days = Object.keys(schedule);
 
 export default function SchedulePage() {
   const [selectedDay, setSelectedDay] = useState("Monday");
+  const selectedShows = schedule[selectedDay as keyof typeof schedule];
 
   return (
-    <main className="min-h-screen bg-black text-white px-6 md:px-12 pt-32 pb-28">
-      <div className="max-w-5xl mx-auto">
-        
-        {/* HEADER */}
-        <div className="mb-14 text-center">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/40 mb-4">
+    <main className="min-h-screen bg-[#f3f1ea] text-black">
+      <section className="grid border-b-2 border-black lg:grid-cols-[minmax(18rem,28rem)_minmax(0,1fr)]">
+        <div className="border-b-2 border-black p-4 sm:p-6 lg:border-b-0 lg:border-r-2 lg:p-8">
+          <p className="text-[10px] uppercase text-black/55">Weekly Grid</p>
+          <h1 className="mt-3 text-[clamp(3rem,7vw,5.25rem)] font-semibold uppercase leading-none">
             Schedule
-          </p>
-          <h1 className="text-3xl md:text-5xl tracking-tight mb-4">
-            Weekly Broadcasts
           </h1>
-          <p className="text-white/60 max-w-2xl mx-auto text-sm md:text-base leading-7">
-            A rotating lineup of shows, sounds, and selections across the week.
-            Choose a day and tune into what’s on.
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-black/65">
+            Rotating broadcasts across the week. Times are placeholders for the
+            station grid and can be swapped as the lineup becomes real.
           </p>
         </div>
 
-        {/* DAY SELECTOR */}
-        <div className="flex flex-wrap justify-center gap-3 mb-14">
+        <div className="grid bg-white sm:grid-cols-2 lg:grid-cols-7">
           {days.map((day) => (
             <button
               key={day}
+              type="button"
               onClick={() => setSelectedDay(day)}
-              className={`px-5 py-2 text-sm tracking-wide border rounded-full transition duration-200 ${
+              className={`h-16 border-b-2 border-black px-3 text-left text-[10px] font-semibold uppercase transition sm:border-r-2 lg:border-b-0 ${
                 selectedDay === day
-                  ? "bg-white text-black border-white"
-                  : "border-white/30 text-white hover:bg-white hover:text-black hover:border-black/10"
+                  ? "bg-black text-white"
+                  : "bg-white text-black hover:bg-black hover:text-white"
               }`}
             >
               {day}
             </button>
           ))}
         </div>
+      </section>
 
-        {/* SCHEDULE LIST */}
-        <div className="border-t border-white/20">
-          {schedule[selectedDay as keyof typeof schedule].map((show, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-1 md:grid-cols-[140px_1fr_180px] gap-4 md:gap-8 py-6 border-b border-white/10"
-            >
-              {/* TIME */}
-              <div className="text-sm text-white/50 tracking-wide">
-                {show.time}
-              </div>
-
-              {/* TITLE + GENRE */}
-              <div>
-                <h2 className="text-lg md:text-xl text-white mb-1">
-                  {show.title}
-                </h2>
-                <p className="text-sm text-white/50">{show.genre}</p>
-              </div>
-
-              {/* HOST */}
-              <div className="text-sm text-white/70 md:text-right">
-                Hosted by {show.host}
-              </div>
+      <section className="bg-white">
+        {selectedShows.map((show, index) => (
+          <article
+            key={`${show.time}-${show.title}`}
+            className="grid border-b-2 border-black md:grid-cols-[10rem_1fr_16rem]"
+          >
+            <div className="border-b-2 border-black bg-black p-4 text-white md:border-b-0 md:border-r-2">
+              <p className="text-[10px] uppercase text-white/50">Slot 0{index + 1}</p>
+              <p className="mt-6 text-2xl font-semibold uppercase">{show.time}</p>
             </div>
-          ))}
-        </div>
 
-      </div>
+            <div className="border-b-2 border-black p-4 sm:p-6 md:border-b-0 md:border-r-2">
+              <h2 className="text-4xl font-semibold uppercase leading-none">
+                {show.title}
+              </h2>
+              <p className="mt-3 text-xs font-semibold uppercase text-black/55">
+                {show.genre}
+              </p>
+            </div>
+
+            <div className="flex items-end p-4 sm:p-6">
+              <p className="text-sm uppercase text-black/65">Hosted by {show.host}</p>
+            </div>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }
