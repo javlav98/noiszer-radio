@@ -1,24 +1,63 @@
 @import "tailwindcss";
 
+:root {
+  --paper: #f7f7f4;
+  --paper-muted: #eeeeea;
+  --ink: #050505;
+  --rule: #050505;
+  --acid: #e7ff00;
+  --muted: rgba(5, 5, 5, 0.68);
+}
+
 html,
 body {
   overflow-x: hidden;
-  background: #f3f1ea;
-  color: #0b0b0b;
+  background: var(--paper);
+  color: var(--ink);
 }
 
 body {
   min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: #0b0b0b;
-  color: #f3f1ea;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+a,
+button {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: 0;
+  font-family: Arial Black, Arial, Helvetica, sans-serif;
+}
+
+.ticker-track {
+  animation: ticker-scroll 24s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .brutal-grid {
   background-image:
-    linear-gradient(to right, rgba(11, 11, 11, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(11, 11, 11, 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgba(17, 17, 17, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 17, 17, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }

@@ -7,12 +7,12 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#f3f1ea] text-black">
+    <main className="min-h-screen bg-[#f7f7f4] text-black">
       <section className="border-b-2 border-black">
         <div className="grid min-h-[62vh] lg:grid-cols-[minmax(0,1fr)_24rem]">
           <div className="flex flex-col justify-end border-b-2 border-black p-4 sm:p-6 lg:border-b-0 lg:border-r-2 lg:p-8">
-            <p className="text-[10px] uppercase text-black/55">About Noiszer</p>
-            <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7vw,5.25rem)] font-semibold uppercase leading-[0.9]">
+            <p className="text-[10px] font-black uppercase text-black/55">About Noiszer</p>
+            <h1 className="mt-4 max-w-5xl text-[clamp(3rem,7vw,5.25rem)] font-black uppercase leading-[0.86]">
               Built independently. Shaped by sound.
             </h1>
           </div>
@@ -24,7 +24,7 @@ export default function AboutPage() {
               move. It borrows the urgency of pirate radio and the clarity of a
               printed program sheet.
             </p>
-            <p className="mt-8 border-t-2 border-black pt-4 text-[10px] uppercase text-black/55">
+            <p className="mt-8 border-t-2 border-black pt-4 text-[10px] font-black uppercase text-black/55">
               HNL / Web / Archive / Live
             </p>
           </div>
@@ -37,8 +37,8 @@ export default function AboutPage() {
             key={label}
             className="border-b-2 border-black p-4 last:border-b-0 sm:p-6 md:border-r-2 md:[&:nth-child(even)]:border-r-0 md:[&:nth-last-child(-n+2)]:border-b-0"
           >
-            <p className="text-[10px] uppercase text-black/45">{label}</p>
-            <p className="mt-8 max-w-xl text-2xl font-semibold uppercase leading-tight">
+            <p className="text-[10px] font-black uppercase text-black/45">{label}</p>
+            <p className="mt-8 max-w-xl text-2xl font-black uppercase leading-tight">
               {text}
             </p>
           </article>

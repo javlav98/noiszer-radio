@@ -5,9 +5,9 @@ import { useRef, useState } from "react";
 import { Menu, Pause, Play, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Shows", href: "/#shows" },
+  { label: "Shows", href: "/shows" },
   { label: "Schedule", href: "/schedule" },
-  { label: "Archive", href: "/#archive" },
+  { label: "Archive", href: "/archive" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
 ];
@@ -51,19 +51,38 @@ export default function TopBar() {
         onEnded={() => setIsPlaying(false)}
       />
 
-      <header className="fixed left-0 top-0 z-50 w-full border-b border-black bg-[#f3f1ea] text-black">
+      <header className="fixed left-0 top-0 z-50 w-full border-b-2 border-black bg-[#f7f7f4] text-black">
+        <div className="h-8 overflow-hidden border-b-2 border-black bg-black text-white">
+          <div className="ticker-track flex h-full w-max items-center gap-7 whitespace-nowrap px-4 text-[11px] font-black uppercase">
+            {Array.from({ length: 2 }).map((_, repeat) => (
+              <span key={repeat} className="flex items-center gap-7">
+                <span>On Air</span>
+                <span>•</span>
+                <span>Vote Now</span>
+                <span>•</span>
+                <span>Velvet Haus or Dead Frequency?</span>
+                <span>•</span>
+                <span>Noiszer Radio</span>
+                <span>•</span>
+                <span>Sunday Fade or After Hours?</span>
+                <span>•</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* DESKTOP */}
         <div className="hidden h-12 items-center md:flex">
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center overflow-visible border-r border-black bg-white px-5 transition hover:bg-black hover:invert"
+            className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-5 transition hover:bg-black hover:invert"
             aria-label="Noiszer Home"
           >
             <img
               src="/images/logo5.png"
               alt="Noiszer"
-              className="h-14 w-auto object-contain"
+              className="h-24 w-auto object-contain"
             />
           </Link>
 
@@ -73,7 +92,7 @@ export default function TopBar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="flex h-full items-center border-r border-black px-4 font-mono text-[9px] uppercase transition hover:bg-black hover:text-white"
+                className="flex h-full items-center border-r-2 border-black px-5 text-[10px] font-black uppercase transition hover:bg-black hover:text-white"
               >
                 {link.label}
               </Link>
@@ -81,21 +100,21 @@ export default function TopBar() {
           </nav>
 
           {/* LIVE */}
-          <div className="flex h-full items-center border-l border-black bg-black px-3 text-white">
-            <div className="mr-2 h-2 w-2 animate-pulse bg-white" />
+          <div className="flex h-full items-center border-l-2 border-black bg-white px-3 text-black">
+            <div className="mr-2 h-2 w-2 animate-pulse bg-[#e7ff00] ring-2 ring-black" />
 
-            <span className="font-mono text-[9px] uppercase">
+            <span className="text-[9px] font-black uppercase">
               On Air
             </span>
           </div>
 
           {/* NOW PLAYING */}
-          <div className="flex h-full min-w-[230px] flex-col justify-center border-l border-black bg-white px-3">
-            <span className="font-mono text-[7px] uppercase text-black/50">
+          <div className="flex h-full min-w-[230px] flex-col justify-center border-l-2 border-black bg-white px-3">
+            <span className="text-[7px] font-black uppercase text-black/50">
               Now Playing
             </span>
 
-            <span className="truncate text-[11px] font-semibold uppercase">
+            <span className="truncate text-[11px] font-black uppercase">
               Velvet Haus - spud bud
             </span>
           </div>
@@ -104,7 +123,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={toggleAudio}
-            className="flex h-full w-12 items-center justify-center border-l border-black bg-white text-black transition hover:bg-black hover:text-white"
+            className="flex h-full w-12 items-center justify-center border-l-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
@@ -116,21 +135,21 @@ export default function TopBar() {
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center overflow-visible border-r border-black bg-white px-3"
+            className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-3"
             aria-label="Noiszer Home"
           >
             <img
               src="/images/logo5.png"
               alt="Noiszer"
-              className="h-12 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </Link>
 
           {/* LIVE */}
-          <div className="flex flex-1 items-center justify-end gap-2 bg-black px-3 text-white">
-            <div className="h-2 w-2 animate-pulse bg-white" />
+          <div className="flex flex-1 items-center justify-end gap-2 bg-white px-3 text-black">
+            <div className="h-2 w-2 animate-pulse bg-[#e7ff00] ring-2 ring-black" />
 
-            <span className="font-mono text-[9px] uppercase">
+            <span className="text-[9px] font-black uppercase">
               On Air
             </span>
           </div>
@@ -139,7 +158,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-full w-10 items-center justify-center border-l border-black bg-white transition hover:bg-black hover:text-white"
+            className="flex h-full w-10 items-center justify-center border-l-2 border-black bg-white transition hover:bg-black hover:text-white"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -148,18 +167,18 @@ export default function TopBar() {
         </div>
 
         {/* MOBILE PLAYER */}
-        <div className="flex h-8 border-t border-black md:hidden">
+        <div className="flex h-8 border-t-2 border-black md:hidden">
           <button
             type="button"
             onClick={toggleAudio}
-            className="flex h-full w-10 items-center justify-center border-r border-black bg-white text-black"
+            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
           </button>
 
           <div className="flex min-w-0 flex-1 items-center bg-white px-3">
-            <span className="truncate text-[11px] font-semibold uppercase">
+            <span className="truncate text-[11px] font-black uppercase">
               Velvet Haus - spud bud
             </span>
           </div>
@@ -167,7 +186,7 @@ export default function TopBar() {
 
         {/* MOBILE MENU */}
         <div
-          className={`overflow-hidden border-t border-black transition-all duration-300 md:hidden ${
+          className={`overflow-hidden border-t-2 border-black transition-all duration-300 md:hidden ${
             open ? "max-h-56" : "max-h-0 border-t-0"
           }`}
         >
@@ -176,7 +195,7 @@ export default function TopBar() {
               key={link.label}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="flex h-10 items-center border-b border-black bg-[#f3f1ea] px-4 text-[9px] uppercase transition last:border-b-0 hover:bg-black hover:text-white"
+              className="flex h-10 items-center border-b-2 border-black bg-[#f7f7f4] px-4 text-[9px] font-black uppercase transition last:border-b-0 hover:bg-black hover:text-white"
             >
               {link.label}
             </Link>

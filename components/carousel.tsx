@@ -143,25 +143,17 @@ export default function HeroCarousel() {
       onTouchEnd={handleTouchEnd}
       className="
         grid
-        h-[calc(100svh-72px)]
+        h-[calc(100svh-104px)]
         w-full
-        grid-rows-[auto_minmax(0,1fr)_auto_auto_auto]
+        grid-rows-[minmax(0,1fr)]
         overflow-hidden
         border-b-2 border-black
-        bg-[#f3f1ea]
+        bg-[#f7f7f4]
         text-black
-        md:h-[calc(100svh-48px)]
+        md:h-[calc(100svh-80px)]
+        md:grid-rows-[minmax(0,1fr)]
       "
     >
-      <div className="grid grid-cols-[1fr_auto] border-b-2 border-black bg-white text-[10px] uppercase">
-        <div className="border-r-2 border-black px-4 py-2 sm:px-6">
-          Noiszer Archive
-        </div>
-        <div className="px-4 py-2 sm:px-6">
-          {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
-        </div>
-      </div>
-
       <figure className="relative min-h-0 overflow-hidden border-b-2 border-black bg-white">
         {slides.map((item, index) => (
           <img
@@ -178,96 +170,48 @@ export default function HeroCarousel() {
             `}
           />
         ))}
-      </figure>
 
-      <div className="bg-[#f3f1ea]">
-        <div className="mx-auto max-w-[1500px] px-4 py-2 sm:px-6 lg:px-8">
-          <p className="inline-flex border border-black bg-white px-2 py-0.5 text-[9px] uppercase">
-            Featured Show
-          </p>
-
-          <div className="mt-1.5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_22rem]">
-            <div>
-              <h1 className="text-[clamp(2.2rem,7vw,5.25rem)] font-semibold uppercase leading-none">
-                {slide.label}
-              </h1>
-            </div>
-
-            <p className="max-w-xl text-xs leading-snug text-black/70 lg:pt-1">
-              {slide.description}
-            </p>
-          </div>
-        </div>
-
-        <div className="mx-auto grid max-w-[1500px] border-t-2 border-black bg-white sm:grid-cols-3">
-          <div className="border-b-2 border-black p-2.5 sm:border-b-0 sm:border-r-2">
-            <p className="text-[9px] uppercase text-black/45">Host</p>
-            <p className="mt-0.5 text-xs font-semibold uppercase">{slide.dj}</p>
-          </div>
-
-          <div className="border-b-2 border-black p-2.5 sm:border-b-0 sm:border-r-2">
-            <p className="text-[9px] uppercase text-black/45">Sound</p>
-            <p className="mt-0.5 text-xs uppercase">{slide.genres}</p>
-          </div>
-
-          <div className="p-2.5">
-            <p className="text-[9px] uppercase text-black/45">Status</p>
-            <p className="mt-0.5 text-xs uppercase">Live / Archive ready</p>
-          </div>
-        </div>
-
-        <div className="mx-auto grid max-w-[1500px] grid-cols-[1fr_auto_1fr] border-t-2 border-black bg-[#f3f1ea]">
+        <div className="absolute bottom-4 right-4 z-10 grid grid-cols-2 border-2 border-black bg-white/90 sm:bottom-5 sm:right-5">
           <button
             type="button"
             onClick={prevSlide}
-            className="flex h-8 items-center px-4 text-left text-[10px] uppercase transition hover:bg-black hover:text-white sm:px-6"
+            className="flex h-10 w-10 items-center justify-center border-r-2 border-black text-black transition hover:bg-black hover:text-white sm:h-12 sm:w-12"
+            aria-label="Previous show"
           >
-            <ArrowLeft className="mr-2" size={14} />
-            Prev
+            <ArrowLeft size={18} />
           </button>
-
-          <div className="hidden border-x-2 border-black sm:grid sm:grid-cols-7">
-            {slides.map((item, index) => (
-              <button
-                key={item.image}
-                type="button"
-                onClick={() => setCurrent(index)}
-                  className={`h-8 min-w-16 border-r border-black px-3 text-[10px] uppercase last:border-r-0 ${
-                  index === current ? "bg-black text-white" : "bg-white"
-                }`}
-                aria-label={`Go to ${item.label}`}
-              >
-                {String(index + 1).padStart(2, "0")}
-              </button>
-            ))}
-          </div>
 
           <button
             type="button"
             onClick={nextSlide}
-            className="flex h-8 items-center justify-end px-4 text-right text-[10px] uppercase transition hover:bg-black hover:text-white sm:px-6"
+            className="flex h-10 w-10 items-center justify-center text-black transition hover:bg-black hover:text-white sm:h-12 sm:w-12"
+            aria-label="Next show"
           >
-            Next
-            <ArrowRight className="ml-2" size={14} />
+            <ArrowRight size={18} />
           </button>
-
-          <div className="col-span-3 grid grid-cols-7 border-t-2 border-black sm:hidden">
-            {slides.map((item, index) => (
-              <button
-                key={item.image}
-                type="button"
-                onClick={() => setCurrent(index)}
-                className={`h-7 border-r border-black text-[10px] uppercase last:border-r-0 ${
-                  index === current ? "bg-black text-white" : "bg-white"
-                }`}
-                aria-label={`Go to ${item.label}`}
-              >
-                {String(index + 1).padStart(2, "0")}
-              </button>
-            ))}
-          </div>
         </div>
-      </div>
+
+        <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/72 via-black/20 to-transparent p-4 pr-28 text-white sm:p-6 sm:pr-36 lg:p-8">
+          <div className="max-w-4xl [text-shadow:0_2px_18px_rgba(0,0,0,.65)]">
+            <h1 className="max-w-4xl break-words text-[clamp(1.9rem,5vw,4.75rem)] font-black uppercase leading-[0.86]">
+              {slide.label}
+            </h1>
+            <div className="mt-3 grid max-w-3xl gap-2 sm:mt-4 lg:grid-cols-[14rem_1fr] lg:items-start">
+              <div>
+                <p className="text-xs font-black uppercase text-[#e7ff00]">
+                  {slide.dj}
+                </p>
+                <p className="mt-1 text-[10px] font-black uppercase text-white/80">
+                  {slide.genres}
+                </p>
+              </div>
+              <p className="max-w-xl text-sm leading-snug text-white/86">
+                {slide.description}
+              </p>
+            </div>
+          </div>
+        </figcaption>
+      </figure>
     </section>
   );
 }

@@ -37,11 +37,11 @@ export default function SchedulePage() {
   const selectedShows = schedule[selectedDay as keyof typeof schedule];
 
   return (
-    <main className="min-h-screen bg-[#f3f1ea] text-black">
+    <main className="min-h-screen bg-[#f7f7f4] text-black">
       <section className="grid border-b-2 border-black lg:grid-cols-[minmax(18rem,28rem)_minmax(0,1fr)]">
         <div className="border-b-2 border-black p-4 sm:p-6 lg:border-b-0 lg:border-r-2 lg:p-8">
-          <p className="text-[10px] uppercase text-black/55">Weekly Grid</p>
-          <h1 className="mt-3 text-[clamp(3rem,7vw,5.25rem)] font-semibold uppercase leading-none">
+          <p className="text-[10px] font-black uppercase text-black/55">Weekly Grid</p>
+          <h1 className="mt-3 text-[clamp(3rem,7vw,5.25rem)] font-black uppercase leading-[0.86]">
             Schedule
           </h1>
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-black/65">
@@ -56,10 +56,10 @@ export default function SchedulePage() {
               key={day}
               type="button"
               onClick={() => setSelectedDay(day)}
-              className={`h-16 border-b-2 border-black px-3 text-left text-[10px] font-semibold uppercase transition sm:border-r-2 lg:border-b-0 ${
+              className={`h-16 border-b-2 border-black px-3 text-left text-[10px] font-black uppercase transition sm:border-r-2 lg:border-b-0 ${
                 selectedDay === day
-                  ? "bg-black text-white"
-                  : "bg-white text-black hover:bg-black hover:text-white"
+                  ? "bg-black text-[#e7ff00]"
+                  : "bg-white text-black hover:bg-black hover:text-[#e7ff00]"
               }`}
             >
               {day}
@@ -75,15 +75,15 @@ export default function SchedulePage() {
             className="grid border-b-2 border-black md:grid-cols-[10rem_1fr_16rem]"
           >
             <div className="border-b-2 border-black bg-black p-4 text-white md:border-b-0 md:border-r-2">
-              <p className="text-[10px] uppercase text-white/50">Slot 0{index + 1}</p>
-              <p className="mt-6 text-2xl font-semibold uppercase">{show.time}</p>
+              <p className="text-[10px] font-black uppercase text-white/50">Slot 0{index + 1}</p>
+              <p className="mt-6 text-2xl font-black uppercase text-[#e7ff00]">{show.time}</p>
             </div>
 
             <div className="border-b-2 border-black p-4 sm:p-6 md:border-b-0 md:border-r-2">
-              <h2 className="text-4xl font-semibold uppercase leading-none">
+              <h2 className="text-4xl font-black uppercase leading-none">
                 {show.title}
               </h2>
-              <p className="mt-3 text-xs font-semibold uppercase text-black/55">
+              <p className="mt-3 text-xs font-black uppercase text-black/55">
                 {show.genre}
               </p>
             </div>

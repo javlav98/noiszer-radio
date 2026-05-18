@@ -1,4 +1,5 @@
 import "./globals.css";
+import Footer from "../components/footer";
 import TopBar from "../components/topbar";
 import type { Metadata } from "next";
 
@@ -15,9 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#f3f1ea] font-mono text-black">
+      <body className="bg-[#f7f7f4] text-[#050505]">
         <TopBar />
-        <div className="pt-[72px] md:pt-12">{children}</div>
+        <div className="pt-[104px] md:pt-20">
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
