@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f7f7f4;
-  --paper-muted: #eeeeea;
+  --paper: #ffffff;
+  --paper-muted: #eeeeee;
   --ink: #050505;
   --rule: #050505;
-  --acid: #e7ff00;
   --muted: rgba(5, 5, 5, 0.68);
 }
 

@@ -36,7 +36,7 @@ export default function Player() {
             </span>
 
             <span className="text-sm text-white/90">
-              Velvet Haus with spud bud
+              Velvet Haus with Spud Bud
             </span>
           </div>
         </div>

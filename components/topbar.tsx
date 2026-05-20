@@ -7,7 +7,6 @@ import { Menu, Pause, Play, X } from "lucide-react";
 const navLinks = [
   { label: "Shows", href: "/shows" },
   { label: "Schedule", href: "/schedule" },
-  { label: "Archive", href: "/archive" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
 ];
@@ -51,20 +50,20 @@ export default function TopBar() {
         onEnded={() => setIsPlaying(false)}
       />
 
-      <header className="fixed left-0 top-0 z-50 w-full border-b-2 border-black bg-[#f7f7f4] text-black">
+      <header className="fixed left-0 top-0 z-50 w-full border-black bg-white text-black lg:border-b-2">
         <div className="h-8 overflow-hidden border-b-2 border-black bg-black text-white">
           <div className="ticker-track flex h-full w-max items-center gap-7 whitespace-nowrap px-4 text-[11px] font-black uppercase">
             {Array.from({ length: 2 }).map((_, repeat) => (
               <span key={repeat} className="flex items-center gap-7">
-                <span>On Air</span>
+                <span>Live Now</span>
                 <span>•</span>
-                <span>Vote Now</span>
+                <span>Velvet Haus with Spud Bud</span>
                 <span>•</span>
-                <span>Velvet Haus or Dead Frequency?</span>
+                <span>Independent web radio</span>
                 <span>•</span>
                 <span>Noiszer Radio</span>
                 <span>•</span>
-                <span>Sunday Fade or After Hours?</span>
+                <span>Shows and live selections</span>
                 <span>•</span>
               </span>
             ))}
@@ -72,11 +71,11 @@ export default function TopBar() {
         </div>
 
         {/* DESKTOP */}
-        <div className="hidden h-12 items-center md:flex">
+        <div className="hidden h-12 items-center lg:flex">
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-5 transition hover:bg-black hover:invert"
+            className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-5"
             aria-label="Noiszer Home"
           >
             <img
@@ -101,7 +100,7 @@ export default function TopBar() {
 
           {/* LIVE */}
           <div className="flex h-full items-center border-l-2 border-black bg-white px-3 text-black">
-            <div className="mr-2 h-2 w-2 animate-pulse bg-[#e7ff00] ring-2 ring-black" />
+            <div className="mr-2 h-2 w-2 animate-pulse bg-red-600 ring-2 ring-black" />
 
             <span className="text-[9px] font-black uppercase">
               On Air
@@ -115,7 +114,7 @@ export default function TopBar() {
             </span>
 
             <span className="truncate text-[11px] font-black uppercase">
-              Velvet Haus - spud bud
+              Velvet Haus with Spud Bud
             </span>
           </div>
 
@@ -131,7 +130,7 @@ export default function TopBar() {
         </div>
 
         {/* MOBILE */}
-        <div className="flex h-10 items-center md:hidden">
+        <div className="flex h-10 items-center lg:hidden">
           {/* LOGO */}
           <Link
             href="/"
@@ -147,7 +146,7 @@ export default function TopBar() {
 
           {/* LIVE */}
           <div className="flex flex-1 items-center justify-end gap-2 bg-white px-3 text-black">
-            <div className="h-2 w-2 animate-pulse bg-[#e7ff00] ring-2 ring-black" />
+            <div className="h-2 w-2 animate-pulse bg-red-600 ring-2 ring-black" />
 
             <span className="text-[9px] font-black uppercase">
               On Air
@@ -167,7 +166,7 @@ export default function TopBar() {
         </div>
 
         {/* MOBILE PLAYER */}
-        <div className="flex h-8 border-t-2 border-black md:hidden">
+        <div className="flex h-8 border-t-2 border-black lg:hidden">
           <button
             type="button"
             onClick={toggleAudio}
@@ -179,14 +178,14 @@ export default function TopBar() {
 
           <div className="flex min-w-0 flex-1 items-center bg-white px-3">
             <span className="truncate text-[11px] font-black uppercase">
-              Velvet Haus - spud bud
+              Velvet Haus with Spud Bud
             </span>
           </div>
         </div>
 
         {/* MOBILE MENU */}
         <div
-          className={`overflow-hidden border-t-2 border-black transition-all duration-300 md:hidden ${
+          className={`overflow-hidden border-t-2 border-black transition-all duration-300 lg:hidden ${
             open ? "max-h-56" : "max-h-0 border-t-0"
           }`}
         >
@@ -195,7 +194,7 @@ export default function TopBar() {
               key={link.label}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="flex h-10 items-center border-b-2 border-black bg-[#f7f7f4] px-4 text-[9px] font-black uppercase transition last:border-b-0 hover:bg-black hover:text-white"
+              className="flex h-10 items-center border-b-2 border-black bg-white px-4 text-[9px] font-black uppercase transition last:border-b-0 hover:bg-black hover:text-white"
             >
               {link.label}
             </Link>

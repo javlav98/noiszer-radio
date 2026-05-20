@@ -7,57 +7,57 @@ const slides = [
   {
     image: "/images/art2.png",
     label: "Noiszer Radio",
-    dj: "Live from the edge",
-    genres: "Independent / Underground / Visual Radio",
+    dj: "Independent station",
+    genres: "Live shows, mixes, and visual radio",
     description:
-      "A clean, raw station for rotating shows, late-night transmissions, and outsider sound.",
+      "Underground radio for new shows, late sets, and visual selections.",
   },
   {
     image: "/images/velvethaus.png",
     label: "Velvet Haus",
-    dj: "spud bud",
-    genres: "Dark House / Minimal / Leftfield",
+    dj: "Hosted by Spud Bud",
+    genres: "Dark house, minimal, leftfield",
     description:
-      "Late-night house, repetitive rhythms, and underground cuts built for after-dark listening.",
+      "Late-night house and stripped-down club records.",
   },
   {
     image: "/images/deadfrequency2.jpg",
     label: "Dead Frequency",
     dj: "Noiszer Radio",
-    genres: "Hardcore Punk / Noise / Underground",
+    genres: "Hardcore punk, noise, underground",
     description:
-      "Fast, loud, and raw. Punk, noise, and aggressive sounds with no soft edges.",
+      "Fast punk, noise, and raw records with no soft edges.",
   },
   {
     image: "/images/sundayfade4.jpg",
     label: "Sunday Fade",
     dj: "Noiszer Radio",
-    genres: "Oldies / Soul / Slow Jams",
+    genres: "Oldies, soul, slow jams",
     description:
-      "Warm records, soul cuts, and faded oldies for the end of the week.",
+      "Soul cuts and slow records for the end of the week.",
   },
   {
     image: "/images/groovetherapy.jpg",
     label: "Groove Therapy",
     dj: "Noiszer Radio",
-    genres: "Funk / Disco / Soul",
-    description: "A feel-good blend of funk, disco, and soulful grooves.",
+    genres: "Funk, disco, soul",
+    description: "Funk, disco, and soul with a steady groove.",
   },
   {
     image: "/images/afterhours.png",
     label: "After Hours",
     dj: "Noiszer Radio",
-    genres: "Rap / Trap / Underground",
+    genres: "Rap, trap, underground",
     description:
-      "Gritty rap, trap, and late-night records with underground energy.",
+      "Rap, trap, and underground records for late listening.",
   },
   {
     image: "/images/ctrlaltdelete.jpg",
     label: "Ctrl+Alt+Delete",
     dj: "Noiszer Radio",
-    genres: "Electronica / Leftfield / Experimental",
+    genres: "Electronica, leftfield, experimental",
     description:
-      "Alternative electronic sounds, ambient textures, noise, and experimental selections.",
+      "Electronic, ambient, noise, and experimental sounds.",
   },
 ];
 
@@ -148,10 +148,10 @@ export default function HeroCarousel() {
         grid-rows-[minmax(0,1fr)]
         overflow-hidden
         border-b-2 border-black
-        bg-[#f7f7f4]
+        bg-white
         text-black
-        md:h-[calc(100svh-80px)]
-        md:grid-rows-[minmax(0,1fr)]
+        lg:h-[calc(100svh-80px)]
+        lg:grid-rows-[minmax(0,1fr)]
       "
     >
       <figure className="relative min-h-0 overflow-hidden border-b-2 border-black bg-white">
@@ -171,44 +171,40 @@ export default function HeroCarousel() {
           />
         ))}
 
-        <div className="absolute bottom-4 right-4 z-10 grid grid-cols-2 border-2 border-black bg-white/90 sm:bottom-5 sm:right-5">
+        <div className="absolute bottom-4 right-4 z-10 grid grid-cols-2 text-white sm:bottom-5 sm:right-5">
           <button
             type="button"
             onClick={prevSlide}
-            className="flex h-10 w-10 items-center justify-center border-r-2 border-black text-black transition hover:bg-black hover:text-white sm:h-12 sm:w-12"
+            className="flex h-9 w-9 items-center justify-center opacity-70 transition hover:opacity-100 sm:h-10 sm:w-10"
             aria-label="Previous show"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeft size={16} />
           </button>
 
           <button
             type="button"
             onClick={nextSlide}
-            className="flex h-10 w-10 items-center justify-center text-black transition hover:bg-black hover:text-white sm:h-12 sm:w-12"
+            className="flex h-9 w-9 items-center justify-center opacity-70 transition hover:opacity-100 sm:h-10 sm:w-10"
             aria-label="Next show"
           >
-            <ArrowRight size={18} />
+            <ArrowRight size={16} />
           </button>
         </div>
 
-        <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/72 via-black/20 to-transparent p-4 pr-28 text-white sm:p-6 sm:pr-36 lg:p-8">
-          <div className="max-w-4xl [text-shadow:0_2px_18px_rgba(0,0,0,.65)]">
-            <h1 className="max-w-4xl break-words text-[clamp(1.9rem,5vw,4.75rem)] font-black uppercase leading-[0.86]">
+        <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/72 via-black/20 to-transparent p-4 pr-24 text-white sm:p-6 sm:pr-36 lg:p-8">
+          <div className="max-w-5xl [text-shadow:0_2px_18px_rgba(0,0,0,.65)]">
+            <p className="text-[10px] font-black uppercase text-white/80 sm:text-xs">
+              {slide.dj}
+            </p>
+            <h1 className="mt-2 max-w-4xl break-words text-[clamp(2.2rem,5vw,4.75rem)] font-black uppercase leading-[0.86]">
               {slide.label}
             </h1>
-            <div className="mt-3 grid max-w-3xl gap-2 sm:mt-4 lg:grid-cols-[14rem_1fr] lg:items-start">
-              <div>
-                <p className="text-xs font-black uppercase text-[#e7ff00]">
-                  {slide.dj}
-                </p>
-                <p className="mt-1 text-[10px] font-black uppercase text-white/80">
-                  {slide.genres}
-                </p>
-              </div>
-              <p className="max-w-xl text-sm leading-snug text-white/86">
-                {slide.description}
-              </p>
-            </div>
+            <p className="mt-3 max-w-2xl text-[11px] font-black uppercase leading-snug text-white/80 sm:text-xs">
+              {slide.genres}
+            </p>
+            <p className="mt-2 max-w-xl text-sm leading-snug text-white/86 sm:text-base">
+              {slide.description}
+            </p>
           </div>
         </figcaption>
       </figure>

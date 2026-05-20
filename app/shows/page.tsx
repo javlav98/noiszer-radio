@@ -1,7 +1,9 @@
+import Footer from "../../components/footer";
+
 const shows = [
   {
     title: "Velvet Haus",
-    artist: "spud bud",
+    artist: "Spud Bud",
     genres: "Dark House / Minimal / Leftfield",
     image: "/images/velvethaus.png",
     description:
@@ -50,50 +52,53 @@ const shows = [
 
 export default function ShowsPage() {
   return (
-    <main className="min-h-screen bg-[#f7f7f4] text-black">
-      <section className="border-b-2 border-black p-4 sm:p-6 lg:p-8">
-        <p className="text-[10px] font-black uppercase text-black/50">
-          Noiszer Radio
-        </p>
-        <h1 className="mt-3 max-w-5xl text-[clamp(3rem,9vw,7rem)] font-black uppercase leading-[0.84]">
-          Shows
-        </h1>
-      </section>
+    <>
+      <main className="min-h-screen bg-white text-black">
+        <section className="border-b-2 border-black p-4 sm:p-6 lg:p-8">
+          <p className="text-[10px] font-black uppercase text-black/50">
+            Noiszer Radio
+          </p>
+          <h1 className="mt-3 max-w-5xl text-[clamp(3rem,9vw,7rem)] font-black uppercase leading-[0.84]">
+            Shows
+          </h1>
+        </section>
 
-      <section className="grid bg-white md:grid-cols-2 xl:grid-cols-3">
-        {shows.map((show) => (
-          <article
-            key={show.title}
-            className="group border-b-2 border-black md:border-r-2 md:[&:nth-child(even)]:border-r-0 xl:[&:nth-child(even)]:border-r-2 xl:[&:nth-child(3n)]:border-r-0"
-          >
-            <div className="aspect-[4/3] overflow-hidden border-b-2 border-black bg-black">
-              <img
-                src={show.image}
-                alt={show.title}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-            </div>
-
-            <div className="grid min-h-56 content-between gap-8 p-4 sm:p-6">
-              <div>
-                <p className="text-[10px] font-black uppercase text-black/50">
-                  {show.artist}
-                </p>
-                <h2 className="mt-2 break-words text-4xl font-black uppercase leading-none">
-                  {show.title}
-                </h2>
-                <p className="mt-3 text-xs font-black uppercase text-black/55">
-                  {show.genres}
-                </p>
+        <section className="grid bg-white md:grid-cols-2 xl:grid-cols-3">
+          {shows.map((show) => (
+            <article
+              key={show.title}
+              className="group border-b-2 border-black md:border-r-2 md:[&:nth-child(even)]:border-r-0 xl:[&:nth-child(even)]:border-r-2 xl:[&:nth-child(3n)]:border-r-0"
+            >
+              <div className="aspect-[4/3] overflow-hidden border-b-2 border-black bg-black">
+                <img
+                  src={show.image}
+                  alt={show.title}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
               </div>
 
-              <p className="max-w-xl text-sm leading-relaxed text-black/68">
-                {show.description}
-              </p>
-            </div>
-          </article>
-        ))}
-      </section>
-    </main>
+              <div className="grid min-h-56 content-between gap-8 p-4 sm:p-6">
+                <div>
+                  <p className="text-[10px] font-black uppercase text-black/50">
+                    {show.artist}
+                  </p>
+                  <h2 className="mt-2 break-words text-4xl font-black uppercase leading-none">
+                    {show.title}
+                  </h2>
+                  <p className="mt-3 text-xs font-black uppercase text-black/55">
+                    {show.genres}
+                  </p>
+                </div>
+
+                <p className="max-w-xl text-sm leading-relaxed text-black/68">
+                  {show.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
