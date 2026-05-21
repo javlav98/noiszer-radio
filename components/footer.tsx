@@ -11,6 +11,14 @@ const links = [
 export default function Footer() {
   return (
     <footer className="border-t-2 border-black bg-white text-black">
+      <div className="grid min-h-72 place-items-center border-b-2 border-black bg-white p-6 sm:min-h-96 lg:min-h-[34rem]">
+        <img
+          src="/images/logo5.png"
+          alt="Noiszer"
+          className="max-h-60 w-full max-w-4xl object-contain sm:max-h-80 lg:max-h-[28rem]"
+        />
+      </div>
+
       <div className="grid min-h-16 border-b-2 border-black md:grid-cols-[1fr_auto]">
         <div className="flex items-center px-4 py-4 sm:px-6">
           <p className="max-w-2xl text-xs font-black uppercase leading-relaxed">

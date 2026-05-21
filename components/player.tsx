@@ -25,7 +25,7 @@ export default function Player() {
       <div className="fixed left-0 top-16 z-50 flex w-full items-center justify-between border-b border-white/10 bg-black/90 px-6 py-3 text-white backdrop-blur-md border-t-1">
         <div className="flex items-center gap-4">
           <img
-            src="/images/noiszer-n.png"
+            src="/images/logo5.png"
             alt="Noiszer Logo"
             className="h-9 w-9 object-contain opacity-90"
           />
