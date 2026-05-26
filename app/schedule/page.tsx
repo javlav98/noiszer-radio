@@ -60,7 +60,7 @@ export default function SchedulePage() {
                 onClick={() => setSelectedDay(day)}
                 className={`h-16 border-b-2 border-black px-3 text-left text-[10px] font-black uppercase transition sm:border-r-2 ${
                   selectedDay === day
-                    ? "bg-black text-white"
+                    ? "bg-black text-white shadow-[4px_4px_0_#000]"
                     : "bg-white text-black hover:bg-black hover:text-white"
                 }`}
               >
@@ -70,11 +70,11 @@ export default function SchedulePage() {
           </div>
         </section>
 
-        <section className="bg-white">
+        <section className="grid gap-4 bg-white p-4 sm:p-6">
           {selectedShows.map((show, index) => (
             <article
               key={`${show.time}-${show.title}`}
-              className="grid border-b-2 border-black md:grid-cols-[10rem_1fr_16rem]"
+              className="grid border-2 border-black bg-white shadow-[5px_5px_0_#000] md:grid-cols-[10rem_1fr_16rem]"
             >
               <div className="border-b-2 border-black bg-black p-4 text-white md:border-b-0 md:border-r-2">
                 <p className="text-[10px] font-black uppercase text-white/50">Slot 0{index + 1}</p>

@@ -11,6 +11,16 @@ const navLinks = [
   { label: "Support", href: "/support" },
 ];
 
+const tickerItems = [
+  "Live Now",
+  "Velvet Haus with Spud Bud",
+  "Independent web radio",
+  "Noiszer Radio",
+  "Shows and live selections",
+];
+
+const tickerSequence = Array.from({ length: 4 }, () => tickerItems).flat();
+
 function PlayIcon({ playing }: { playing: boolean }) {
   return playing ? (
     <Pause size={14} strokeWidth={2.5} />
@@ -52,19 +62,19 @@ export default function TopBar() {
 
       <header className="fixed left-0 top-0 z-50 w-full border-black bg-white text-black lg:border-b-2">
         <div className="h-8 overflow-hidden border-b-2 border-black bg-black text-white">
-          <div className="ticker-track flex h-full w-max items-center gap-7 whitespace-nowrap px-4 text-[11px] font-black uppercase">
+          <div className="ticker-track flex h-full w-max items-center text-[11px] font-black uppercase">
             {Array.from({ length: 2 }).map((_, repeat) => (
-              <span key={repeat} className="flex items-center gap-7">
-                <span>Live Now</span>
-                <span>•</span>
-                <span>Velvet Haus with Spud Bud</span>
-                <span>•</span>
-                <span>Independent web radio</span>
-                <span>•</span>
-                <span>Noiszer Radio</span>
-                <span>•</span>
-                <span>Shows and live selections</span>
-                <span>•</span>
+              <span
+                key={repeat}
+                className="ticker-group flex h-full shrink-0 items-center whitespace-nowrap"
+                aria-hidden={repeat === 1}
+              >
+                {tickerSequence.map((item, index) => (
+                  <span key={`${repeat}-${item}-${index}`} className="flex items-center gap-7 pr-7">
+                    <span>{item}</span>
+                    <span>•</span>
+                  </span>
+                ))}
               </span>
             ))}
           </div>
@@ -122,7 +132,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={toggleAudio}
-            className="flex h-full w-12 items-center justify-center border-l-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
+            className="flex h-full w-12 items-center justify-center border-l-2 border-black bg-white text-black transition hover:bg-black hover:text-white lg:shadow-[4px_4px_0_#000]"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
@@ -157,7 +167,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-full w-10 items-center justify-center border-l-2 border-black bg-white transition hover:bg-black hover:text-white"
+            className="flex h-full w-10 items-center justify-center border-l-2 border-black bg-white shadow-[4px_4px_0_#000] transition hover:bg-black hover:text-white"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -170,7 +180,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={toggleAudio}
-            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black"
+            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black shadow-[4px_4px_0_#000]"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />

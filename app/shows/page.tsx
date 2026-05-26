@@ -63,11 +63,11 @@ export default function ShowsPage() {
           </h1>
         </section>
 
-        <section className="grid bg-white md:grid-cols-2 xl:grid-cols-3">
+        <section className="grid gap-4 bg-white p-4 sm:p-6 md:grid-cols-2 lg:gap-5 xl:grid-cols-3">
           {shows.map((show) => (
             <article
               key={show.title}
-              className="group border-b-2 border-black md:border-r-2 md:[&:nth-child(even)]:border-r-0 xl:[&:nth-child(even)]:border-r-2 xl:[&:nth-child(3n)]:border-r-0"
+              className="group border-2 border-black bg-white shadow-[5px_5px_0_#000] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_#000]"
             >
               <div className="aspect-[4/3] overflow-hidden border-b-2 border-black bg-black">
                 <img

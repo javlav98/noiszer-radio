@@ -18,11 +18,11 @@ export default function SupportPage() {
           </h1>
         </section>
 
-        <section className="bg-white">
+        <section className="grid gap-4 bg-white p-4 sm:p-6">
           {supportRows.map(([label, text, action, href], index) => (
             <article
               key={label}
-              className="grid border-b-2 border-black md:grid-cols-[5rem_1fr_16rem]"
+              className="grid border-2 border-black bg-white shadow-[5px_5px_0_#000] md:grid-cols-[5rem_1fr_16rem]"
             >
               <div className="hidden items-center justify-center border-b-2 border-black bg-black p-4 text-xs font-black text-white md:flex md:border-b-0 md:border-r-2">
                 0{index + 1}
@@ -38,7 +38,7 @@ export default function SupportPage() {
               <div className="flex items-center p-4 sm:p-6">
                 <Link
                   href={href}
-                  className="inline-flex h-11 w-full items-center justify-center border-2 border-black bg-white px-4 text-center text-[10px] font-black uppercase transition hover:bg-black hover:text-white"
+                  className="inline-flex h-11 w-full items-center justify-center border-2 border-black bg-white px-4 text-center text-[10px] font-black uppercase shadow-[4px_4px_0_#000] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-black hover:text-white hover:shadow-[6px_6px_0_#000]"
                 >
                   {action}
                 </Link>

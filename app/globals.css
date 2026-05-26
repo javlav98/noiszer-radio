@@ -41,7 +41,13 @@ h3 {
 }
 
 .ticker-track {
-  animation: ticker-scroll 24s linear infinite;
+  animation: ticker-scroll 96s linear infinite;
+  will-change: transform;
+}
+
+.ticker-group {
+  min-width: max-content;
+  flex: 0 0 auto;
 }
 
 @keyframes ticker-scroll {

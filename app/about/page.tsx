@@ -53,11 +53,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="grid border-b-2 border-black bg-white md:grid-cols-4">
+        <section className="grid gap-4 border-b-2 border-black bg-white p-4 sm:p-6 md:grid-cols-4">
           {values.map(([label, text]) => (
             <article
               key={label}
-              className="border-b-2 border-black p-4 last:border-b-0 sm:p-6 md:min-h-64 md:border-b-0 md:border-r-2 md:last:border-r-0"
+              className="border-2 border-black bg-white p-4 shadow-[5px_5px_0_#000] sm:p-6 md:min-h-64"
             >
               <p className="text-[10px] font-black uppercase text-black/45">{label}</p>
               <p className="mt-8 max-w-xl text-xl font-black uppercase leading-tight lg:text-2xl">
