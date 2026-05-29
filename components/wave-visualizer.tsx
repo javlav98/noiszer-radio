@@ -7,95 +7,11 @@ type WaveVisualizerProps = {
   audioRef?: React.RefObject<HTMLAudioElement | null>;
 };
 
-const vertexShader = `
-  varying vec2 vUv;
-
-  void main() {
-    vUv = uv;
-    gl_Position = vec4(position.xy, 0.0, 1.0);
-  }
-`;
-
-const fragmentShader = `
-  precision highp float;
-
-  uniform float uTime;
-  uniform float uBass;
-  uniform float uMid;
-  uniform float uHigh;
-  uniform vec2 uResolution;
-
-  varying vec2 vUv;
-
-  mat2 rotate2d(float angle) {
-    float s = sin(angle);
-    float c = cos(angle);
-    return mat2(c, -s, s, c);
-  }
-
-  float rings(float radius, float speed, float density) {
-    return sin(radius * density - uTime * speed);
-  }
-
-  void main() {
-    vec2 uv = (gl_FragCoord.xy - 0.5 * uResolution.xy) / min(uResolution.x, uResolution.y);
-
-    float bass = max(uBass, 0.08);
-    float mid = max(uMid, 0.08);
-    float high = max(uHigh, 0.08);
-
-    vec2 p = uv;
-    float time = uTime * 0.32;
-
-    vec3 deep = vec3(0.055, 0.025, 0.12);
-    vec3 color = deep;
-
-    for (int i = 0; i < 45; i++) {
-      float fi = float(i);
-      float lane = mod(fi, 9.0) - 4.0;
-      float row = floor(fi / 9.0) - 2.0;
-      float drift = time * (0.55 + fi * 0.018);
-      vec2 center = vec2(
-        lane * 0.34 + sin(drift + fi * 1.73) * 0.08,
-        row * 0.22 + cos(drift * 0.92 + fi * 2.11) * 0.055
-      );
-
-      vec2 delta = p - center;
-      delta.x *= 0.78 + sin(time * 1.3 + fi) * 0.12;
-      delta.y *= 1.18 + cos(time * 1.1 + fi) * 0.16;
-
-      float radius = 0.075 + bass * 0.025 + sin(time * 1.8 + fi * 1.37) * 0.018;
-      float dist = length(delta) / max(radius, 0.02);
-      float blob = smoothstep(1.25, 0.0, dist);
-      float glow = exp(-dist * dist * 1.8) * 0.22;
-
-      vec3 purple = vec3(0.42, 0.05, 0.95);
-      vec3 pink = vec3(1.0, 0.09, 0.58);
-      vec3 orange = vec3(1.0, 0.34, 0.04);
-      vec3 cyan = vec3(0.0, 0.72, 1.0);
-
-      float cycle = 0.5 + 0.5 * sin(time * 0.9 + fi * 0.7);
-      vec3 blobColor = mix(purple, pink, cycle);
-      blobColor = mix(blobColor, orange, smoothstep(0.28, 0.9, bass) * (0.4 + 0.4 * sin(fi)));
-      blobColor = mix(blobColor, cyan, high * 0.28);
-
-      color += blobColor * (blob * 0.95 + glow);
-    }
-
-    float liquid =
-      sin(p.x * 4.0 + time * 1.3) *
-      sin(p.y * 5.0 - time * 1.1) * 0.08;
-    color += vec3(0.35, 0.05, 0.8) * liquid;
-
-    float vignette = 0.62 + smoothstep(1.12, 0.16, length(uv)) * 0.38;
-    float scan = 0.97 + sin(gl_FragCoord.y * 1.1) * 0.018;
-
-    color *= vignette * scan;
-    color = pow(color, vec3(0.82));
-
-    gl_FragColor = vec4(color, 1.0);
-  }
-`;
+const LOGO_ASPECT = 1536 / 1024;
+const LOGO_WIDTH = 7.2;
+const LOGO_HEIGHT = LOGO_WIDTH / LOGO_ASPECT;
+const HALF_SCENE_WIDTH = 4.7;
+const HALF_SCENE_HEIGHT = 3.25;
 
 export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -105,36 +21,43 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
     if (!container) return;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
+    camera.position.set(0, 0, 10);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: false,
-      alpha: false,
+      alpha: true,
       powerPreference: "high-performance",
     });
-    renderer.setClearColor(0x000000, 1);
+    renderer.setClearColor(0xffffff, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.domElement.style.display = "block";
-    renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
+    renderer.domElement.style.inset = "0";
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.zIndex = "10";
     container.appendChild(renderer.domElement);
 
-    const uniforms = {
-      uTime: { value: 0 },
-      uBass: { value: 0.25 },
-      uMid: { value: 0.25 },
-      uHigh: { value: 0.25 },
-      uResolution: { value: new THREE.Vector2(1, 1) },
-    };
+    const root = new THREE.Group();
+    scene.add(root);
 
-    const material = new THREE.ShaderMaterial({
-      uniforms,
-      vertexShader,
-      fragmentShader,
+    const loader = new THREE.TextureLoader();
+    const logoTexture = loader.load("/images/logo5.png");
+    logoTexture.colorSpace = THREE.SRGBColorSpace;
+
+    const mainMaterial = new THREE.MeshBasicMaterial({
+      map: logoTexture,
+      transparent: true,
+      opacity: 1,
+      depthWrite: false,
     });
 
-    const plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-    scene.add(plane);
+    const mainLogo = new THREE.Mesh(
+      new THREE.PlaneGeometry(LOGO_WIDTH, LOGO_HEIGHT),
+      mainMaterial,
+    );
+    root.add(mainLogo);
 
     let audioContext: AudioContext | null = null;
     let analyser: AnalyserNode | null = null;
@@ -151,7 +74,7 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
       audioContext = new AudioContextClass();
       analyser = audioContext.createAnalyser();
       analyser.fftSize = 512;
-      analyser.smoothingTimeConstant = 0.86;
+      analyser.smoothingTimeConstant = 0.74;
       frequencyData = new Uint8Array(
         new ArrayBuffer(analyser.frequencyBinCount),
       );
@@ -171,10 +94,18 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
     audioElement?.addEventListener("play", onPlay);
 
     const resize = () => {
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      uniforms.uResolution.value.set(width, height);
-      renderer.setSize(width, height);
+      const width = Math.max(container.clientWidth, 1);
+      const height = Math.max(container.clientHeight, 1);
+      const aspect = width / height;
+      const halfHeight = Math.max(HALF_SCENE_HEIGHT, HALF_SCENE_WIDTH / aspect) * 1.05;
+      const halfWidth = halfHeight * aspect;
+
+      camera.left = -halfWidth;
+      camera.right = halfWidth;
+      camera.top = halfHeight;
+      camera.bottom = -halfHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height, false);
     };
 
     const ro = new ResizeObserver(resize);
@@ -183,11 +114,10 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
 
     const averageRange = (start: number, end: number, time: number) => {
       if (!frequencyData) {
-        const center = (start + end) * 0.5;
         return (
-          0.42 +
-          Math.sin(time * 1.7 + center * 0.025) * 0.18 +
-          Math.sin(time * 3.3 + center * 0.01) * 0.14
+          0.34 +
+          Math.sin(time * 1.5 + start * 0.04) * 0.2 +
+          Math.sin(time * 3.7 + end * 0.018) * 0.14
         );
       }
 
@@ -205,10 +135,19 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
         analyser.getByteFrequencyData(frequencyData);
       }
 
-      uniforms.uTime.value = time;
-      uniforms.uBass.value = averageRange(0, 28, time);
-      uniforms.uMid.value = averageRange(28, 118, time);
-      uniforms.uHigh.value = averageRange(118, 220, time);
+      const bass = averageRange(0, 28, time);
+      const mid = averageRange(28, 118, time);
+      const high = averageRange(118, 220, time);
+
+      const shakeX = Math.sin(time * 38.0) * high * 0.09;
+      const shakeY = Math.cos(time * 31.0) * mid * 0.055;
+      const pulse = 1 + bass * 0.12 + mid * 0.035;
+
+      root.position.x = shakeX;
+      root.position.y = shakeY;
+      root.rotation.z = Math.sin(time * 24.0) * high * 0.035;
+      mainLogo.scale.set(pulse + high * 0.025, pulse + bass * 0.04, 1);
+      mainMaterial.opacity = 0.84 + mid * 0.16;
 
       renderer.render(scene, camera);
       raf = requestAnimationFrame(animate);
@@ -220,8 +159,9 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
       cancelAnimationFrame(raf);
       ro.disconnect();
       audioElement?.removeEventListener("play", onPlay);
-      plane.geometry.dispose();
-      material.dispose();
+      mainLogo.geometry.dispose();
+      mainMaterial.dispose();
+      logoTexture.dispose();
       renderer.dispose();
       renderer.domElement.remove();
       source?.disconnect();
@@ -230,7 +170,19 @@ export default function WaveVisualizer({ audioRef }: WaveVisualizerProps) {
     };
   }, [audioRef]);
 
-  return <div ref={containerRef} className="h-full min-h-[420px] w-full bg-black" />;
+  return (
+    <div
+      ref={containerRef}
+      data-testid="signal-sculpture"
+      className="relative h-full min-h-0 w-full overflow-hidden bg-white"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 h-[min(58svh,62vw)] w-[min(87svh,93vw)] -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat opacity-70"
+        style={{ backgroundImage: "url('/images/logo5.png')" }}
+      />
+    </div>
+  );
 }
 
 declare global {
