@@ -1,12 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
     title: "Velvet Haus",
     host: "Spud Bud",
     image: "/images/velvethaus.png",
+    position: "center 50%",
     sound: "Dark House / Minimal / Leftfield",
     description: "Late-night house and underground cuts for after-dark listening.",
   },
@@ -14,6 +17,7 @@ const slides = [
     title: "Dead Frequency",
     host: "Noiszer Radio",
     image: "/images/deadfrequency2.jpg",
+    position: "center 50%",
     sound: "Hardcore Punk / Noise / Underground",
     description: "Fast, loud, raw selections with no soft edges.",
   },
@@ -21,6 +25,7 @@ const slides = [
     title: "Sunday Fade",
     host: "Noiszer Radio",
     image: "/images/sundayfade4.jpg",
+    position: "center 42%",
     sound: "Oldies / Soul / Slow Jams",
     description: "Warm records and faded soul for the end of the week.",
   },
@@ -28,6 +33,7 @@ const slides = [
     title: "Groove Therapy",
     host: "Noiszer Radio",
     image: "/images/groovetherapy.jpg",
+    position: "center 50%",
     sound: "Funk / Disco / Soul",
     description: "Feel-good funk, disco, and soulful grooves.",
   },
@@ -35,6 +41,7 @@ const slides = [
     title: "After Hours",
     host: "Noiszer Radio",
     image: "/images/afterhours.png",
+    position: "center 50%",
     sound: "Rap / Trap / Underground",
     description: "Gritty rap, trap, and late-night underground records.",
   },
@@ -42,6 +49,7 @@ const slides = [
     title: "Ctrl+Alt+Delete",
     host: "Noiszer Radio",
     image: "/images/ctrlaltdelete.jpg",
+    position: "center 44%",
     sound: "Electronica / Leftfield / Experimental",
     description: "Alternative electronic sounds, texture, and experiments.",
   },
@@ -63,12 +71,10 @@ export default function HeroCarousel() {
     setDragOffset(0);
   };
 
-  const goToPrevious = () => {
-    goToSlide(activeIndex - 1);
-  };
-
-  const goToNext = () => {
-    goToSlide(activeIndex + 1);
+  const goToWrappedSlide = (index: number) => {
+    const nextIndex = (index + slides.length) % slides.length;
+    setActiveIndex(nextIndex);
+    setDragOffset(0);
   };
 
   const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
@@ -90,9 +96,7 @@ export default function HeroCarousel() {
     if (Math.abs(deltaX) < 4 || Math.abs(deltaX) < Math.abs(deltaY)) return;
 
     didDrag.current = true;
-    const atStart = activeIndex === 0 && deltaX > 0;
-    const atEnd = activeIndex === slides.length - 1 && deltaX < 0;
-    setDragOffset(atStart || atEnd ? deltaX * 0.22 : deltaX);
+    setDragOffset(deltaX);
   };
 
   const handlePointerUp = (event: React.PointerEvent<HTMLElement>) => {
@@ -108,7 +112,7 @@ export default function HeroCarousel() {
     if (!didDrag.current || Math.abs(delta) < Math.abs(verticalDelta)) return;
 
     if (Math.abs(delta) > 24) {
-      goToSlide(activeIndex + (delta < 0 ? 1 : -1));
+      goToWrappedSlide(activeIndex + (delta < 0 ? 1 : -1));
     }
     didDrag.current = false;
   };
@@ -137,26 +141,28 @@ export default function HeroCarousel() {
       wheelLocked.current = false;
     }, 650);
 
-    goToSlide(activeIndex + (delta > 0 ? 1 : -1));
+    goToWrappedSlide(activeIndex + (delta > 0 ? 1 : -1));
   };
 
   return (
     <section
-      className={`relative h-[calc(100svh-104px)] overflow-hidden border-b-2 border-black bg-black text-white lg:h-[calc(100svh-80px)] ${
-        isDragging ? "cursor-grabbing" : "cursor-grab"
-      }`}
-      style={{
-        overscrollBehaviorX: "contain",
-        touchAction: "pan-y",
-        userSelect: "none",
-      }}
-      onPointerDown={handlePointerDown}
-      onPointerCancel={resetDrag}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onWheel={handleWheel}
+      className="relative flex h-[calc(100svh-104px)] flex-col overflow-hidden border-b-2 border-black bg-black text-white lg:h-[calc(100svh-80px)]"
     >
-      <div className="absolute inset-0">
+      <div
+        className={`relative min-h-0 flex-1 overflow-hidden border-b-2 border-black ${
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
+        style={{
+          overscrollBehaviorX: "contain",
+          touchAction: "pan-y",
+          userSelect: "none",
+        }}
+        onPointerDown={handlePointerDown}
+        onPointerCancel={resetDrag}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onWheel={handleWheel}
+      >
         {slides.map((slide, index) => (
           <div
             key={slide.title}
@@ -169,64 +175,107 @@ export default function HeroCarousel() {
             }}
             aria-hidden={index !== activeIndex}
           >
-            <img
+            <Image
               src={slide.image}
               alt={slide.title}
-              draggable={false}
-              className="block h-full w-full select-none object-cover"
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              className="select-none object-cover"
+              style={{ objectPosition: slide.position }}
             />
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-black/15" />
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent" />
           </div>
         ))}
+
+        <div
+          className="absolute right-3 top-3 z-20 hidden border-2 border-black bg-white text-black md:grid"
+          onPointerDown={(event) => event.stopPropagation()}
+          onWheel={(event) => event.stopPropagation()}
+        >
+          <div className="grid grid-cols-6">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.title}
+                type="button"
+                onClick={() => goToSlide(index)}
+                className={`h-2 w-4 border-r-2 border-black last:border-r-0 sm:w-5 ${
+                  index === activeIndex
+                    ? "bg-black"
+                    : "bg-white hover:bg-black/20"
+                }`}
+                aria-label={`Show ${slide.title}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       <div
-        className="max-w-[min(24rem,calc(100%-2rem))] border-2 border-black bg-white p-3 text-black shadow-[4px_4px_0_#000] sm:p-4"
-        style={{
-          position: "absolute",
-          bottom: "1.5rem",
-          left: "1.5rem",
-          zIndex: 20,
-        }}
-      >
-        <h1 className="text-2xl font-black uppercase leading-none sm:text-3xl">
-          {activeSlide.title}
-        </h1>
-        <p className="mt-2 text-[9px] font-black uppercase text-black/55">
-          {activeSlide.sound}
-        </p>
-        <p className="mt-3 max-w-xs text-xs leading-snug text-black/65">
-          {activeSlide.description}
-        </p>
-      </div>
-
-      <div
-        className="grid border-2 border-black bg-white text-black shadow-[4px_4px_0_#000]"
+        className="relative z-20 grid shrink-0 bg-white text-black md:grid-cols-[minmax(0,1.25fr)_minmax(12rem,0.85fr)_minmax(0,1fr)]"
         onPointerDown={(event) => event.stopPropagation()}
         onWheel={(event) => event.stopPropagation()}
-        style={{
-          position: "absolute",
-          right: "1.5rem",
-          bottom: "1.5rem",
-          zIndex: 20,
-        }}
       >
-        <div className="grid grid-cols-6">
-          {slides.map((slide, index) => (
-            <button
-              key={slide.title}
-              type="button"
-              onClick={() => goToSlide(index)}
-              className={`h-3 w-4 border-r-2 border-black last:border-r-0 ${
-                index === activeIndex ? "bg-black" : "bg-white hover:bg-black/20"
-              }`}
-              aria-label={`Show ${slide.title}`}
-            />
-          ))}
-        </div>
-        <p className="border-t-2 border-black py-1 text-center text-[9px] font-black uppercase leading-none">
-          {activeIndex + 1} / {slides.length}
-        </p>
+        <section className="grid border-b-2 border-black md:hidden">
+          <div className="grid grid-cols-6">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.title}
+                type="button"
+                onClick={() => goToSlide(index)}
+                className={`h-2 border-r-2 border-black last:border-r-0 ${
+                  index === activeIndex
+                    ? "bg-black"
+                    : "bg-white hover:bg-black/20"
+                }`}
+                aria-label={`Show ${slide.title}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="border-b-2 border-black px-3 py-2 md:border-b-0 md:border-r-2 md:px-3 md:py-1.5">
+          <h1 className="break-words text-2xl font-black uppercase leading-none sm:text-3xl md:text-2xl lg:text-3xl">
+            {activeSlide.title}
+          </h1>
+          <p className="mt-1 text-[9px] font-black uppercase leading-none text-black/45">
+            With {activeSlide.host}
+          </p>
+        </section>
+
+        <section className="border-b-2 border-black px-3 py-2 md:border-b-0 md:border-r-2 md:px-3 md:py-1.5">
+          <p className="text-xs font-black uppercase leading-tight sm:text-sm md:text-xs">
+            {activeSlide.sound}
+          </p>
+        </section>
+
+        <section className="px-3 py-2 md:px-3 md:py-1.5">
+          <p className="max-w-2xl text-xs leading-snug text-black/70 sm:text-sm md:text-xs">
+            {activeSlide.description}
+          </p>
+        </section>
+
+        <section className="grid grid-cols-2 border-t-2 border-black md:hidden">
+          <button
+            type="button"
+            onClick={() => goToWrappedSlide(activeIndex - 1)}
+            className="flex h-10 items-center justify-center border-r-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
+            aria-label="Previous show"
+          >
+            <ChevronLeft size={18} strokeWidth={2.5} />
+          </button>
+          <button
+            type="button"
+            onClick={() => goToWrappedSlide(activeIndex + 1)}
+            className="flex h-10 items-center justify-center bg-white text-black transition hover:bg-black hover:text-white"
+            aria-label="Next show"
+          >
+            <ChevronRight size={18} strokeWidth={2.5} />
+          </button>
+        </section>
       </div>
     </section>
   );

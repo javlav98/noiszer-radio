@@ -41,26 +41,41 @@ export default function SchedulePage() {
     <>
       <main className="min-h-screen bg-white text-black">
         <section className="grid border-b-2 border-black lg:grid-cols-[minmax(20rem,34rem)_minmax(0,1fr)]">
-          <div className="min-w-0 border-b-2 border-black p-4 sm:p-6 lg:border-b-0 lg:border-r-2 lg:p-8">
+          <div className="min-w-0 border-b-2 border-black px-4 py-5 sm:p-6 lg:border-b-0 lg:border-r-2 lg:p-8">
             <p className="text-[10px] font-black uppercase text-black/55">Weekly Grid</p>
-            <h1 className="mt-3 whitespace-nowrap text-[clamp(3rem,5vw,4.75rem)] font-black uppercase leading-[0.86]">
+            <h1 className="mt-2 text-5xl font-black uppercase leading-[0.86] sm:text-6xl lg:text-[4.75rem]">
               Schedule
             </h1>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-black/65">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-black/65 lg:mt-6">
               Rotating broadcasts across the week, organized for quick scanning
               by day, time, host, and sound.
             </p>
           </div>
 
-          <div className="grid bg-white sm:grid-cols-2 lg:grid-cols-7">
+          <div className="border-b-2 border-black bg-white p-3 lg:hidden">
+            <select
+              value={selectedDay}
+              onChange={(event) => setSelectedDay(event.target.value)}
+              className="h-12 w-full appearance-none border-2 border-black bg-white px-3 text-sm font-black uppercase text-black"
+              aria-label="Select schedule day"
+            >
+              {days.map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="hidden bg-white lg:grid lg:grid-cols-7">
             {days.map((day) => (
               <button
                 key={day}
                 type="button"
                 onClick={() => setSelectedDay(day)}
-                className={`h-16 border-b-2 border-black px-3 text-left text-[10px] font-black uppercase transition sm:border-r-2 ${
+                className={`h-16 border-r-2 border-b-2 border-black px-3 text-left text-[10px] font-black uppercase transition last:border-r-2 ${
                   selectedDay === day
-                    ? "bg-black text-white shadow-[4px_4px_0_#000]"
+                    ? "bg-black text-white"
                     : "bg-white text-black hover:bg-black hover:text-white"
                 }`}
               >
@@ -70,28 +85,28 @@ export default function SchedulePage() {
           </div>
         </section>
 
-        <section className="grid gap-4 bg-white p-4 sm:p-6">
+        <section className="bg-white">
           {selectedShows.map((show, index) => (
             <article
               key={`${show.time}-${show.title}`}
-              className="grid border-2 border-black bg-white shadow-[5px_5px_0_#000] md:grid-cols-[10rem_1fr_16rem]"
+              className="grid border-b-2 border-black bg-white md:grid-cols-[10rem_1fr_16rem] md:border-2 md:border-t-0 first:md:border-t-2"
             >
-              <div className="border-b-2 border-black bg-black p-4 text-white md:border-b-0 md:border-r-2">
-                <p className="text-[10px] font-black uppercase text-white/50">Slot 0{index + 1}</p>
-                <p className="mt-6 text-2xl font-black uppercase text-white">{show.time}</p>
+              <div className="flex items-center justify-between border-b-2 border-black bg-black px-4 py-2 text-white md:block md:border-b-0 md:border-r-2 md:p-4">
+                <p className="text-[9px] font-black uppercase text-white/50">Slot 0{index + 1}</p>
+                <p className="text-lg font-black uppercase text-white md:mt-6 md:text-2xl">{show.time}</p>
               </div>
 
-              <div className="border-b-2 border-black p-4 sm:p-6 md:border-b-0 md:border-r-2">
-                <h2 className="text-4xl font-black uppercase leading-none">
+              <div className="border-b-2 border-black px-4 py-3 md:border-b-0 md:border-r-2 md:p-6">
+                <h2 className="text-2xl font-black uppercase leading-none md:text-4xl">
                   {show.title}
                 </h2>
-                <p className="mt-3 text-xs font-black uppercase text-black/55">
+                <p className="mt-2 text-[10px] font-black uppercase leading-tight text-black/55 md:mt-3 md:text-xs">
                   {show.genre}
                 </p>
               </div>
 
-              <div className="flex items-end p-4 sm:p-6">
-                <p className="text-sm uppercase text-black/65">Hosted by {show.host}</p>
+              <div className="flex items-center px-4 py-3 md:items-end md:p-6">
+                <p className="text-xs uppercase text-black/65 md:text-sm">Hosted by {show.host}</p>
               </div>
             </article>
           ))}

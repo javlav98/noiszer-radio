@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FaInstagram, FaSpotify, FaXTwitter } from "react-icons/fa6";
 
 const links = [
-  { label: "Shows", href: "/shows" },
   { label: "Schedule", href: "/schedule" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
@@ -27,7 +26,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <nav className="grid grid-cols-2 border-t-2 border-black md:m-3 md:flex md:items-stretch md:border-2 md:border-black md:shadow-[4px_4px_0_#000]">
+        <nav className="grid grid-cols-2 border-t-2 border-black md:m-3 md:flex md:items-stretch md:border-2 md:border-black">
           {links.map((link) => (
             <Link
               key={link.label}
@@ -47,7 +46,7 @@ export default function Footer() {
             href="https://x.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-8 w-8 items-center justify-center border-2 border-black text-black shadow-[3px_3px_0_#000] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-black hover:text-white hover:shadow-[4px_4px_0_#000]"
+            className="flex h-8 w-8 items-center justify-center border-2 border-black text-black transition hover:bg-black hover:text-white"
             aria-label="Noiszer on X"
           >
             <FaXTwitter size={14} />
@@ -56,7 +55,7 @@ export default function Footer() {
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-8 w-8 items-center justify-center border-2 border-black text-black shadow-[3px_3px_0_#000] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-black hover:text-white hover:shadow-[4px_4px_0_#000]"
+            className="flex h-8 w-8 items-center justify-center border-2 border-black text-black transition hover:bg-black hover:text-white"
             aria-label="Noiszer on Instagram"
           >
             <FaInstagram size={14} />
@@ -65,7 +64,7 @@ export default function Footer() {
             href="https://spotify.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-8 w-8 items-center justify-center border-2 border-black text-black shadow-[3px_3px_0_#000] transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-black hover:text-white hover:shadow-[4px_4px_0_#000]"
+            className="flex h-8 w-8 items-center justify-center border-2 border-black text-black transition hover:bg-black hover:text-white"
             aria-label="Noiszer on Spotify"
           >
             <FaSpotify size={14} />

@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Menu, Pause, Play, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Shows", href: "/shows" },
   { label: "Schedule", href: "/schedule" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
@@ -16,7 +16,7 @@ const tickerItems = [
   "Velvet Haus with Spud Bud",
   "Independent web radio",
   "Noiszer Radio",
-  "Shows and live selections",
+  "Live selections",
 ];
 
 const tickerSequence = Array.from({ length: 4 }, () => tickerItems).flat();
@@ -88,10 +88,13 @@ export default function TopBar() {
             className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-5"
             aria-label="Noiszer Home"
           >
-            <img
+            <Image
               src="/images/logo5.png"
               alt="Noiszer"
-              className="h-24 w-auto object-contain"
+              width={1536}
+              height={1024}
+              priority
+              className="h-20 w-auto object-contain"
             />
           </Link>
 
@@ -132,7 +135,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={toggleAudio}
-            className="flex h-full w-12 items-center justify-center border-l-2 border-black bg-white text-black transition hover:bg-black hover:text-white lg:shadow-[4px_4px_0_#000]"
+            className="flex h-full w-12 items-center justify-center border-l-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
@@ -147,10 +150,13 @@ export default function TopBar() {
             className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-3"
             aria-label="Noiszer Home"
           >
-            <img
+            <Image
               src="/images/logo5.png"
               alt="Noiszer"
-              className="h-20 w-auto object-contain"
+              width={1536}
+              height={1024}
+              priority
+              className="h-16 w-auto object-contain"
             />
           </Link>
 
@@ -167,7 +173,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-full w-10 items-center justify-center border-l-2 border-black bg-white shadow-[4px_4px_0_#000] transition hover:bg-black hover:text-white"
+            className="flex h-full w-10 items-center justify-center border-l-2 border-black bg-white transition hover:bg-black hover:text-white"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -180,7 +186,7 @@ export default function TopBar() {
           <button
             type="button"
             onClick={toggleAudio}
-            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black shadow-[4px_4px_0_#000]"
+            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             <PlayIcon playing={isPlaying} />
