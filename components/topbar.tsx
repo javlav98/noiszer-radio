@@ -94,7 +94,7 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-20 w-auto object-contain"
+              className="h-24 w-auto object-contain"
             />
           </Link>
 
@@ -156,7 +156,7 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-16 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </Link>
 

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
@@ -149,7 +148,7 @@ export default function HeroCarousel() {
       className="relative flex h-[calc(100svh-104px)] flex-col overflow-hidden border-b-2 border-black bg-black text-white lg:h-[calc(100svh-80px)]"
     >
       <div
-        className={`relative min-h-0 flex-1 overflow-hidden border-b-2 border-black ${
+        className={`relative min-h-0 flex-1 overflow-hidden ${
           isDragging ? "cursor-grabbing" : "cursor-grab"
         }`}
         style={{
@@ -185,12 +184,12 @@ export default function HeroCarousel() {
               style={{ objectPosition: slide.position }}
             />
             <div className="absolute inset-0 bg-black/15" />
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
           </div>
         ))}
 
         <div
-          className="absolute right-3 top-3 z-20 hidden border-2 border-black bg-white text-black md:grid"
+          className="absolute bottom-3 left-3 z-20 grid border border-white/75 bg-black/35 text-white backdrop-blur-sm sm:left-5 md:left-6"
           onPointerDown={(event) => event.stopPropagation()}
           onWheel={(event) => event.stopPropagation()}
         >
@@ -200,10 +199,10 @@ export default function HeroCarousel() {
                 key={slide.title}
                 type="button"
                 onClick={() => goToSlide(index)}
-                className={`h-2 w-4 border-r-2 border-black last:border-r-0 sm:w-5 ${
+                className={`h-1.5 w-8 border-r border-white/75 last:border-r-0 sm:w-10 ${
                   index === activeIndex
-                    ? "bg-black"
-                    : "bg-white hover:bg-black/20"
+                    ? "bg-white"
+                    : "bg-white/20 hover:bg-white/50"
                 }`}
                 aria-label={`Show ${slide.title}`}
                 aria-current={index === activeIndex ? "true" : undefined}
@@ -211,70 +210,21 @@ export default function HeroCarousel() {
             ))}
           </div>
         </div>
-      </div>
 
-      <div
-        className="relative z-20 grid shrink-0 bg-white text-black md:grid-cols-[minmax(0,1.25fr)_minmax(12rem,0.85fr)_minmax(0,1fr)]"
-        onPointerDown={(event) => event.stopPropagation()}
-        onWheel={(event) => event.stopPropagation()}
-      >
-        <section className="grid border-b-2 border-black md:hidden">
-          <div className="grid grid-cols-6">
-            {slides.map((slide, index) => (
-              <button
-                key={slide.title}
-                type="button"
-                onClick={() => goToSlide(index)}
-                className={`h-2 border-r-2 border-black last:border-r-0 ${
-                  index === activeIndex
-                    ? "bg-black"
-                    : "bg-white hover:bg-black/20"
-                }`}
-                aria-label={`Show ${slide.title}`}
-                aria-current={index === activeIndex ? "true" : undefined}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="border-b-2 border-black px-3 py-2 md:border-b-0 md:border-r-2 md:px-3 md:py-1.5">
-          <h1 className="break-words text-2xl font-black uppercase leading-none sm:text-3xl md:text-2xl lg:text-3xl">
+        <section
+          className="absolute bottom-8 left-3 z-20 max-w-[min(22rem,calc(100vw-7rem))] text-white sm:bottom-9 sm:left-5 sm:max-w-sm md:bottom-7 md:left-6"
+          onPointerDown={(event) => event.stopPropagation()}
+          onWheel={(event) => event.stopPropagation()}
+        >
+          <h1 className="break-words text-lg font-black uppercase leading-none drop-shadow sm:text-xl md:text-2xl">
             {activeSlide.title}
           </h1>
-          <p className="mt-1 text-[9px] font-black uppercase leading-none text-black/45">
-            With {activeSlide.host}
-          </p>
-        </section>
-
-        <section className="border-b-2 border-black px-3 py-2 md:border-b-0 md:border-r-2 md:px-3 md:py-1.5">
-          <p className="text-xs font-black uppercase leading-tight sm:text-sm md:text-xs">
+          <p className="mt-1 text-[10px] font-black uppercase leading-tight text-white/85 drop-shadow sm:text-xs">
             {activeSlide.sound}
           </p>
-        </section>
-
-        <section className="px-3 py-2 md:px-3 md:py-1.5">
-          <p className="max-w-2xl text-xs leading-snug text-black/70 sm:text-sm md:text-xs">
+          <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-white/80 drop-shadow sm:text-xs md:max-w-xs">
             {activeSlide.description}
           </p>
-        </section>
-
-        <section className="grid grid-cols-2 border-t-2 border-black md:hidden">
-          <button
-            type="button"
-            onClick={() => goToWrappedSlide(activeIndex - 1)}
-            className="flex h-10 items-center justify-center border-r-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
-            aria-label="Previous show"
-          >
-            <ChevronLeft size={18} strokeWidth={2.5} />
-          </button>
-          <button
-            type="button"
-            onClick={() => goToWrappedSlide(activeIndex + 1)}
-            className="flex h-10 items-center justify-center bg-white text-black transition hover:bg-black hover:text-white"
-            aria-label="Next show"
-          >
-            <ChevronRight size={18} strokeWidth={2.5} />
-          </button>
         </section>
       </div>
     </section>
