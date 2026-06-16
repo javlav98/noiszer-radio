@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { Menu, Pause, Play, X } from "lucide-react";
+import { Menu, Minus, Pause, Play, Plus, Volume2, VolumeX, X } from "lucide-react";
+import { FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa";
 
 const navLinks = [
   { label: "Schedule", href: "/schedule" },
@@ -11,15 +12,11 @@ const navLinks = [
   { label: "Support", href: "/support" },
 ];
 
-const tickerItems = [
-  "Live Now",
-  "Velvet Haus with Spud Bud",
-  "Independent web radio",
-  "Noiszer Radio",
-  "Live selections",
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/", icon: FaInstagram },
+  { label: "Spotify", href: "https://open.spotify.com/", icon: FaSpotify },
+  { label: "YouTube", href: "https://www.youtube.com/", icon: FaYoutube },
 ];
-
-const tickerSequence = Array.from({ length: 4 }, () => tickerItems).flat();
 
 function PlayIcon({ playing }: { playing: boolean }) {
   return playing ? (
@@ -32,6 +29,8 @@ function PlayIcon({ playing }: { playing: boolean }) {
 export default function TopBar() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(0.8);
   const [open, setOpen] = useState(false);
 
   const toggleAudio = async () => {
@@ -49,34 +48,99 @@ export default function TopBar() {
     }
   };
 
+  const updateVolume = (value: number) => {
+    const nextVolume = Math.min(Math.max(value, 0), 1);
+    setVolume(nextVolume);
+    setIsMuted(nextVolume === 0);
+
+    if (audioRef.current) {
+      audioRef.current.volume = nextVolume;
+      audioRef.current.muted = nextVolume === 0;
+    }
+  };
+
+  const toggleMute = () => {
+    const audio = audioRef.current;
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+
+    if (audio) {
+      audio.muted = nextMuted;
+      if (!nextMuted && audio.volume === 0) {
+        updateVolume(0.8);
+      }
+    }
+  };
+
   return (
     <>
       <audio
         ref={audioRef}
         src="/audio/test.mp3"
         preload="none"
+        muted={isMuted}
+        onLoadedMetadata={() => updateVolume(volume)}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onEnded={() => setIsPlaying(false)}
       />
 
       <header className="fixed left-0 top-0 z-50 w-full border-black bg-white text-black lg:border-b-2">
-        <div className="h-8 overflow-hidden border-b-2 border-black bg-black text-white">
-          <div className="ticker-track flex h-full w-max items-center text-[11px] font-black uppercase">
-            {Array.from({ length: 2 }).map((_, repeat) => (
-              <span
-                key={repeat}
-                className="ticker-group flex h-full shrink-0 items-center whitespace-nowrap"
-                aria-hidden={repeat === 1}
-              >
-                {tickerSequence.map((item, index) => (
-                  <span key={`${repeat}-${item}-${index}`} className="flex items-center gap-7 pr-7">
-                    <span>{item}</span>
-                    <span>•</span>
-                  </span>
-                ))}
-              </span>
-            ))}
+        <div className="flex h-9 w-full border-b-2 border-black bg-white text-black">
+          <button
+            type="button"
+            onClick={toggleAudio}
+            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
+            aria-label={isPlaying ? "Pause" : "Play"}
+          >
+            <PlayIcon playing={isPlaying} />
+          </button>
+
+          <div className="flex min-w-0 flex-1 items-center bg-white px-3">
+            <span className="truncate text-[11px] font-black uppercase">
+              Velvet Haus with Spud Bud
+            </span>
+          </div>
+
+          <div className="flex h-full items-center border-l-2 border-black bg-white px-2 text-black">
+            <div className="mr-2 h-2 w-2 animate-pulse bg-red-600 ring-2 ring-black" />
+
+            <span className="text-[8px] font-black uppercase">
+              On Air
+            </span>
+          </div>
+
+          <div className="hidden h-full items-center border-l-2 border-black bg-white px-3 sm:flex">
+            <button
+              type="button"
+              onClick={() => updateVolume(volume - 0.1)}
+              className="flex h-8 w-8 items-center justify-center text-black transition hover:bg-black hover:text-white"
+              aria-label="Volume down"
+            >
+              <Minus size={14} strokeWidth={2.5} />
+            </button>
+
+            <button
+              type="button"
+              onClick={toggleMute}
+              className="flex h-8 w-8 items-center justify-center text-black transition hover:bg-black hover:text-white"
+              aria-label={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted || volume === 0 ? (
+                <VolumeX size={15} strokeWidth={2.5} />
+              ) : (
+                <Volume2 size={15} strokeWidth={2.5} />
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => updateVolume(volume + 0.1)}
+              className="flex h-8 w-8 items-center justify-center text-black transition hover:bg-black hover:text-white"
+              aria-label="Volume up"
+            >
+              <Plus size={14} strokeWidth={2.5} />
+            </button>
           </div>
         </div>
 
@@ -111,35 +175,20 @@ export default function TopBar() {
             ))}
           </nav>
 
-          {/* LIVE */}
-          <div className="flex h-full items-center border-l-2 border-black bg-white px-3 text-black">
-            <div className="mr-2 h-2 w-2 animate-pulse bg-red-600 ring-2 ring-black" />
-
-            <span className="text-[9px] font-black uppercase">
-              On Air
-            </span>
+          <div className="hidden h-full border-l-2 border-black md:flex">
+            {socialLinks.map(({ label, href, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-full w-12 items-center justify-center border-r-2 border-black bg-white text-black transition last:border-r-0 hover:bg-black hover:text-white"
+                aria-label={label}
+              >
+                <Icon size={16} aria-hidden="true" />
+              </Link>
+            ))}
           </div>
-
-          {/* NOW PLAYING */}
-          <div className="flex h-full min-w-[230px] flex-col justify-center border-l-2 border-black bg-white px-3">
-            <span className="text-[7px] font-black uppercase text-black/50">
-              Now Playing
-            </span>
-
-            <span className="truncate text-[11px] font-black uppercase">
-              Velvet Haus with Spud Bud
-            </span>
-          </div>
-
-          {/* PLAY BUTTON */}
-          <button
-            type="button"
-            onClick={toggleAudio}
-            className="flex h-full w-12 items-center justify-center border-l-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
-            aria-label={isPlaying ? "Pause" : "Play"}
-          >
-            <PlayIcon playing={isPlaying} />
-          </button>
         </div>
 
         {/* MOBILE */}
@@ -160,14 +209,7 @@ export default function TopBar() {
             />
           </Link>
 
-          {/* LIVE */}
-          <div className="flex flex-1 items-center justify-end gap-2 bg-white px-3 text-black">
-            <div className="h-2 w-2 animate-pulse bg-red-600 ring-2 ring-black" />
-
-            <span className="text-[9px] font-black uppercase">
-              On Air
-            </span>
-          </div>
+          <div className="flex-1 bg-white" />
 
           {/* MENU */}
           <button
@@ -179,24 +221,6 @@ export default function TopBar() {
           >
             {open ? <X size={16} /> : <Menu size={16} />}
           </button>
-        </div>
-
-        {/* MOBILE PLAYER */}
-        <div className="flex h-8 border-t-2 border-black lg:hidden">
-          <button
-            type="button"
-            onClick={toggleAudio}
-            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black"
-            aria-label={isPlaying ? "Pause" : "Play"}
-          >
-            <PlayIcon playing={isPlaying} />
-          </button>
-
-          <div className="flex min-w-0 flex-1 items-center bg-white px-3">
-            <span className="truncate text-[11px] font-black uppercase">
-              Velvet Haus with Spud Bud
-            </span>
-          </div>
         </div>
 
         {/* MOBILE MENU */}

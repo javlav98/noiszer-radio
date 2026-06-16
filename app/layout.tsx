@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-white text-black">
         <TopBar />
-        <div className="pt-[104px] lg:pt-20">
+        <div className="pt-[76px] lg:pt-[84px]">
           {children}
         </div>
       </body>

@@ -40,26 +40,6 @@ h3 {
   font-family: Arial Black, Arial, Helvetica, sans-serif;
 }
 
-.ticker-track {
-  animation: ticker-scroll 96s linear infinite;
-  will-change: transform;
-}
-
-.ticker-group {
-  min-width: max-content;
-  flex: 0 0 auto;
-}
-
-@keyframes ticker-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 .brutal-grid {
   background-image:
     linear-gradient(to right, rgba(17, 17, 17, 0.05) 1px, transparent 1px),
