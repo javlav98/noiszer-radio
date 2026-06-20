@@ -173,18 +173,18 @@ export default function SignalVisualizer() {
       animated.forEach((item) => {
         for (let i = 0; i < item.speeds.length; i += 1) {
           const zIndex = i * 3 + 2;
-          item.positions[zIndex] += item.speeds[i] * (1.15 + Math.sin(elapsed * 1.4) * 0.16);
+          item.positions[zIndex] += item.speeds[i] * (0.48 + Math.sin(elapsed * 0.7) * 0.07);
           if (item.positions[zIndex] > 4.2) item.positions[zIndex] = -item.depth;
         }
-        item.points.rotation.z += 0.0012;
-        item.points.rotation.x = Math.sin(elapsed * 0.22) * 0.08;
+        item.points.rotation.z += 0.00045;
+        item.points.rotation.x = Math.sin(elapsed * 0.12) * 0.055;
         item.points.geometry.attributes.position.needsUpdate = true;
       });
 
-      scene.rotation.y = Math.sin(elapsed * 0.16) * 0.08;
-      scene.rotation.x = Math.sin(elapsed * 0.13) * 0.035;
-      camera.position.x = Math.sin(elapsed * 0.28) * 0.12;
-      camera.position.y = Math.cos(elapsed * 0.23) * 0.08;
+      scene.rotation.y = Math.sin(elapsed * 0.08) * 0.055;
+      scene.rotation.x = Math.sin(elapsed * 0.07) * 0.025;
+      camera.position.x = Math.sin(elapsed * 0.14) * 0.08;
+      camera.position.y = Math.cos(elapsed * 0.12) * 0.055;
       camera.lookAt(0, 0, -0.4);
       renderer.render(scene, camera);
       animationId = requestAnimationFrame(animate);
@@ -202,9 +202,10 @@ export default function SignalVisualizer() {
   }, []);
 
   return (
-    <section className="relative h-[calc(100svh-76px)] overflow-hidden border-b-2 border-black bg-black text-white lg:h-[calc(100svh-84px)]">
+    <section className="relative min-h-[calc(100svh-104px)] overflow-hidden bg-black text-white lg:min-h-[calc(100svh-112px)]">
       <div ref={containerRef} className="absolute inset-0" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0,transparent_42%,rgba(0,0,0,0.58)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_65%_45%,transparent_0,rgba(0,0,0,0.2)_34%,rgba(0,0,0,0.82)_100%)]" />
+
     </section>
   );
 }

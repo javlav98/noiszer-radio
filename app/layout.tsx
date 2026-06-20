@@ -15,9 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white text-black">
+      <body className="bg-[var(--paper)] text-[var(--ink)]">
         <TopBar />
-        <div className="pt-[76px] lg:pt-[84px]">
+        <div className="pb-12 pt-14 lg:pt-16">
           {children}
         </div>
       </body>

@@ -4,9 +4,13 @@ const API_KEY = "123";
 
 const picks = [
   { artist: "Portishead", album: "Dummy" },
-  { artist: "Tame Impala", album: "Currents" },
-  { artist: "Arctic Monkeys", album: "AM" },
-  { artist: "Daft Punk", album: "Random Access Memories" },
+  { artist: "Massive Attack", album: "Mezzanine" },
+  { artist: "Burial", album: "Untrue" },
+  { artist: "Aphex Twin", album: "Selected Ambient Works 85-92" },
+  { artist: "Boards of Canada", album: "Music Has the Right to Children" },
+  { artist: "DJ Shadow", album: "Endtroducing....." },
+  { artist: "Tricky", album: "Maxinquaye" },
+  { artist: "The Avalanches", album: "Since I Left You" },
 ];
 
 export async function GET() {
@@ -32,6 +36,8 @@ export async function GET() {
           artist: album.strArtist,
           image: album.strAlbumThumb,
           year: album.intYearReleased,
+          genre: album.strGenre,
+          style: album.strStyle,
         };
       })
     );

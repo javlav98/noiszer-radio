@@ -39,44 +39,32 @@ export default function SchedulePage() {
 
   return (
     <>
-      <main className="min-h-screen bg-white text-black">
-        <section className="grid border-b-2 border-black lg:grid-cols-[minmax(20rem,34rem)_minmax(0,1fr)]">
-          <div className="min-w-0 border-b-2 border-black px-4 py-5 sm:p-6 lg:border-b-0 lg:border-r-2 lg:p-8">
-            <p className="text-[10px] font-black uppercase text-black/55">Weekly Grid</p>
-            <h1 className="mt-2 text-5xl font-black uppercase leading-[0.86] sm:text-6xl lg:text-[4.75rem]">
-              Schedule
-            </h1>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-black/65 lg:mt-6">
-              Rotating broadcasts across the week, organized for quick scanning
-              by day, time, host, and sound.
+      <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
+        <section className="border-b border-[var(--rule)] px-5 py-8 sm:px-8 lg:px-12">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm text-[var(--muted)]">Weekly grid</p>
+              <h1 className="mt-2 text-5xl font-normal leading-none sm:text-6xl">
+                Schedule
+              </h1>
+            </div>
+            <p className="max-w-md text-sm leading-6 text-[var(--muted)] sm:text-right">
+              Rotating broadcasts by day, time, host, and sound.
             </p>
           </div>
+        </section>
 
-          <div className="border-b-2 border-black bg-white p-3 lg:hidden">
-            <select
-              value={selectedDay}
-              onChange={(event) => setSelectedDay(event.target.value)}
-              className="h-12 w-full appearance-none border-2 border-black bg-white px-3 text-sm font-black uppercase text-black"
-              aria-label="Select schedule day"
-            >
-              {days.map((day) => (
-                <option key={day} value={day}>
-                  {day}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="hidden bg-white lg:grid lg:grid-cols-7">
+        <section className="border-b border-[var(--rule)] px-5 py-3 sm:px-8 lg:px-12">
+          <div className="no-scrollbar flex overflow-x-auto">
             {days.map((day) => (
               <button
                 key={day}
                 type="button"
                 onClick={() => setSelectedDay(day)}
-                className={`h-16 border-r-2 border-b-2 border-black px-3 text-left text-[10px] font-black uppercase transition last:border-r-2 ${
+                className={`h-10 shrink-0 border-b px-4 text-sm transition ${
                   selectedDay === day
-                    ? "bg-black text-white"
-                    : "bg-white text-black hover:bg-black hover:text-white"
+                    ? "border-black text-black"
+                    : "border-transparent text-[var(--muted)] hover:text-black"
                 }`}
               >
                 {day}
@@ -85,31 +73,41 @@ export default function SchedulePage() {
           </div>
         </section>
 
-        <section className="bg-white">
-          {selectedShows.map((show, index) => (
-            <article
-              key={`${show.time}-${show.title}`}
-              className="grid border-b-2 border-black bg-white md:grid-cols-[10rem_1fr_16rem] md:border-2 md:border-t-0 first:md:border-t-2"
-            >
-              <div className="flex items-center justify-between border-b-2 border-black bg-black px-4 py-2 text-white md:block md:border-b-0 md:border-r-2 md:p-4">
-                <p className="text-[9px] font-black uppercase text-white/50">Slot 0{index + 1}</p>
-                <p className="text-lg font-black uppercase text-white md:mt-6 md:text-2xl">{show.time}</p>
-              </div>
+        <section className="px-5 py-8 sm:px-8 lg:px-12">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 className="text-2xl font-normal">{selectedDay}</h2>
+            <p className="text-sm text-[var(--muted)]">
+              {selectedShows.length} {selectedShows.length === 1 ? "show" : "shows"}
+            </p>
+          </div>
 
-              <div className="border-b-2 border-black px-4 py-3 md:border-b-0 md:border-r-2 md:p-6">
-                <h2 className="text-2xl font-black uppercase leading-none md:text-4xl">
-                  {show.title}
-                </h2>
-                <p className="mt-2 text-[10px] font-black uppercase leading-tight text-black/55 md:mt-3 md:text-xs">
-                  {show.genre}
-                </p>
-              </div>
+          <div className="border-t border-[var(--rule)]">
+            {selectedShows.map((show, index) => (
+              <article
+                key={`${show.time}-${show.title}`}
+                className="grid border-b border-[var(--rule)] py-5 md:grid-cols-[8rem_1fr_12rem] md:gap-6"
+              >
+                <div className="mb-3 flex items-center justify-between md:mb-0 md:block">
+                  <p className="text-sm text-[var(--muted)]">0{index + 1}</p>
+                  <p className="text-base font-medium md:mt-2">{show.time}</p>
+                </div>
 
-              <div className="flex items-center px-4 py-3 md:items-end md:p-6">
-                <p className="text-xs uppercase text-black/65 md:text-sm">Hosted by {show.host}</p>
-              </div>
-            </article>
-          ))}
+                <div>
+                  <h3 className="text-2xl font-normal leading-tight sm:text-3xl">
+                    {show.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                    {show.genre}
+                  </p>
+                </div>
+
+                <div className="mt-3 md:mt-0 md:text-right">
+                  <p className="text-sm text-[var(--muted)]">Hosted by</p>
+                  <p className="mt-1 text-sm font-medium">{show.host}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
       </main>
       <Footer />

@@ -8,6 +8,7 @@ import { FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa";
 
 const navLinks = [
   { label: "Schedule", href: "/schedule" },
+  { label: "Archive", href: "/archive" },
   { label: "About", href: "/about" },
   { label: "Support", href: "/support" },
 ];
@@ -85,71 +86,13 @@ export default function TopBar() {
         onEnded={() => setIsPlaying(false)}
       />
 
-      <header className="fixed left-0 top-0 z-50 w-full border-black bg-white text-black lg:border-b-2">
-        <div className="flex h-9 w-full border-b-2 border-black bg-white text-black">
-          <button
-            type="button"
-            onClick={toggleAudio}
-            className="flex h-full w-10 items-center justify-center border-r-2 border-black bg-white text-black transition hover:bg-black hover:text-white"
-            aria-label={isPlaying ? "Pause" : "Play"}
-          >
-            <PlayIcon playing={isPlaying} />
-          </button>
-
-          <div className="flex min-w-0 flex-1 items-center bg-white px-3">
-            <span className="truncate text-[11px] font-black uppercase">
-              Velvet Haus with Spud Bud
-            </span>
-          </div>
-
-          <div className="flex h-full items-center border-l-2 border-black bg-white px-2 text-black">
-            <div className="mr-2 h-2 w-2 animate-pulse bg-red-600 ring-2 ring-black" />
-
-            <span className="text-[8px] font-black uppercase">
-              On Air
-            </span>
-          </div>
-
-          <div className="hidden h-full items-center border-l-2 border-black bg-white px-3 sm:flex">
-            <button
-              type="button"
-              onClick={() => updateVolume(volume - 0.1)}
-              className="flex h-8 w-8 items-center justify-center text-black transition hover:bg-black hover:text-white"
-              aria-label="Volume down"
-            >
-              <Minus size={14} strokeWidth={2.5} />
-            </button>
-
-            <button
-              type="button"
-              onClick={toggleMute}
-              className="flex h-8 w-8 items-center justify-center text-black transition hover:bg-black hover:text-white"
-              aria-label={isMuted ? "Unmute" : "Mute"}
-            >
-              {isMuted || volume === 0 ? (
-                <VolumeX size={15} strokeWidth={2.5} />
-              ) : (
-                <Volume2 size={15} strokeWidth={2.5} />
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => updateVolume(volume + 0.1)}
-              className="flex h-8 w-8 items-center justify-center text-black transition hover:bg-black hover:text-white"
-              aria-label="Volume up"
-            >
-              <Plus size={14} strokeWidth={2.5} />
-            </button>
-          </div>
-        </div>
-
+      <header className="fixed left-0 top-0 z-50 w-full border-b border-[var(--rule)] bg-[rgba(247,247,244,0.86)] text-[var(--ink)] backdrop-blur-xl">
         {/* DESKTOP */}
-        <div className="hidden h-12 items-center lg:flex">
+        <div className="hidden h-16 items-center overflow-visible lg:flex">
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-5"
+            className="flex h-full items-center overflow-visible border-r border-[var(--rule)] px-7"
             aria-label="Noiszer Home"
           >
             <Image
@@ -158,31 +101,31 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-24 w-auto object-contain"
+              className="h-[5.25rem] w-auto object-contain"
             />
           </Link>
 
           {/* NAV */}
-          <nav className="flex h-full flex-1">
+          <nav className="flex h-full flex-1 items-center px-4">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="flex h-full items-center border-r-2 border-black px-5 text-[10px] font-black uppercase transition hover:bg-black hover:text-white"
+                className="flex h-9 items-center px-4 text-sm text-black/70 transition hover:text-black"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden h-full border-l-2 border-black md:flex">
+          <div className="hidden h-full border-l border-[var(--rule)] md:flex">
             {socialLinks.map(({ label, href, icon: Icon }) => (
               <Link
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex h-full w-12 items-center justify-center border-r-2 border-black bg-white text-black transition last:border-r-0 hover:bg-black hover:text-white"
+                className="flex h-full w-12 items-center justify-center border-r border-[var(--rule)] text-black/70 transition last:border-r-0 hover:bg-[var(--ink)] hover:text-white"
                 aria-label={label}
               >
                 <Icon size={16} aria-hidden="true" />
@@ -192,11 +135,11 @@ export default function TopBar() {
         </div>
 
         {/* MOBILE */}
-        <div className="flex h-10 items-center lg:hidden">
+        <div className="flex h-14 items-center overflow-visible lg:hidden">
           {/* LOGO */}
           <Link
             href="/"
-            className="flex h-full items-center overflow-visible border-r-2 border-black bg-white px-3"
+            className="flex h-full items-center overflow-visible border-r border-[var(--rule)] px-5"
             aria-label="Noiszer Home"
           >
             <Image
@@ -205,17 +148,32 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-20 w-auto object-contain"
+              className="h-[4.5rem] w-auto object-contain"
             />
           </Link>
 
-          <div className="flex-1 bg-white" />
+          <div className="flex min-w-0 flex-1 items-center justify-end px-2">
+            <div className="flex h-full items-center">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-10 w-9 items-center justify-center text-black/55 transition hover:text-black"
+                  aria-label={label}
+                >
+                  <Icon size={15} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </div>
 
           {/* MENU */}
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-full w-10 items-center justify-center border-l-2 border-black bg-white transition hover:bg-black hover:text-white"
+            className="flex h-full w-12 items-center justify-center border-l border-[var(--rule)] transition hover:bg-[var(--ink)] hover:text-white"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -225,22 +183,79 @@ export default function TopBar() {
 
         {/* MOBILE MENU */}
         <div
-          className={`overflow-hidden border-t-2 border-black transition-all duration-300 lg:hidden ${
+          className={`overflow-hidden border-t border-[var(--rule)] bg-[rgba(247,247,244,0.96)] shadow-[0_24px_48px_rgba(0,0,0,0.08)] backdrop-blur-xl transition-all duration-300 lg:hidden ${
             open ? "max-h-56" : "max-h-0 border-t-0"
           }`}
         >
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="flex h-10 items-center border-b-2 border-black bg-white px-4 text-[9px] font-black uppercase transition last:border-b-0 hover:bg-black hover:text-white"
-            >
-              {link.label}
-            </Link>
-          ))}
+          <nav className="grid">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="flex h-14 items-center justify-center border-b border-[var(--rule)] px-4 text-center text-base font-medium transition last:border-b-0 hover:bg-[var(--ink)] hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
+
+      <div className="fixed bottom-0 left-0 z-50 flex h-12 w-full border-t border-[var(--rule)] bg-[rgba(247,247,244,0.9)] text-[var(--ink)] backdrop-blur-xl">
+        <div className="flex h-full items-center border-r border-[var(--rule)] px-3">
+          <div className="mr-2 h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" />
+          <span className="text-xs font-medium">On Air</span>
+        </div>
+
+        <div className="flex min-w-0 flex-1 items-center px-4">
+          <span className="truncate text-sm font-medium">
+            Velvet Haus with Spud Bud
+          </span>
+        </div>
+
+        <div className="hidden h-full items-center border-l border-[var(--rule)] px-2 sm:flex">
+          <button
+            type="button"
+            onClick={() => updateVolume(volume - 0.1)}
+            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-[var(--ink)] hover:text-white"
+            aria-label="Volume down"
+          >
+            <Minus size={14} strokeWidth={2.5} />
+          </button>
+
+          <button
+            type="button"
+            onClick={toggleMute}
+            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-[var(--ink)] hover:text-white"
+            aria-label={isMuted ? "Unmute" : "Mute"}
+          >
+            {isMuted || volume === 0 ? (
+              <VolumeX size={15} strokeWidth={2.5} />
+            ) : (
+              <Volume2 size={15} strokeWidth={2.5} />
+            )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => updateVolume(volume + 0.1)}
+            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-[var(--ink)] hover:text-white"
+            aria-label="Volume up"
+          >
+            <Plus size={14} strokeWidth={2.5} />
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={toggleAudio}
+          className="flex h-full w-12 items-center justify-center border-l border-[var(--rule)] text-black/55 transition hover:bg-[var(--ink)] hover:text-white"
+          aria-label={isPlaying ? "Pause" : "Play"}
+        >
+          <PlayIcon playing={isPlaying} />
+        </button>
+      </div>
     </>
   );
 }
