@@ -1,4 +1,4 @@
-import SignalVisualizer from "../components/signal-visualizer";
+import HeroCarousel from "../components/carousel";
 import Footer from "../components/footer";
 import AlbumPicks from "../components/album-picks";
 import ShowQueue from "../components/show-queue";
@@ -36,10 +36,10 @@ const showQueue = [
   {
     status: "Later",
     title: "No Signal",
-    host: "Nina",
+    host: "jvii",
     genre: "Ambient / Experimental",
-    slot: "Tuesday / 8:00 PM",
-    image: "/images/art2.png",
+    slot: "Everyday / 12:00 AM - 5:00 AM",
+    image: "/images/no_signal.png",
     live: false,
   },
   {
@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <>
       <main className="overflow-x-hidden bg-[var(--paper)] text-[var(--ink)]">
-        <SignalVisualizer />
+        <HeroCarousel />
 
         <ShowQueue shows={showQueue} />
         <AlbumPicks />

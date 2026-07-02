@@ -5,52 +5,20 @@ import { useRef, useState } from "react";
 
 const slides = [
   {
-    title: "Velvet Haus",
-    host: "Spud Bud",
-    image: "/images/velvethaus.png",
+    title: "Signal Study",
+    host: "Noiszer Radio",
+    image: "/images/art2.png",
     position: "center 50%",
-    sound: "Dark House / Minimal / Leftfield",
-    description: "Late-night house and underground cuts for after-dark listening.",
+    sound: "Experimental / Ambient / Texture",
+    description: "Atmospheric cuts, tape hiss, and late-night signal drift.",
   },
   {
-    title: "Dead Frequency",
-    host: "Noiszer Radio",
-    image: "/images/deadfrequency2.jpg",
+    title: "No Signal",
+    host: "jvii",
+    image: "/images/no_signal.png",
     position: "center 50%",
-    sound: "Hardcore Punk / Noise / Underground",
-    description: "Fast, loud, raw selections with no soft edges.",
-  },
-  {
-    title: "Sunday Fade",
-    host: "Noiszer Radio",
-    image: "/images/sundayfade4.jpg",
-    position: "center 42%",
-    sound: "Oldies / Soul / Slow Jams",
-    description: "Warm records and faded soul for the end of the week.",
-  },
-  {
-    title: "Groove Therapy",
-    host: "Noiszer Radio",
-    image: "/images/groovetherapy.jpg",
-    position: "center 50%",
-    sound: "Funk / Disco / Soul",
-    description: "Feel-good funk, disco, and soulful grooves.",
-  },
-  {
-    title: "After Hours",
-    host: "Noiszer Radio",
-    image: "/images/afterhours.png",
-    position: "center 50%",
-    sound: "Rap / Trap / Underground",
-    description: "Gritty rap, trap, and late-night underground records.",
-  },
-  {
-    title: "Ctrl+Alt+Delete",
-    host: "Noiszer Radio",
-    image: "/images/ctrlaltdelete.jpg",
-    position: "center 44%",
-    sound: "Electronica / Leftfield / Experimental",
-    description: "Alternative electronic sounds, texture, and experiments.",
+    sound: "Ambient / Experimental",
+    description: "Low-light atmospheres, soft interference, and overnight drift.",
   },
 ];
 
@@ -62,7 +30,6 @@ export default function HeroCarousel() {
   const pointerStartY = useRef<number | null>(null);
   const didDrag = useRef(false);
   const wheelLocked = useRef(false);
-  const activeSlide = slides[activeIndex];
 
   const goToSlide = (index: number) => {
     const nextIndex = Math.min(Math.max(index, 0), slides.length - 1);
@@ -145,7 +112,7 @@ export default function HeroCarousel() {
 
   return (
     <section
-      className="relative flex h-[calc(100svh-104px)] flex-col overflow-hidden border-b-2 border-black bg-black text-white lg:h-[calc(100svh-80px)]"
+      className="relative flex h-[calc(100svh-80px)] flex-col overflow-hidden border-b-2 border-black bg-black text-white"
     >
       <div
         className={`relative min-h-0 flex-1 overflow-hidden ${
@@ -193,7 +160,10 @@ export default function HeroCarousel() {
           onPointerDown={(event) => event.stopPropagation()}
           onWheel={(event) => event.stopPropagation()}
         >
-          <div className="grid grid-cols-6">
+          <div
+            className="grid"
+            style={{ gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))` }}
+          >
             {slides.map((slide, index) => (
               <button
                 key={slide.title}
@@ -211,21 +181,6 @@ export default function HeroCarousel() {
           </div>
         </div>
 
-        <section
-          className="absolute bottom-8 left-3 z-20 max-w-[min(22rem,calc(100vw-7rem))] text-white sm:bottom-9 sm:left-5 sm:max-w-sm md:bottom-7 md:left-6"
-          onPointerDown={(event) => event.stopPropagation()}
-          onWheel={(event) => event.stopPropagation()}
-        >
-          <h1 className="break-words text-lg font-black uppercase leading-none drop-shadow sm:text-xl md:text-2xl">
-            {activeSlide.title}
-          </h1>
-          <p className="mt-1 text-[10px] font-black uppercase leading-tight text-white/85 drop-shadow sm:text-xs">
-            {activeSlide.sound}
-          </p>
-          <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-white/80 drop-shadow sm:text-xs md:max-w-xs">
-            {activeSlide.description}
-          </p>
-        </section>
       </div>
     </section>
   );

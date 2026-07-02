@@ -16,55 +16,51 @@ const details = [
 export default function AboutPage() {
   return (
     <>
-      <main className="min-h-screen bg-[var(--paper)] text-[var(--ink)]">
-        <section className="border-b border-[var(--rule)]">
-          <div className="grid md:min-h-[56vh] md:grid-cols-[minmax(0,1.2fr)_minmax(18rem,.8fr)]">
-            <div className="flex flex-col justify-end border-b border-[var(--rule)] p-5 sm:p-8 md:justify-center md:border-b-0 md:border-r lg:p-12">
-              <p className="text-sm text-[var(--muted)]">About Noiszer</p>
-              <h1 className="mt-6 max-w-4xl text-[clamp(3rem,7vw,6.5rem)] font-normal leading-[0.95]">
-                A space for sound and discovery.
-              </h1>
-            </div>
-
-            <div className="grid bg-[var(--surface)] md:grid-rows-[1fr_auto]">
-              <div className="p-5 sm:p-8 lg:p-12">
-                <p className="max-w-md text-base leading-7 text-[var(--muted)] lg:text-lg">
-                  Noiszer is an independent web radio platform for rotating shows,
-                  visual sets, and records outside the usual lanes.
-                </p>
-              </div>
-
-              <div className="border-t border-[var(--rule)]">
-                {details.map(([label, text]) => (
-                  <div
-                    key={label}
-                    className="grid grid-cols-[5.5rem_1fr] border-b border-[var(--rule)] last:border-b-0"
-                  >
-                    <p className="border-r border-[var(--rule)] p-4 text-sm text-[var(--muted)]">
-                      {label}
-                    </p>
-                    <p className="p-4 text-sm font-medium">
-                      {text}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <main className="min-h-screen bg-[var(--ink)] text-white">
+        <section className="border-b border-white/14 px-5 py-14 sm:px-8 sm:py-20 lg:px-12">
+          <p className="flex items-center gap-2 text-sm text-white/45">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+            About Noiszer
+          </p>
+          <h1 className="mt-8 max-w-4xl text-[clamp(2.75rem,6vw,5.5rem)] font-normal leading-[0.98]">
+            Independent radio for curious ears.
+          </h1>
+          <div className="mt-10 flex items-center">
+            <span className="h-px w-16 bg-[var(--accent)]" />
+            <p className="ml-5 max-w-xl text-base leading-7 text-white/60 sm:text-lg">
+              Noiszer is an independent web radio platform for rotating shows,
+              visual sets, and records outside the usual lanes.
+            </p>
           </div>
         </section>
 
-        <section className="grid gap-4 border-b border-[var(--rule)] p-5 sm:p-8 md:grid-cols-4">
-          {values.map(([label, text]) => (
-            <article
-              key={label}
-              className="border border-[var(--rule)] bg-[var(--surface)] p-5 sm:p-6 md:min-h-64"
-            >
-              <p className="text-sm text-[var(--muted)]">{label}</p>
-              <p className="mt-8 max-w-xl text-xl leading-tight lg:text-2xl">
-                {text}
-              </p>
-            </article>
-          ))}
+        <section className="grid border-b border-white/14 sm:grid-cols-3">
+            {details.map(([label, text]) => (
+              <div
+                key={label}
+                className="flex items-center justify-between border-b border-white/14 px-5 py-5 text-sm last:border-b-0 sm:border-b-0 sm:border-r sm:px-8 sm:last:border-r-0"
+              >
+                <p className="text-white/40">{label}</p>
+                <p className="text-white/72">{text}</p>
+              </div>
+            ))}
+        </section>
+
+        <section className="px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
+          <h2 className="text-2xl font-normal">What we care about</h2>
+          <div className="mt-8 grid border-l border-t border-white/14 sm:grid-cols-2">
+            {values.map(([label, text]) => (
+              <article
+                key={label}
+                className="border-b border-r border-white/14 p-5 sm:p-7"
+              >
+                <p className="text-sm text-white/40">{label}</p>
+                <p className="mt-4 max-w-md text-lg leading-7 text-white/72 sm:text-xl">
+                  {text}
+                </p>
+              </article>
+            ))}
+          </div>
         </section>
       </main>
       <Footer />

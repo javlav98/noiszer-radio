@@ -14,32 +14,54 @@ type AlbumPick = {
   style: string | null;
 };
 
-function AlbumCard({ album }: { album: AlbumPick }) {
+function AlbumCard({ album, index }: { album: AlbumPick; index: number }) {
+  const detail = [album.year, album.genre || album.style]
+    .filter(Boolean)
+    .join(" / ");
+
   return (
-    <article className="min-w-[18rem] snap-start bg-[var(--surface)] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)]">
-      <div className="relative aspect-square overflow-hidden bg-[var(--surface-muted)]">
+    <article className="group min-w-[18rem] snap-start border border-white/14 bg-[#151515] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)]">
+      <div className="flex h-11 items-center justify-between border-b border-white/14 px-4 text-[11px] uppercase tracking-[0.18em] text-white/55">
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <span>Weekly rotation</span>
+      </div>
+
+      <div className="relative aspect-square overflow-hidden bg-black">
         {album.image ? (
           <Image
             src={album.image}
             alt=""
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover"
+            className="object-cover transition duration-500 group-hover:scale-[1.02]"
           />
         ) : (
-          <div className="grid h-full place-items-center text-sm text-[var(--muted)]">
+          <div className="grid h-full place-items-center text-sm text-white/45">
             No artwork
           </div>
         )}
-      </div>
-      <div className="border border-t-0 border-[var(--rule)] p-5">
-        <p className="text-sm text-[var(--muted)]">{album.artist}</p>
-        <h3 className="mt-3 text-2xl font-normal leading-tight">
-          {album.name}
-        </h3>
-        <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
-          {[album.year, album.genre || album.style].filter(Boolean).join(" / ")}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/55 to-transparent" />
+        <p className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.18em] text-white/70">
+          Noiszer selection / {album.artist}
         </p>
+      </div>
+
+      <div className="p-5">
+        <h3 className="text-2xl font-normal leading-tight text-white">{album.name}</h3>
+        <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 border-t border-white/14 pt-4 text-sm">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+              Artist
+            </p>
+            <p className="mt-1.5 text-white/78">{album.artist}</p>
+          </div>
+          <div className="max-w-36 text-right">
+            <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+              Release
+            </p>
+            <p className="mt-1.5 leading-5 text-white/60">{detail || "—"}</p>
+          </div>
+        </div>
       </div>
     </article>
   );
@@ -58,7 +80,7 @@ function ArrowButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--rule)] text-black/55 transition hover:bg-[var(--ink)] hover:text-white"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/24 text-white/72 transition hover:bg-white hover:text-black"
       aria-label={direction === "left" ? "Previous albums" : "Next albums"}
     >
       <Icon size={18} strokeWidth={1.8} />
@@ -112,18 +134,18 @@ export default function AlbumPicks() {
   }, []);
 
   return (
-    <section className="border-b border-[var(--rule)] px-5 py-10 sm:px-8 lg:px-12 lg:py-12">
+    <section className="border-b border-black bg-[var(--ink)] px-2 pb-10 pt-5 text-white sm:px-3 lg:px-4 lg:pb-12 lg:pt-6">
       <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="text-sm text-[var(--muted)]">Station picks</p>
+          <p className="flex items-center gap-2 text-sm text-white/55">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+            Station selections
+          </p>
           <h2 className="mt-3 text-4xl font-normal sm:text-5xl">
             Albums of the week
           </h2>
         </div>
         <div className="flex items-end justify-between gap-4 sm:flex-col sm:items-end">
-          <p className="max-w-sm text-sm leading-6 text-[var(--muted)] sm:text-right">
-            Pulled from TheAudioDB for this week&apos;s station rotation.
-          </p>
           <div className="flex shrink-0 gap-2">
             <ArrowButton direction="left" onClick={() => scroll("left")} />
             <ArrowButton direction="right" onClick={() => scroll("right")} />
@@ -141,20 +163,22 @@ export default function AlbumPicks() {
               <div
                 key={index}
                 data-album-skeleton
-                className="min-w-[18rem] snap-start bg-[var(--surface)] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)]"
+                className="min-w-[18rem] snap-start border border-white/14 bg-[#151515] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)]"
               >
-                <div className="aspect-square animate-pulse bg-[var(--surface-muted)]" />
-                <div className="border border-t-0 border-[var(--rule)] p-5">
-                  <div className="h-3 w-24 animate-pulse bg-black/10" />
-                  <div className="mt-4 h-7 w-40 animate-pulse bg-black/10" />
-                  <div className="mt-5 h-3 w-32 animate-pulse bg-black/10" />
+                <div className="h-11 border-b border-white/14" />
+                <div className="aspect-square animate-pulse bg-white/8" />
+                <div className="p-5">
+                  <div className="h-7 w-40 animate-pulse bg-white/10" />
+                  <div className="mt-5 border-t border-white/14 pt-4">
+                    <div className="h-3 w-24 animate-pulse bg-white/10" />
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
       ) : status === "error" || albums.length === 0 ? (
-        <div className="border border-[var(--rule)] bg-[var(--surface)] p-6 text-sm text-[var(--muted)]">
+        <div className="border border-white/14 bg-[#151515] p-6 text-sm text-white/55">
           Album picks are unavailable right now.
         </div>
       ) : (
@@ -163,8 +187,8 @@ export default function AlbumPicks() {
             ref={scrollerRef}
             className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-1"
           >
-            {albums.map((album) => (
-              <AlbumCard key={album.id} album={album} />
+            {albums.map((album, index) => (
+              <AlbumCard key={album.id} album={album} index={index} />
             ))}
           </div>
         </div>

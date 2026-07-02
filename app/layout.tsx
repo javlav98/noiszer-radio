@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-[var(--paper)] text-[var(--ink)]">
         <TopBar />
-        <div className="pb-12 pt-14 lg:pt-16">
+        <div className="pt-20">
           {children}
         </div>
       </body>

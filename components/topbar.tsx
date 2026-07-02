@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { Menu, Minus, Pause, Play, Plus, Volume2, VolumeX, X } from "lucide-react";
+import { Menu, Pause, Play, X } from "lucide-react";
 import { FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa";
 
 const navLinks = [
@@ -30,8 +30,6 @@ function PlayIcon({ playing }: { playing: boolean }) {
 export default function TopBar() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolume] = useState(0.8);
   const [open, setOpen] = useState(false);
 
   const toggleAudio = async () => {
@@ -40,6 +38,7 @@ export default function TopBar() {
 
     try {
       if (audio.paused) {
+        audio.volume = 0.8;
         await audio.play();
       } else {
         audio.pause();
@@ -49,38 +48,12 @@ export default function TopBar() {
     }
   };
 
-  const updateVolume = (value: number) => {
-    const nextVolume = Math.min(Math.max(value, 0), 1);
-    setVolume(nextVolume);
-    setIsMuted(nextVolume === 0);
-
-    if (audioRef.current) {
-      audioRef.current.volume = nextVolume;
-      audioRef.current.muted = nextVolume === 0;
-    }
-  };
-
-  const toggleMute = () => {
-    const audio = audioRef.current;
-    const nextMuted = !isMuted;
-    setIsMuted(nextMuted);
-
-    if (audio) {
-      audio.muted = nextMuted;
-      if (!nextMuted && audio.volume === 0) {
-        updateVolume(0.8);
-      }
-    }
-  };
-
   return (
     <>
       <audio
         ref={audioRef}
         src="/audio/test.mp3"
         preload="none"
-        muted={isMuted}
-        onLoadedMetadata={() => updateVolume(volume)}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onEnded={() => setIsPlaying(false)}
@@ -88,7 +61,7 @@ export default function TopBar() {
 
       <header className="fixed left-0 top-0 z-50 w-full border-b border-[var(--rule)] bg-[rgba(247,247,244,0.86)] text-[var(--ink)] backdrop-blur-xl">
         {/* DESKTOP */}
-        <div className="hidden h-16 items-center overflow-visible lg:flex">
+        <div className="hidden h-12 items-center overflow-visible lg:flex">
           {/* LOGO */}
           <Link
             href="/"
@@ -101,7 +74,7 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-[5.25rem] w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
           </Link>
 
@@ -135,7 +108,7 @@ export default function TopBar() {
         </div>
 
         {/* MOBILE */}
-        <div className="flex h-14 items-center overflow-visible lg:hidden">
+        <div className="flex h-12 items-center overflow-visible lg:hidden">
           {/* LOGO */}
           <Link
             href="/"
@@ -148,7 +121,7 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-[4.5rem] w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </Link>
 
@@ -202,59 +175,28 @@ export default function TopBar() {
         </div>
       </header>
 
-      <div className="fixed bottom-0 left-0 z-50 flex h-12 w-full border-t border-[var(--rule)] bg-[rgba(247,247,244,0.9)] text-[var(--ink)] backdrop-blur-xl">
-        <div className="flex h-full items-center border-r border-[var(--rule)] px-3">
-          <div className="mr-2 h-2 w-2 animate-pulse rounded-full bg-[var(--accent)]" />
-          <span className="text-xs font-medium">On Air</span>
-        </div>
-
-        <div className="flex min-w-0 flex-1 items-center px-4">
-          <span className="truncate text-sm font-medium">
-            Velvet Haus with Spud Bud
-          </span>
-        </div>
-
-        <div className="hidden h-full items-center border-l border-[var(--rule)] px-2 sm:flex">
-          <button
-            type="button"
-            onClick={() => updateVolume(volume - 0.1)}
-            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-[var(--ink)] hover:text-white"
-            aria-label="Volume down"
-          >
-            <Minus size={14} strokeWidth={2.5} />
-          </button>
-
-          <button
-            type="button"
-            onClick={toggleMute}
-            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-[var(--ink)] hover:text-white"
-            aria-label={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted || volume === 0 ? (
-              <VolumeX size={15} strokeWidth={2.5} />
-            ) : (
-              <Volume2 size={15} strokeWidth={2.5} />
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => updateVolume(volume + 0.1)}
-            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-[var(--ink)] hover:text-white"
-            aria-label="Volume up"
-          >
-            <Plus size={14} strokeWidth={2.5} />
-          </button>
-        </div>
-
+      <div className="fixed left-0 top-12 z-40 flex h-8 min-h-8 w-full border-b border-[var(--rule)] bg-[rgba(247,247,244,0.9)] text-[var(--ink)] backdrop-blur-xl">
         <button
           type="button"
           onClick={toggleAudio}
-          className="flex h-full w-12 items-center justify-center border-l border-[var(--rule)] text-black/55 transition hover:bg-[var(--ink)] hover:text-white"
+          className="flex h-8 w-8 shrink-0 items-center justify-center self-stretch border-r border-[var(--rule)] text-black/62 transition hover:bg-[var(--ink)] hover:text-white"
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           <PlayIcon playing={isPlaying} />
         </button>
+
+        <div className="flex min-w-0 flex-1 items-center gap-3 px-4">
+          <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[var(--accent)]" />
+          <span className="flex min-w-0 items-center gap-2">
+            <span className="hidden shrink-0 text-[9px] font-medium uppercase text-black/45 sm:inline">
+              Now Playing
+            </span>
+            <span className="truncate text-xs font-medium">
+              Velvet Haus with Spud Bud
+            </span>
+          </span>
+        </div>
+
       </div>
     </>
   );
