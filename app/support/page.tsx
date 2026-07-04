@@ -11,8 +11,8 @@ export default function SupportPage() {
   return (
     <>
       <main className="min-h-screen bg-[var(--ink)] text-white">
-        <section className="border-b border-white/14 p-5 sm:p-8 lg:p-12">
-          <p className="flex items-center gap-2 text-sm text-white/55">
+        <section className="border-b border-white/22 p-5 sm:p-8 lg:p-12">
+          <p className="flex items-center gap-2 text-sm text-white/70">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
             Support the signal
           </p>
@@ -25,14 +25,14 @@ export default function SupportPage() {
           {supportRows.map(([label, text, action, href], index) => (
             <article
               key={label}
-              className="grid border border-white/14 bg-[#151515] md:grid-cols-[5rem_1fr_16rem]"
+              className="grid border border-white/22 bg-[#101010] md:grid-cols-[5rem_1fr_16rem]"
             >
               <div className="hidden items-center justify-center border-b border-white/14 p-4 text-[11px] tracking-[0.18em] text-white/45 md:flex md:border-b-0 md:border-r">
                 0{index + 1}
               </div>
 
               <div className="border-b border-white/14 p-5 sm:p-6 md:border-b-0 md:border-r">
-                <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">{label}</p>
+                <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">{label}</p>
                 <h2 className="mt-5 max-w-3xl text-2xl font-normal leading-tight sm:text-3xl">
                   {text}
                 </h2>

@@ -122,11 +122,11 @@ export default function SchedulePage() {
             {days.map((day) => (
               <section
                 key={day}
-                className="grid border-b border-white/14 lg:grid-cols-[13rem_minmax(0,1fr)]"
+                className="grid border-b border-white/22 lg:grid-cols-[13rem_minmax(0,1fr)]"
               >
-                <div className="flex items-end justify-between border-b border-white/14 px-5 py-5 sm:px-8 lg:block lg:border-b-0 lg:border-r lg:px-6 lg:py-6 xl:px-8">
+                <div className="flex items-end justify-between border-b border-white/22 px-5 py-5 sm:px-8 lg:block lg:border-b-0 lg:border-r lg:px-6 lg:py-6 xl:px-8">
                   <h2 className="text-2xl font-normal lg:text-3xl">{day}</h2>
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-white/35 lg:mt-3">
+                  <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55 lg:mt-3">
                     {schedule[day].length}{" "}
                     {schedule[day].length === 1 ? "broadcast" : "broadcasts"}
                   </p>
@@ -136,7 +136,7 @@ export default function SchedulePage() {
                   {schedule[day].map((show, showIndex) => (
                     <article
                       key={`${show.time}-${show.title}`}
-                      className="group grid grid-cols-[5.5rem_minmax(0,1fr)] bg-[#151515] sm:grid-cols-[7rem_minmax(0,1fr)_10rem] lg:grid-cols-[8rem_minmax(0,1fr)_11rem]"
+                      className="group grid grid-cols-[5.5rem_minmax(0,1fr)] bg-[#101010] sm:grid-cols-[7rem_minmax(0,1fr)_10rem] lg:grid-cols-[8rem_minmax(0,1fr)_11rem]"
                     >
                       <div className="relative aspect-square overflow-hidden border-r border-white/14 bg-black">
                         <Image
@@ -149,7 +149,7 @@ export default function SchedulePage() {
                       </div>
 
                       <div className="flex min-w-0 flex-col justify-center px-4 py-3 sm:px-5">
-                        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-white/35">
+                        <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
                           <span>{String(showIndex + 1).padStart(2, "0")}</span>
                           <span className="h-px w-4 bg-white/20" />
                           <span>{show.time}</span>
@@ -157,13 +157,13 @@ export default function SchedulePage() {
                         <h3 className="mt-2 truncate text-xl font-normal leading-tight sm:text-2xl">
                           {show.title}
                         </h3>
-                        <p className="mt-1.5 text-sm text-white/55">
+                        <p className="mt-1.5 text-sm text-white/70">
                           Hosted by {show.host}
                         </p>
                       </div>
 
                       <div className="hidden flex-col justify-center border-l border-white/14 px-5 sm:flex">
-                        <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+                        <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
                           Frequency
                         </p>
                         <p className="mt-1.5 text-sm leading-5 text-white/60">

@@ -20,8 +20,8 @@ function AlbumCard({ album, index }: { album: AlbumPick; index: number }) {
     .join(" / ");
 
   return (
-    <article className="group min-w-[18rem] snap-start border border-white/14 bg-[#151515] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)]">
-      <div className="flex h-11 items-center justify-between border-b border-white/14 px-4 text-[11px] uppercase tracking-[0.18em] text-white/55">
+    <article className="group min-w-[18rem] snap-start border border-white/22 bg-[#101010] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)]">
+      <div className="flex h-11 items-center justify-between border-b border-white/22 px-4 text-[11px] font-medium uppercase tracking-[0.12em] text-white/70">
         <span>{String(index + 1).padStart(2, "0")}</span>
         <span>Weekly rotation</span>
       </div>
@@ -48,15 +48,15 @@ function AlbumCard({ album, index }: { album: AlbumPick; index: number }) {
 
       <div className="p-5">
         <h3 className="text-2xl font-normal leading-tight text-white">{album.name}</h3>
-        <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 border-t border-white/14 pt-4 text-sm">
+        <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 border-t border-white/22 pt-4 text-sm">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+            <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
               Artist
             </p>
             <p className="mt-1.5 text-white/78">{album.artist}</p>
           </div>
           <div className="max-w-36 text-right">
-            <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+            <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
               Release
             </p>
             <p className="mt-1.5 leading-5 text-white/60">{detail || "—"}</p>
@@ -80,10 +80,10 @@ function ArrowButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/24 text-white/72 transition hover:bg-white hover:text-black"
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-white/24 text-white/72 transition hover:bg-white hover:text-black"
       aria-label={direction === "left" ? "Previous albums" : "Next albums"}
     >
-      <Icon size={18} strokeWidth={1.8} />
+      <Icon size={14} strokeWidth={1.8} />
     </button>
   );
 }
@@ -134,19 +134,19 @@ export default function AlbumPicks() {
   }, []);
 
   return (
-    <section className="border-b border-black bg-[var(--ink)] px-2 pb-10 pt-5 text-white sm:px-3 lg:px-4 lg:pb-12 lg:pt-6">
-      <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+    <section className="border-b border-black bg-[var(--ink)] px-2 pb-6 pt-4 text-white sm:px-3 lg:px-4">
+      <div className="mb-3 flex items-center justify-between gap-3">
         <div>
-          <p className="flex items-center gap-2 text-sm text-white/55">
+          <p className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-white/65">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
             Station selections
           </p>
-          <h2 className="mt-3 text-4xl font-normal sm:text-5xl">
+          <h2 className="mt-1 text-lg font-normal sm:text-xl">
             Albums of the week
           </h2>
         </div>
-        <div className="flex items-end justify-between gap-4 sm:flex-col sm:items-end">
-          <div className="flex shrink-0 gap-2">
+        <div>
+          <div className="flex shrink-0 gap-1.5">
             <ArrowButton direction="left" onClick={() => scroll("left")} />
             <ArrowButton direction="right" onClick={() => scroll("right")} />
           </div>

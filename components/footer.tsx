@@ -43,7 +43,7 @@ export default function Footer() {
         </nav>
       </div>
 
-      <div className="grid gap-3 px-4 py-4 text-sm text-white/52 sm:px-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
+      <div className="grid gap-3 px-4 py-4 text-sm text-white/68 sm:px-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
         <p>Coachella Valley / Web Radio</p>
         <div className="flex items-center gap-2 md:justify-center">
           <a

@@ -29,14 +29,14 @@ function ArrowButton({
     <button
       type="button"
       onClick={onClick}
-      className={`flex h-10 w-10 items-center justify-center rounded-full border transition ${
+      className={`flex h-8 w-8 items-center justify-center rounded-full border transition ${
         tone === "dark"
           ? "border-white/24 text-white/72 hover:bg-white hover:text-black"
           : "border-[var(--rule)] text-black/55 hover:bg-[var(--ink)] hover:text-white"
       }`}
       aria-label={direction === "left" ? "Previous shows" : "Next shows"}
     >
-      <Icon size={18} strokeWidth={1.8} />
+      <Icon size={14} strokeWidth={1.8} />
     </button>
   );
 }
@@ -61,19 +61,19 @@ export default function ShowQueue({ shows }: { shows: ShowQueueItem[] }) {
   };
 
   return (
-    <section className="border-b border-black bg-[var(--ink)] px-2 pb-4 pt-7 text-white sm:px-3 lg:px-4 lg:pb-4 lg:pt-8">
-      <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end lg:mb-6">
+    <section className="border-b border-black bg-[var(--ink)] px-2 pb-4 pt-4 text-white sm:px-3 lg:px-4">
+      <div className="mb-3 flex items-center justify-between gap-3">
         <div>
-          <p className="flex items-center gap-2 text-sm text-white/55">
+          <p className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-white/65">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
             Live transmission
           </p>
-          <h2 className="mt-2 text-4xl font-normal sm:text-5xl">
+          <h2 className="mt-1 text-lg font-normal sm:text-xl">
             Current and next
           </h2>
         </div>
-        <div className="flex items-end justify-between gap-4 sm:flex-col sm:items-end">
-          <div className="flex shrink-0 gap-2">
+        <div>
+          <div className="flex shrink-0 gap-1.5">
             <ArrowButton
               direction="left"
               onClick={() => scroll("left")}
@@ -96,11 +96,11 @@ export default function ShowQueue({ shows }: { shows: ShowQueueItem[] }) {
           {shows.map((show, index) => (
             <article
               key={`${show.status}-${show.title}`}
-              className={`group min-w-[18rem] snap-start border bg-[#151515] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)] ${
-                show.live ? "border-white/45" : "border-white/14"
+              className={`group min-w-[18rem] snap-start border bg-[#101010] md:min-w-[22rem] lg:min-w-[calc((100%_-_3rem)/4)] ${
+                show.live ? "border-white/60" : "border-white/22"
               }`}
             >
-              <div className="flex h-11 items-center justify-between border-b border-white/14 px-4 text-[11px] uppercase tracking-[0.18em] text-white/55">
+              <div className="flex h-11 items-center justify-between border-b border-white/22 px-4 text-[11px] font-medium uppercase tracking-[0.12em] text-white/70">
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <span className="flex items-center gap-2">
                   {show.live ? (
@@ -129,15 +129,15 @@ export default function ShowQueue({ shows }: { shows: ShowQueueItem[] }) {
                 <h3 className="text-2xl font-normal leading-tight text-white">
                   {show.title}
                 </h3>
-                <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 border-t border-white/14 pt-4 text-sm">
+                <div className="mt-5 grid grid-cols-[1fr_auto] gap-4 border-t border-white/22 pt-4 text-sm">
                   <div>
-                    <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
                       Host
                     </p>
                     <p className="mt-1.5 text-white/78">{show.host}</p>
                   </div>
                   <div className="max-w-36 text-right">
-                    <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-white/55">
                       Frequency
                     </p>
                     <p className="mt-1.5 leading-5 text-white/60">{show.genre}</p>

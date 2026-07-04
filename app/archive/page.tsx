@@ -32,20 +32,13 @@ export default function ArchivePage() {
   return (
     <>
       <main className="min-h-screen bg-[var(--ink)] text-white">
-        <section className="border-b border-white/14 p-5 sm:p-8 lg:p-12">
-          <p className="flex items-center gap-2 text-sm text-white/55">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-            Station archive
-          </p>
-          <h1 className="mt-6 max-w-6xl text-[clamp(3rem,9vw,7rem)] font-normal leading-[0.95]">
-            Past shows, visual sets, and records worth returning to.
-          </h1>
-        </section>
-
         <section className="grid gap-4 p-5 sm:p-8 lg:grid-cols-4">
           {archiveItems.map((item, index) => (
-            <article key={item.title} className="group border border-white/14 bg-[#151515]">
-              <div className="flex h-11 items-center justify-between border-b border-white/14 px-4 text-[11px] uppercase tracking-[0.18em] text-white/55">
+            <article
+              key={item.title}
+              className="group border border-white/22 bg-[#101010]"
+            >
+              <div className="flex h-11 items-center justify-between border-b border-white/22 px-4 text-[11px] font-medium uppercase tracking-[0.12em] text-white/70">
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <span>{item.type}</span>
               </div>
@@ -66,7 +59,7 @@ export default function ArchivePage() {
                 <h2 className="text-2xl font-normal leading-tight">
                   {item.title}
                 </h2>
-                <p className="mt-5 border-t border-white/14 pt-4 text-sm leading-6 text-white/55">
+                <p className="mt-5 border-t border-white/22 pt-4 text-sm leading-6 text-white/70">
                   {item.detail}
                 </p>
               </div>

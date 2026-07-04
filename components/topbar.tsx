@@ -59,7 +59,7 @@ export default function TopBar() {
         onEnded={() => setIsPlaying(false)}
       />
 
-      <header className="fixed left-0 top-0 z-50 w-full border-b border-[var(--rule)] bg-[rgba(247,247,244,0.86)] text-[var(--ink)] backdrop-blur-xl">
+      <header className="fixed left-0 top-0 z-50 w-full border-b border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
         {/* DESKTOP */}
         <div className="hidden h-12 items-center overflow-visible lg:flex">
           {/* LOGO */}
@@ -74,7 +74,7 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-16 w-auto object-contain"
+              className="h-[4.5rem] w-auto object-contain"
             />
           </Link>
 
@@ -121,7 +121,7 @@ export default function TopBar() {
               width={1536}
               height={1024}
               priority
-              className="h-14 w-auto object-contain"
+              className="h-16 w-auto object-contain"
             />
           </Link>
 
@@ -156,7 +156,7 @@ export default function TopBar() {
 
         {/* MOBILE MENU */}
         <div
-          className={`overflow-hidden border-t border-[var(--rule)] bg-[rgba(247,247,244,0.96)] shadow-[0_24px_48px_rgba(0,0,0,0.08)] backdrop-blur-xl transition-all duration-300 lg:hidden ${
+          className={`overflow-hidden border-t border-[var(--rule)] bg-[var(--paper)] shadow-[0_16px_32px_rgba(0,0,0,0.12)] transition-all duration-300 lg:hidden ${
             open ? "max-h-56" : "max-h-0 border-t-0"
           }`}
         >
@@ -175,7 +175,7 @@ export default function TopBar() {
         </div>
       </header>
 
-      <div className="fixed left-0 top-12 z-40 flex h-8 min-h-8 w-full border-b border-[var(--rule)] bg-[rgba(247,247,244,0.9)] text-[var(--ink)] backdrop-blur-xl">
+      <div className="fixed left-0 top-12 z-40 flex h-8 min-h-8 w-full border-b border-[var(--rule)] bg-[var(--paper)] text-[var(--ink)]">
         <button
           type="button"
           onClick={toggleAudio}
